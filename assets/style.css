@@ -1,0 +1,272 @@
+/* ============================================================
+   johukku の作ったもの置き場 - 共通スタイル
+   素朴・軽量。装飾は最小限だが、スマホでも読める。
+   ============================================================ */
+
+:root { color-scheme: light; }
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: #222222;
+  font-family: "MS PGothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo,
+               sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+img { max-width: 100%; height: auto; }
+
+a { color: #0033cc; }
+a:visited { color: #551a8b; }
+a:hover { color: #cc0000; }
+
+/* ---------------------------------------------------- 骨組み */
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+
+/* ---------------------------------------------------- ヘッダ */
+
+.site-header {
+  background: #f0f0f0;
+  border-bottom: 2px solid #999999;
+  padding: 8px 0;
+}
+.site-header .brand {
+  font-weight: bold;
+  font-size: 15px;
+  color: #222222;
+  text-decoration: none;
+}
+.site-header .brand:visited { color: #222222; }
+.site-header .brand:hover { color: #cc0000; }
+.site-title {
+  font-size: 13px;
+  color: #555555;
+  margin: 2px 0 0;
+}
+
+.site-nav {
+  margin: 6px 0 0;
+  font-size: 13px;
+}
+.site-nav a { margin-right: 4px; }
+.site-nav a[aria-current="page"] {
+  font-weight: bold;
+  color: #222222;
+  text-decoration: none;
+}
+.site-nav .sep { color: #999999; margin-right: 4px; }
+
+/* ---------------------------------------------------- 見出し */
+
+h1 {
+  font-size: 19px;
+  margin: 20px 0 4px;
+  padding: 4px 0 4px 8px;
+  border-left: 6px solid #666666;
+  background: #f0f0f0;
+}
+
+h2 {
+  font-size: 16px;
+  margin: 30px 0 10px;
+  padding: 3px 0 3px 6px;
+  border-left: 5px solid #888888;
+  background: #f4f4f4;
+}
+
+h3 {
+  font-size: 15px;
+  margin: 20px 0 6px;
+  border-bottom: 1px dotted #aaaaaa;
+}
+h3::before { content: "■ "; color: #666666; }
+
+h4 {
+  font-size: 14px;
+  margin: 16px 0 4px;
+  color: #444444;
+}
+h4::before { content: "▼ "; color: #888888; }
+
+p { margin: 0 0 12px; }
+
+ul, ol { padding-left: 1.6em; margin: 0 0 12px; }
+li { margin: 3px 0; }
+
+/* ---------------------------------------------------- トップの導入部 */
+
+.intro {
+  border: 1px solid #cccccc;
+  background: #fafafa;
+  padding: 12px 14px;
+  margin: 16px 0;
+}
+.intro p:last-child { margin-bottom: 0; }
+
+.spec-line {
+  font-size: 13px;
+  color: #555555;
+  margin: 8px 0 0;
+}
+
+/* ---------------------------------------------------- ダウンロード */
+
+.dl {
+  border: 2px solid #666666;
+  background: #f6f6f6;
+  padding: 12px 14px;
+  margin: 18px 0;
+  text-align: center;
+}
+.dl a.main {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 24px;
+  border: 2px solid #0033cc;
+  background: #ffffff;
+  text-decoration: none;
+}
+.dl a.main:hover { background: #eef2ff; }
+.dl .note { font-size: 12px; color: #666666; margin: 8px 0 0; }
+
+/* ---------------------------------------------------- 表 */
+
+.table-scroll { overflow-x: auto; margin: 0 0 14px; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13.5px;
+  min-width: 380px;
+}
+th, td {
+  border: 1px solid #bbbbbb;
+  padding: 5px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+th { background: #eeeeee; font-weight: bold; white-space: nowrap; }
+td.num { text-align: right; white-space: nowrap; }
+
+/* ---------------------------------------------------- 引用・コード */
+
+pre {
+  background: #f4f4f4;
+  border: 1px solid #cccccc;
+  padding: 8px 10px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+code { font-family: "MS Gothic", Consolas, monospace; }
+p code, li code, td code {
+  background: #f0f0f0;
+  border: 1px solid #dddddd;
+  padding: 0 3px;
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------- 注記 */
+
+.note-box {
+  border: 1px solid #cccccc;
+  background: #fafafa;
+  padding: 10px 12px;
+  margin: 0 0 14px;
+  font-size: 14px;
+}
+.note-box.warn { border-color: #cc9900; background: #fffbf0; }
+.note-box > :last-child { margin-bottom: 0; }
+.note-box strong { display: block; }
+.note-box strong::before { content: "※ "; }
+
+/* ---------------------------------------------------- 画像 */
+
+figure { margin: 0 0 14px; text-align: center; }
+figure img { border: 1px solid #999999; }
+figcaption { font-size: 12px; color: #666666; margin-top: 4px; }
+
+/* ---------------------------------------------------- FAQ */
+
+.faq-item {
+  border: 1px solid #cccccc;
+  margin: 0 0 6px;
+  background: #fafafa;
+}
+.faq-item > summary {
+  cursor: pointer;
+  padding: 7px 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.faq-item > summary::marker { color: #666666; }
+.faq-item[open] > summary { border-bottom: 1px dotted #bbbbbb; background: #f0f0f0; }
+.faq-body { padding: 10px 12px 1px; background: #ffffff; }
+
+/* ---------------------------------------------------- 目次 */
+
+.toc {
+  border: 1px solid #cccccc;
+  background: #fafafa;
+  padding: 8px 12px 8px 30px;
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+.toc li { margin: 1px 0; }
+
+/* ---------------------------------------------------- 広告枠 */
+
+.ad-slot {
+  margin: 22px 0;
+  padding: 10px;
+  min-height: 70px;
+  border: 1px dashed #cccccc;
+  text-align: center;
+  color: #999999;
+  font-size: 12px;
+}
+
+/* ---------------------------------------------------- フッタ */
+
+.site-footer {
+  border-top: 2px solid #999999;
+  background: #f0f0f0;
+  margin-top: 30px;
+  padding: 12px 0 24px;
+  font-size: 13px;
+  color: #555555;
+}
+.site-footer nav { margin: 0 0 6px; }
+.site-footer nav a { margin-right: 4px; }
+.site-footer .sep { color: #999999; margin-right: 4px; }
+
+/* ---------------------------------------------------- 補助 */
+
+.muted { color: #666666; }
+.small { font-size: 13px; }
+.center { text-align: center; }
+.updated { font-size: 12px; color: #777777; margin: 0 0 18px; }
+hr { border: 0; border-top: 1px solid #cccccc; margin: 24px 0; }
+
+main { padding: 4px 0 10px; }
+section { margin: 0 0 26px; }
+
+@media (max-width: 520px) {
+  body { font-size: 14.5px; }
+  .wrap { padding: 0 10px; }
+  h1 { font-size: 17px; }
+  h2 { font-size: 15px; }
+  .dl a.main { display: block; padding: 10px; }
+}

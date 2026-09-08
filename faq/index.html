@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ・困ったとき｜Whisper 字幕作成ツール</title>
+<meta name="description" content="Whisper 字幕作成ツールのよくある質問とトラブル対処。Python が見つからない、GPU が使われない、認識精度が悪い、モデルのダウンロードに失敗する、といった症状への対応をまとめました。">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/usage/">使い方</a><span class="sep">|</span>
+      <a href="/faq/" aria-current="page">FAQ・困ったとき</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>FAQ・困ったとき</h1>
+  <p class="updated">最終更新：2026年9月</p>
+
+  <div class="note-box">
+    <strong>まずこれを試してください</strong>
+    原因が分からないときは <code>環境チェック.bat</code> を実行してください。
+    「Run the full test?」と聞かれたら Enter を押すと、
+    テスト用の音声を実際に 1 回文字起こしして、どこで失敗しているかを特定します（1 分ほど）。
+  </div>
+
+  <section>
+    <h2>導入・起動について</h2>
+
+    <details class="faq-item">
+      <summary>「Python was not found」と表示される</summary>
+      <div class="faq-body">
+        <p>
+          Python がこのパソコンに入っていません。
+          <a href="https://www.python.org/downloads/windows/" rel="noopener">Python 公式サイト</a>
+          からインストールしてください。最初の画面で「Install Now」を押すだけです。
+        </p>
+        <p>
+          <strong>管理者権限は必要ありません。</strong>
+          既定では自分のユーザーフォルダ（<code>%LOCALAPPDATA%\Programs\Python\</code>）に入ります。
+        </p>
+        <p>
+          なお「Add python.exe to PATH」にチェックを入れ忘れた場合でも、
+          セットアップ側がよくあるインストール先を自動で探すようにしてあるため、
+          ほとんどの場合そのまま動きます。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>セットアップが途中で止まる・失敗する</summary>
+      <div class="faq-body">
+        <p>
+          ほとんどが通信エラーです。もう一度 <code>セットアップ.bat</code> を実行してください。
+          ダウンロード済みの部分はキャッシュされているため、2 回目は速く終わります。
+        </p>
+        <p>それでも失敗する場合、次の可能性があります。</p>
+        <ul>
+          <li>空き容量が足りない（GPU ありで約 6 GB 必要）</li>
+          <li>展開先が書き込み不可の場所にある（Program Files の中など）</li>
+          <li>ウイルス対策ソフトが処理を止めている</li>
+        </ul>
+        <p>フォルダをデスクトップに移動してから再実行すると解決することがあります。</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>フォルダごと圧縮して他の人に渡したが、相手の環境で動かない</summary>
+      <div class="faq-body">
+        <p>
+          セットアップ後のフォルダには <code>.venv</code>（約 4 GB）が作られますが、
+          <strong>これは他のパソコンでは動作しません。</strong>
+        </p>
+        <p>
+          <code>.venv</code> は Python の標準ライブラリを持っておらず、
+          セットアップを実行したパソコンの Python の場所を記録して、そこを参照しにいく仕組みだからです。
+          パスが存在しない環境では起動できません。
+        </p>
+        <p>
+          他の人に渡すときは、<strong>配布用の ZIP をそのまま渡し、
+          相手のパソコンで <code>セットアップ.bat</code> を実行してもらってください。</strong>
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section>
+    <h2>処理・GPU について</h2>
+
+    <details class="faq-item">
+      <summary>NVIDIA の GPU があるのに CPU で処理されてしまう</summary>
+      <div class="faq-body">
+        <p>画面のログに「CPU（CUDA 未検出）」と出ている場合、次を確認してください。</p>
+        <ul>
+          <li>グラフィックドライバが古い → NVIDIA 公式サイトから最新版を入れる</li>
+          <li>セットアップ時に GPU が認識されていなかった → ドライバ更新後にもう一度 <code>セットアップ.bat</code> を実行</li>
+        </ul>
+        <p>
+          セットアップは <code>nvidia-smi</code> コマンドの有無で GPU 版と CPU 版を切り替えています。
+          ドライバが入っていないと CPU 版が導入されます。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>処理が遅い。どれくらいかかるのが普通？</summary>
+      <div class="faq-body">
+        <p>10 分の動画を medium モデルで処理した場合の目安です。</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>環境</th><th>処理時間</th></tr></thead>
+            <tbody>
+              <tr><td>NVIDIA RTX 3060 Ti（VRAM 8GB）</td><td class="num">約 1〜2 分</td></tr>
+              <tr><td>CPU のみ</td><td class="num">約 20〜40 分</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          CPU で使う場合は、モデルを <strong>small</strong> に下げると実用的な速度になります。
+          日本語の精度は medium より落ちますが、下書きとしては十分使えます。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>「中止」を押してもすぐ止まらない</summary>
+      <div class="faq-body">
+        <p>
+          仕様です。AI は音声を 30 秒ごとの区切りで処理しており、
+          区切りの途中では止められません。
+          GPU なら 1〜2 秒、CPU では数十秒待つことがあります。
+        </p>
+        <p>止まった時点で、書きかけの中途半端なファイルが残ることはありません。</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>GPU のメモリが足りないと言われる／large-v3 が動かない</summary>
+      <div class="faq-body">
+        <p>
+          VRAM が不足した場合は自動的に CPU に切り替えて処理を続けるため、
+          エラーで止まることはありません。ただし極端に遅くなります。
+        </p>
+        <p>必要な VRAM の目安は、small が約 2 GB、medium が約 5 GB、large-v3 が約 10 GB です。
+        VRAM 8 GB の GPU では large-v3 は収まりません。</p>
+      </div>
+    </details>
+  </section>
+
+  <section>
+    <h2>認識結果について</h2>
+
+    <details class="faq-item">
+      <summary>認識精度が悪い・誤字が多い</summary>
+      <div class="faq-body">
+        <p>次の順で試してください。</p>
+        <ol>
+          <li><strong>言語を「日本語」に固定する</strong> — 自動検出の誤りがなくなります</li>
+          <li><strong>モデルを上げる</strong> — medium → large-v3 で精度が上がります（その分遅くなります）</li>
+          <li><strong>音源を見直す</strong> — 音質が悪い、複数人が同時に話す、BGM が大きい場合は精度が大きく落ちます</li>
+        </ol>
+        <p>
+          専門用語や固有名詞は苦手です。
+          出力された SRT はテキストファイルなので、メモ帳などで直接修正できます。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>同じ文章が何度も繰り返される</summary>
+      <div class="faq-body">
+        <p>
+          無音区間や BGM だけの区間で、AI が直前の文を繰り返してしまう既知の現象です。
+          本ツールでは前の文脈を引き継がない設定にして発生を抑えていますが、完全にはなくなりません。
+        </p>
+        <p>該当箇所は出力された字幕ファイルから手で削除してください。</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>句読点が付かない</summary>
+      <div class="faq-body">
+        <p>
+          認識設定の「日本語の句読点を補う」にチェックが入っているか確認してください。
+          この機能は言語が日本語と判定されたときだけ働きます。
+        </p>
+        <p>言語を「自動検出」にしていて英語などと誤判定された場合は働かないため、
+        「日本語」に固定してみてください。</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>字幕の 1 行が長すぎる／短く区切りたい</summary>
+      <div class="faq-body">
+        <p>
+          出力設定の「長い字幕を自動で折り返す」で、1 行の文字数と行数を変更できます。
+          初期値は 20 文字 × 2 行です。
+        </p>
+        <p>
+          小さい画面向けなら 15 文字前後、PC 視聴前提の解説動画なら 25 文字程度が目安です。
+          指定を超えた分は次の字幕に自動で分割され、表示時間も配分されます。
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section>
+    <h2>その他</h2>
+
+    <details class="faq-item">
+      <summary>音声はインターネットに送信されますか？</summary>
+      <div class="faq-body">
+        <p>
+          <strong>送信されません。</strong>
+          文字起こしはすべてあなたのパソコンの中で処理されます。
+        </p>
+        <p>
+          インターネットに接続するのは、セットアップ時に必要な部品を取得するときと、
+          AI モデルを初回ダウンロードするときだけです。
+          それ以降はオフラインでも動作します。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>モデルのダウンロードだけ失敗する（社内ネットワークなど）</summary>
+      <div class="faq-body">
+        <p>
+          セットアップは通るのにモデルの取得だけ止まる場合、
+          モデル配信元への接続が制限されている可能性があります。
+        </p>
+        <p>
+          この場合、モデルファイル（<code>medium.pt</code>）を別途入手し、
+          ツールのフォルダの中に <code>models</code> というフォルダを作って入れてください。
+          ダウンロードなしでそこから読み込みます。
+        </p>
+<pre><code>Whisper字幕作成ツール\models\medium.pt</code></pre>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>ウイルス対策ソフトに止められる</summary>
+      <div class="faq-body">
+        <p>
+          <code>.bat</code> ファイルは、インターネットからダウンロードした ZIP を展開すると
+          警告の対象になることがあります。
+        </p>
+        <p>
+          ZIP を右クリック →「プロパティ」→「セキュリティ：許可する」にチェックを入れてから
+          展開すると、警告が出にくくなります。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>商用利用・業務利用はできますか？</summary>
+      <div class="faq-body">
+        <p>
+          できます。本ツールおよび内部で使用している OpenAI Whisper は MIT License、
+          PyTorch は BSD-3-Clause で提供されています。
+        </p>
+        <p>
+          ただし音声認識の結果は完全ではありません。
+          納品物や公開用の字幕として使う場合は、必ず内容を確認・修正してください。
+          本ツールの利用によって生じた損害について、作者は責任を負いません。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Mac や Linux で使えますか？</summary>
+      <div class="faq-body">
+        <p>
+          現在は Windows 用としてのみ配布しています。
+          本体は Python で書かれているため他の OS でも動く可能性はありますが、
+          動作確認は行っていません。
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <hr>
+  <p class="center small muted">
+    解決しない場合は<a href="/about/">運営者情報</a>のページからご連絡ください。
+    その際、<code>環境チェック.bat</code> の実行結果を添えていただけると原因を特定しやすくなります。
+  </p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/usage/">使い方</a><span class="sep">|</span>
+      <a href="/faq/">FAQ</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+</body>
+</html>

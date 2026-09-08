@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>使い方｜Whisper 字幕作成ツール</title>
+<meta name="description" content="Whisper 字幕作成ツールの導入手順と画面の使い方。インストール、モデルの選び方、字幕の自動改行、句読点の補完、SRT / VTT / JSON の使い分けまで解説します。">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/usage/" aria-current="page">使い方</a><span class="sep">|</span>
+      <a href="/faq/">FAQ・困ったとき</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>使い方</h1>
+  <p class="updated">最終更新：2026年9月</p>
+
+  <ul class="toc">
+    <li><a href="#install">1. インストール</a></li>
+    <li><a href="#screen">2. 画面の使い方</a></li>
+    <li><a href="#model">3. モデルの選び方</a></li>
+    <li><a href="#wrap">4. 字幕の自動改行を理解する</a></li>
+    <li><a href="#punct">5. 句読点の補完</a></li>
+    <li><a href="#format">6. SRT / VTT / JSON の使い分け</a></li>
+    <li><a href="#uninstall">7. アンインストール</a></li>
+  </ul>
+
+  <section id="install">
+    <h2>1. インストール</h2>
+
+    <h3>事前準備：Python</h3>
+    <p>
+      本ツールは Python 3.10〜3.12 の上で動きます。入っていない場合は
+      <a href="https://www.python.org/downloads/windows/" rel="noopener">Python 公式サイト</a>
+      からインストーラーを取得してください。
+    </p>
+    <div class="note-box">
+      <strong>管理者権限は必要ありません</strong>
+      最初の画面で「Install Now」を押すだけです。既定では自分のユーザーフォルダに入るため、
+      会社のパソコンでも導入できることが多いです。
+      「Add python.exe to PATH」にチェックを入れておくと確実ですが、
+      忘れてしまってもセットアップ側が自動で探しにいきます。
+    </div>
+
+    <h3>ステップ 1：展開</h3>
+    <p>
+      ダウンロードした ZIP を、デスクトップやドキュメントなど書き込みできる場所に展開します。
+      Program Files の中など、書き込み権限のない場所は避けてください。
+    </p>
+
+    <h3>ステップ 2：セットアップ</h3>
+    <p>
+      展開したフォルダの中の <code>セットアップ.bat</code> をダブルクリックします。
+      黒い画面が開き、必要な部品が順に導入されます。
+    </p>
+    <ul>
+      <li>NVIDIA GPU が見つかれば、GPU 版の PyTorch（約 2.5 GB）が入ります</li>
+      <li>見つからなければ CPU 版（約 250 MB）が入ります</li>
+      <li>最後に「モデルを今ダウンロードしますか？」と聞かれます。<strong>Enter を押す</strong>と約 1.5 GB のモデルを先に取得します（推奨）</li>
+    </ul>
+    <p>
+      回線速度によりますが 10〜40 分ほどかかります。
+      導入されるのは展開したフォルダの中の <code>.venv</code> だけで、
+      パソコンの他の場所は一切変更されません。
+    </p>
+
+    <h3>ステップ 3：起動</h3>
+    <p>
+      <code>起動.bat</code> をダブルクリックします。2 回目以降はこれだけです。
+    </p>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section id="screen">
+    <h2>2. 画面の使い方</h2>
+
+    <figure>
+      <img src="/assets/screenshot.png" width="860" height="820"
+           alt="ツールの画面。1.入力ファイル 2.出力設定 3.認識設定 4.進捗 の4つの区画に分かれている。">
+      <figcaption>上から順に設定していきます</figcaption>
+    </figure>
+
+    <h3>1. 入力ファイル</h3>
+    <ul>
+      <li><strong>ファイル追加</strong>：Ctrl キーや Shift キーを押しながらクリックで複数選択できます</li>
+      <li><strong>フォルダ追加</strong>：フォルダ直下のメディアファイルをまとめて追加します</li>
+      <li><strong>ドラッグ＆ドロップ</strong>：一覧の上に直接放り込めます</li>
+    </ul>
+    <p>登録したファイルは上から順番に処理されます。</p>
+
+    <h3>2. 出力設定</h3>
+    <p>
+      出力形式は複数同時に選べます。出力先は「元ファイルと同じ場所」か、
+      任意のフォルダを指定できます。ファイル名は自動生成されます。
+    </p>
+<pre><code>会議録画.mp4  →  会議録画.ja.srt</code></pre>
+    <p>同名のファイルが既にある場合は <code>会議録画.ja_2.srt</code> のように連番が付き、上書きされません。</p>
+
+    <h3>3. 認識設定</h3>
+    <p>
+      通常は初期値のままで問題ありません。言語は「自動検出」のままで日本語を正しく判定します。
+      日本語だと分かっている場合に「日本語」を選ぶと、まれに起きる言語の誤検出を防げます。
+    </p>
+
+    <h3>4. 進捗</h3>
+    <p>
+      全体と現在のファイルの進み具合が表示され、右側に「残り 約 ○分○秒」の目安が出ます。
+      これは音声の総再生時間と実際の処理速度から計算しているため、
+      処理が進むほど精度が上がります。
+    </p>
+    <div class="note-box">
+      <strong>「中止」を押してもすぐには止まりません</strong>
+      AI は音声を 30 秒ごとの区切りで処理しているため、
+      現在の区切りが終わるまで待つ必要があります。
+      GPU なら 1〜2 秒、CPU では数十秒かかることがあります。
+    </div>
+  </section>
+
+  <section id="model">
+    <h2>3. モデルの選び方</h2>
+    <p>
+      モデルは「精度」と「速度・必要メモリ」のトレードオフです。
+      日本語の実用では <strong>medium</strong> が標準的な選択です。
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>モデル</th><th>ダウンロード</th><th>必要 VRAM</th><th>向いている用途</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>tiny</td><td class="num">約 75 MB</td><td class="num">約 1 GB</td><td>動作確認用。日本語の実用は厳しい</td></tr>
+          <tr><td>base</td><td class="num">約 145 MB</td><td class="num">約 1 GB</td><td>短い英語音声など</td></tr>
+          <tr><td>small</td><td class="num">約 480 MB</td><td class="num">約 2 GB</td><td><strong>CPU のみで動かす場合の推奨</strong></td></tr>
+          <tr><td>medium</td><td class="num">約 1.5 GB</td><td class="num">約 5 GB</td><td><strong>標準。GPU があるならこれ</strong></td></tr>
+          <tr><td>large-v3</td><td class="num">約 3.1 GB</td><td class="num">約 10 GB</td><td>最高精度。VRAM 10GB 以上が必要</td></tr>
+          <tr><td>turbo</td><td class="num">約 1.6 GB</td><td class="num">約 6 GB</td><td>large 系を高速化したもの</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note-box">
+      <strong>VRAM が足りない場合</strong>
+      GPU のメモリが不足した場合は、自動的に CPU に切り替えて処理を続けます。
+      エラーで止まることはありませんが、極端に遅くなるので、
+      その場合は一段小さいモデルを選んでください。
+    </div>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section id="wrap">
+    <h2>4. 字幕の自動改行を理解する</h2>
+    <p>
+      これは本ツールで最も効果が大きい機能です。
+      音声認識の生の出力は「1 つの発話 = 1 つの字幕」になるため、
+      日本語では 1 行が 35 文字を超えることが珍しくありません。
+      そのままでは画面に収まらず、字幕として使えません。
+    </p>
+
+    <h4>整形前</h4>
+<pre><code>今日の天気は晴れです 音声認識が正しく動いているかどうかを確認しています</code></pre>
+
+    <h4>整形後（20 文字 × 2 行）</h4>
+<pre><code>今日の天気は晴れです。音声認識が正しく
+動いているかどうかを確認しています。</code></pre>
+
+    <h3>設定の考え方</h3>
+    <p>
+      初期値の「20 文字 × 2 行」は、テレビ字幕の慣習に近い値です。
+      画面が小さい端末向けなら 15 文字前後、
+      PC で見る前提の解説動画なら 25 文字程度でも読めます。
+    </p>
+
+    <h3>内部で行っていること</h3>
+    <ul>
+      <li><strong>禁則処理</strong>：句読点や閉じカッコが行頭に来ないよう調整します（「、」「。」「」」など）</li>
+      <li><strong>行幅の均等化</strong>：51 文字なら「20 / 20 / 11」ではなく「17 / 17 / 17」に配分します</li>
+      <li><strong>英単語の保護</strong>：アルファベットの単語を途中で切りません</li>
+      <li><strong>自動分割</strong>：指定行数を超えた分は次の字幕に分け、表示時間を文字数の比で割り振ります</li>
+      <li><strong>余分な空白の除去</strong>：全角文字どうしの間に入った半角スペースを取り除きます</li>
+    </ul>
+
+    <div class="note-box">
+      <strong>元の文をそのまま残したい場合</strong>
+      チェックを外せば、AI の出力をそのまま書き出します。
+      後から字幕編集ソフトで整える場合や、文字起こしの原稿として使う場合はこちらが向いています。
+    </div>
+  </section>
+
+  <section id="punct">
+    <h2>5. 句読点の補完</h2>
+    <p>
+      Whisper は日本語で句読点を省略することがあり、代わりに半角スペースが入ります。
+      これをオンにすると、句読点付きの文体をヒントとして与えることで、
+      「、」「。」が付いた出力になりやすくなります。
+    </p>
+
+    <h4>オフ</h4>
+<pre><code>こんにちは これは字幕作成ツールのテストです
+今日の天気は晴れです 音声認識が正しく動いているかどうかを確認しています</code></pre>
+
+    <h4>オン</h4>
+<pre><code>こんにちは。これは字幕作成ツールのテストです。
+今日の天気は晴れです。音声認識が正しく動いているかどうかを確認しています。</code></pre>
+
+    <p class="small muted">
+      この機能は言語を先に判定し、<strong>日本語と判定されたときだけ</strong>働きます。
+      英語などの音声には影響しません。
+    </p>
+  </section>
+
+  <section id="format">
+    <h2>6. SRT / VTT / JSON の使い分け</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>形式</th><th>主な用途</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SRT</strong></td>
+            <td>
+              最も広く使われる字幕形式。YouTube への字幕アップロード、
+              Premiere Pro / DaVinci Resolve への読み込み、
+              動画プレイヤー（VLC など）での外部字幕表示。<strong>迷ったらこれ</strong>。
+            </td>
+          </tr>
+          <tr>
+            <td><strong>VTT</strong></td>
+            <td>
+              Web 用の字幕形式（WebVTT）。HTML の <code>&lt;track&gt;</code> タグで
+              動画に字幕を付ける場合に使います。
+            </td>
+          </tr>
+          <tr>
+            <td><strong>JSON</strong></td>
+            <td>
+              全文テキスト、各区間の開始・終了時刻、検出言語、使用モデルなどを含む構造化データ。
+              自作のプログラムで加工したり、全文を検索可能にしたい場合に使います。
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>JSON の中身の例</h4>
+<pre><code>{
+  "source": "会議録画.mp4",
+  "language": "ja",
+  "duration": 15.829,
+  "model": "medium",
+  "device": "cuda:0",
+  "text": "こんにちは。これは字幕作成ツールのテストです。...",
+  "segments": [
+    { "id": 0, "start": 0.0, "end": 5.28,
+      "text": "こんにちは。これは字幕作成ツールのテスト\nです。" }
+  ]
+}</code></pre>
+  </section>
+
+  <section id="uninstall">
+    <h2>7. アンインストール</h2>
+    <p>展開したフォルダを削除するだけです。レジストリなどは一切変更していません。</p>
+    <p>AI モデルと設定ファイルは下記に保存されるので、完全に消したい場合はこちらも削除してください。</p>
+<pre><code>C:\Users\（ユーザー名）\.cache\whisper
+C:\Users\（ユーザー名）\AppData\Local\WhisperSubtitleTool</code></pre>
+  </section>
+
+  <hr>
+  <p class="center">
+    <a class="btn" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.0.zip" rel="noopener">ダウンロード（無料）</a>
+  </p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/usage/">使い方</a><span class="sep">|</span>
+      <a href="/faq/">FAQ</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+</body>
+</html>
