@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>運営者情報・お問い合わせ｜Whisper 字幕作成ツール</title>
-<meta name="description" content="当サイトの運営者情報とお問い合わせ先、ソフトウェアの開発方針、使用しているオープンソースソフトウェアと更新履歴を掲載しています。">
+<title>運営者情報・お問い合わせ｜johukku の作ったもの置き場</title>
+<meta name="description" content="当サイトの運営者情報とお問い合わせ先、配布しているソフトウェアの開発方針を掲載しています。">
+<link rel="canonical" href="https://johukku.pages.dev/about/">
 <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -29,12 +30,12 @@
     <div class="table-scroll">
       <table>
         <tbody>
-          <tr><th>サイト名</th><td>Whisper 字幕作成ツール</td></tr>
+          <tr><th>サイト名</th><td>johukku の作ったもの置き場</td></tr>
           <tr><th>運営者</th><td>johukku</td></tr>
           <tr><th>連絡先</th><td>blue12.dragon29@gmail.com</td></tr>
-          <tr><th>サイト URL</th><td>https://johukku.pages.dev/</td></tr>
+          <tr><th>サイト URL</th><td><a href="https://johukku.pages.dev/">https://johukku.pages.dev/</a></td></tr>
+          <tr><th>GitHub</th><td><a href="https://github.com/johukku" rel="noopener">github.com/johukku</a></td></tr>
           <tr><th>公開年</th><td>2026年</td></tr>
-          <tr><th>ソースコード</th><td><a href="https://github.com/johukku/whisper-subtitle-tool" rel="noopener">github.com/johukku/whisper-subtitle-tool</a>（MIT License）</td></tr>
         </tbody>
       </table>
     </div>
@@ -50,12 +51,11 @@
     <div class="note-box">
       <strong>不具合を報告いただく場合のお願い</strong>
       <p style="margin:8px 0 0;">
-        ツールのフォルダにある <code>環境チェック.bat</code> を実行し、
-        表示された内容をそのまま貼り付けていただけると、原因を特定しやすくなります。
+        <a href="/subtitle/">Whisper 字幕作成ツール</a>については、
+        フォルダにある <code>環境チェック.bat</code> を実行し、
+        表示された内容をそのまま貼り付けていただけると原因を特定しやすくなります。
       </p>
-      <p style="margin:8px 0 0;">
-        あわせて、次の情報をいただけると助かります。
-      </p>
+      <p style="margin:8px 0 0;">あわせて、次の情報をいただけると助かります。</p>
       <ul style="margin:6px 0 0;">
         <li>お使いの Windows のバージョン</li>
         <li>グラフィックボードの有無・型番</li>
@@ -64,90 +64,52 @@
     </div>
   </section>
 
-  <section>
-    <h2>このツールについて</h2>
-    <p>
-      動画や音声から字幕を作る作業を、手元のパソコンだけで完結させたくて作りました。
-      クラウドの文字起こしサービスは便利ですが、
-      社外秘の会議録画や公開前の動画をアップロードするのは気が引ける、
-      という場面が少なくありません。
-    </p>
-    <p>
-      音声認識の中核には OpenAI が公開している Whisper を使っています。
-      本ツールが担っているのは、その周辺の実用上必要な部分です。
-    </p>
-    <ul>
-      <li>専門知識なしで使える画面（コマンド操作を不要にする）</li>
-      <li>GPU の自動判定と、無い場合の自動フォールバック</li>
-      <li>複数ファイルの連続処理と、途中の中止</li>
-      <li>字幕として読める形への整形（自動改行・禁則処理・句読点の補完）</li>
-      <li>外部ソフト（FFmpeg）の別途インストールを不要にする</li>
-    </ul>
-    <p>
-      とくに「字幕として読める形への整形」は、
-      音声認識をそのまま字幕に使おうとすると必ずぶつかる部分です。
-      詳しくは<a href="/subtitle/usage/#wrap">使い方のページ</a>で説明しています。
-    </p>
-  </section>
-
   <div class="ad-slot">広告</div>
 
   <section>
-    <h2>使用しているオープンソースソフトウェア</h2>
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr><th>名称</th><th>用途</th><th>ライセンス</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><a href="https://github.com/openai/whisper" rel="noopener">OpenAI Whisper</a></td>
-            <td>音声認識</td><td>MIT License</td>
-          </tr>
-          <tr>
-            <td><a href="https://pytorch.org/" rel="noopener">PyTorch</a></td>
-            <td>機械学習の実行基盤（GPU 処理）</td><td>BSD-3-Clause</td>
-          </tr>
-          <tr>
-            <td><a href="https://github.com/PyAV-Org/PyAV" rel="noopener">PyAV</a> / FFmpeg</td>
-            <td>動画・音声の読み込み</td><td>BSD-3-Clause / LGPL</td>
-          </tr>
-          <tr>
-            <td><a href="https://github.com/pmgagne/tkinterdnd2" rel="noopener">tkinterdnd2</a></td>
-            <td>ドラッグ＆ドロップ</td><td>MIT License</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="small muted">
-      本ツール自体も無料で利用でき、商用・業務利用が可能です。
+    <h2>作っているものについて</h2>
+    <p>
+      自分が欲しくて作ったものを置いています。作るときに決めていることが二つあります。
     </p>
-  </section>
 
-  <section>
-    <h2>更新履歴</h2>
-    <div class="table-scroll">
-      <table>
-        <thead><tr><th>バージョン</th><th>日付</th><th>内容</th></tr></thead>
-        <tbody>
-          <tr>
-            <td>v1.0</td>
-            <td>2026年9月</td>
-            <td>
-              初回公開。SRT / VTT / JSON 出力、GPU 自動判定、複数ファイル処理、
-              字幕の自動改行、日本語の句読点補完、残り時間表示に対応。
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <h3>手元のパソコンだけで完結させる</h3>
+    <p>
+      クラウドのサービスは便利ですが、社外秘の資料や公開前のデータを
+      アップロードするのは気が引ける場面が少なくありません。
+      手元で処理できるものは手元で処理する、という方針で作っています。
+    </p>
+    <p>
+      たとえば <a href="/subtitle/">Whisper 字幕作成ツール</a> は、
+      音声認識を自分のパソコンの中だけで行い、音声データを外部に送信しません。
+    </p>
+
+    <h3>専門知識なしで使えるようにする</h3>
+    <p>
+      優れたオープンソースのソフトウェアはたくさんありますが、
+      コマンド操作や環境構築が必要で、そこで諦めてしまう人が多いと感じています。
+    </p>
+    <p>
+      配布しているものは、できるだけダブルクリックだけで完結するようにしています。
+      必要な部品の導入も自動化し、うまくいかないときは何が足りないのかを
+      日本語で表示するようにしています。
+    </p>
+
+    <h3>ソースコードを公開する</h3>
+    <p>
+      配布しているものはすべてソースコードを公開しています。
+      素性の分からない実行ファイルより、中身が見えるほうが安心して使えると思うからです。
+      <a href="https://github.com/johukku" rel="noopener">GitHub</a> から確認できます。
+    </p>
   </section>
 
   <section>
     <h2>免責事項</h2>
     <p>
-      音声認識の結果は完全ではありません。
-      本ツールの利用によって生じたいかなる損害についても、運営者は責任を負いかねます。
+      配布しているソフトウェアおよび掲載している情報は、現状有姿で提供されるものであり、
+      その正確性・完全性・有用性を保証するものではありません。
+      利用によって生じたいかなる損害についても、運営者は責任を負いかねます。
+    </p>
+    <p>
       詳しくは<a href="/privacy/">プライバシーポリシー</a>をご確認ください。
     </p>
   </section>
