@@ -1,0 +1,7 @@
+# wrangler のローカルキャッシュ（アカウント情報などが入る）
+.wrangler/
+
+# ローカル開発用
+node_modules/
+.dev.vars
+*.log

@@ -1,0 +1,13 @@
+name = "johukku"
+compatibility_date = "2026-09-09"
+pages_build_output_dir = "."
+
+# 掲示板とアクセスカウンターのデータ置き場
+[[d1_databases]]
+binding = "DB"
+database_name = "johukku-site"
+database_id = "8f041c1b-d343-4fa7-9b0f-3fc96e424656"
+
+# ADMIN_TOKEN と IP_SALT は secret として別に設定する（ここには書かない）
+#   npx wrangler pages secret put ADMIN_TOKEN --project-name johukku
+#   npx wrangler pages secret put IP_SALT     --project-name johukku
