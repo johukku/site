@@ -270,3 +270,49 @@ section { margin: 0 0 26px; }
   h2 { font-size: 15px; }
   .dl a.main { display: block; padding: 10px; }
 }
+
+/* ---------------------------------------------------- ツール内ナビ */
+
+.tool-nav {
+  background: #fafafa;
+  border-bottom: 1px solid #cccccc;
+  padding: 6px 0;
+  font-size: 13px;
+}
+.tool-nav strong {
+  margin-right: 10px;
+  color: #333333;
+}
+.tool-nav a { margin-right: 4px; }
+.tool-nav a[aria-current="page"] {
+  font-weight: bold;
+  color: #222222;
+  text-decoration: none;
+}
+.tool-nav .sep { color: #999999; margin-right: 4px; }
+
+/* ---------------------------------------------------- 配布物の一覧 */
+
+.item {
+  border: 1px solid #cccccc;
+  background: #fafafa;
+  padding: 12px 14px;
+  margin: 0 0 14px;
+}
+.item h3 {
+  margin: 0 0 2px;
+  border-bottom: none;
+  font-size: 16px;
+}
+.item h3::before { content: "▶ "; color: #666666; }
+.item-meta {
+  font-size: 12px;
+  color: #777777;
+  margin: 0 0 8px;
+}
+.item-links {
+  font-size: 13px;
+  margin: 10px 0 0;
+  padding-top: 8px;
+  border-top: 1px dotted #cccccc;
+}

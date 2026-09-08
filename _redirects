@@ -1,0 +1,5 @@
+# 旧構成からのリダイレクト（サイト再編前の URL 対策）
+/usage/*  /subtitle/usage/:splat  301
+/faq/*    /subtitle/faq/:splat    301
+/usage    /subtitle/usage/        301
+/faq      /subtitle/faq/          301

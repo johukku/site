@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whisper 字幕作成ツール｜動画・音声から自動で字幕(SRT/VTT/JSON)を作る Windows 用フリーソフト</title>
+<meta name="description" content="動画や音声を読み込むだけで、AI が自動で字幕ファイル（SRT / VTT / JSON）を作る Windows 用の無料ソフトです。音声は一切アップロードせず、すべて手元のパソコンで処理します。NVIDIA GPU があれば 10 分の動画を約 1 分で処理できます。">
+<link rel="canonical" href="https://johukku.pages.dev/subtitle/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Whisper 字幕作成ツール">
+<meta property="og:description" content="動画・音声から自動で字幕を作る Windows 用フリーソフト。完全ローカル処理・GPU 対応。">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="tool-nav">
+  <div class="wrap">
+    <strong>Whisper 字幕作成ツール</strong>
+    <a href="/subtitle/" aria-current="page">概要</a><span class="sep">|</span>
+    <a href="/subtitle/usage/">使い方</a><span class="sep">|</span>
+    <a href="/subtitle/faq/">FAQ・困ったとき</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <h1>Whisper 字幕作成ツール</h1>
+  <p class="updated">v1.0　／　2026年9月公開</p>
+
+  <div class="intro">
+    <p>
+      MP4 や MP3 を放り込むだけで、AI（OpenAI Whisper）が話している内容を聞き取り、
+      字幕ファイル（SRT / VTT / JSON）を書き出す Windows 用のフリーソフトです。
+    </p>
+    <p>
+      処理はすべて自分のパソコンの中で完結します。
+      クラウドの文字起こしサービスと違い、<strong>音声データを外部に送信しません</strong>。
+      社外秘の会議録画や、公開前の動画にも使えます。
+    </p>
+    <p class="spec-line">
+      対応：Windows 10 / 11　｜　NVIDIA GPU 対応（無くても動作）　｜　日本語対応　｜　無料・商用利用可
+    </p>
+  </div>
+
+  <div class="dl">
+    <a class="main" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.0.zip" rel="noopener">ダウンロード（無料）</a>
+    <p class="note">
+      配布ファイルは約 31 KB です。必要な部品はセットアップ時に自動で取得されます。
+    </p>
+  </div>
+
+  <figure>
+    <img src="/assets/screenshot.png" width="860" height="820"
+         alt="Whisper 字幕作成ツールの画面。入力ファイル一覧、出力形式(SRT/VTT/JSON)の選択、認識設定、進捗表示が並んでいる。">
+    <figcaption>実際の画面。上から順に設定していくだけです。</figcaption>
+  </figure>
+
+  <section>
+    <h2>できること</h2>
+    <ul>
+      <li><strong>音声を外に出さない</strong> ― 文字起こしはすべて手元のパソコンで処理します。</li>
+      <li><strong>GPU で高速処理</strong> ― NVIDIA のグラフィックボードがあれば自動で使います。無い場合も CPU で動きます。</li>
+      <li><strong>まとめて処理</strong> ― 複数ファイルを登録して順番に処理。フォルダごと追加、ドラッグ＆ドロップも可能。</li>
+      <li><strong>3 つの形式で出力</strong> ― SRT / VTT / JSON を同時に書き出せます。ファイル名は自動生成。</li>
+      <li><strong>字幕として読める形に整形</strong> ― 指定した文字数で自動改行し、禁則処理も行います。</li>
+      <li><strong>句読点を補う</strong> ― 日本語で句読点が省かれやすい問題に対応します。</li>
+      <li><strong>途中で中止できる</strong> ― 長いファイルでも、間違えたと思ったら止められます。</li>
+    </ul>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section>
+    <h2>出力される字幕の例</h2>
+    <p>
+      同じ音声を、自動整形の有無で比べたものです。
+      AI の生の出力は 1 行が 35 文字を超えることも多く、そのままでは字幕として読めません。
+    </p>
+
+    <h4>整形なし（AI の生の出力）</h4>
+<pre><code>2
+00:00:05,300 --&gt; 00:00:13,120
+今日の天気は晴れです 音声認識が正しく動いているかどうかを確認しています</code></pre>
+
+    <h4>本ツールの出力（句読点の補完＋自動改行）</h4>
+<pre><code>2
+00:00:05,280 --&gt; 00:00:13,120
+今日の天気は晴れです。音声認識が正しく
+動いているかどうかを確認しています。</code></pre>
+
+    <p class="small muted">
+      1 行あたりの文字数と行数は画面から変更できます。初期値は「20 文字 × 2 行」で、
+      これはテレビ字幕の慣習に近い設定です。指定を超えた分は次の字幕に自動で分割され、
+      表示時間も文字数に応じて割り振られます。
+    </p>
+  </section>
+
+  <section>
+    <h2>処理時間のめやす</h2>
+    <p>10 分の動画を標準設定（medium モデル）で処理した場合の目安です。</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>環境</th><th>処理時間</th><th>備考</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NVIDIA GeForce RTX 3060 Ti</td>
+            <td class="num">約 1〜2 分</td>
+            <td>VRAM 8GB。動作確認に使った環境</td>
+          </tr>
+          <tr>
+            <td>GPU なし（CPU のみ）</td>
+            <td class="num">約 20〜40 分</td>
+            <td>small モデルへの変更を推奨</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      初回のみ、AI モデル（約 1.5 GB）のダウンロード時間が加わります。2 回目以降は不要です。
+    </p>
+  </section>
+
+  <section>
+    <h2>動作環境</h2>
+    <div class="table-scroll">
+      <table>
+        <tbody>
+          <tr><th>OS</th><td>Windows 10 / 11（64bit）</td></tr>
+          <tr><th>Python</th><td>3.10 〜 3.12<br><span class="small muted">未導入の場合は <a href="https://www.python.org/downloads/windows/" rel="noopener">公式サイト</a>から。「Install Now」を押すだけで、管理者権限は不要です</span></td></tr>
+          <tr><th>空き容量</th><td>GPU あり：約 6 GB ／ GPU なし：約 3 GB</td></tr>
+          <tr><th>推奨 GPU</th><td>NVIDIA 製・VRAM 5GB 以上（GeForce RTX 3060 / 4060 以上）</td></tr>
+          <tr><th>ネット接続</th><td>初回セットアップ時のみ必要</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      対応形式：MP4 / MKV / MOV / AVI / WebM / WMV / FLV / TS / M4V / MPG ／
+      WAV / MP3 / M4A / FLAC / OGG / OPUS / AAC / WMA / AIFF
+    </p>
+  </section>
+
+  <section>
+    <h2>導入手順</h2>
+    <ol>
+      <li><strong>ダウンロードして展開する</strong><br>
+        ZIP を好きな場所（デスクトップなど）に展開します。</li>
+      <li><strong>「セットアップ.bat」をダブルクリック</strong><br>
+        必要な部品が自動で入ります。初回のみ 10〜40 分ほどかかります。
+        インストール先はこのフォルダの中だけで、パソコンの他の場所は変更しません。</li>
+      <li><strong>「起動.bat」をダブルクリック</strong><br>
+        2 回目以降はこれだけです。</li>
+    </ol>
+    <p><a href="/subtitle/usage/">→ 詳しい手順と画面の説明</a></p>
+  </section>
+
+  <div class="dl">
+    <a class="main" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.0.zip" rel="noopener">ダウンロード（無料）</a>
+    <p class="note">うまく動かないときは <a href="/subtitle/faq/">FAQ・困ったとき</a> をご覧ください。</p>
+  </div>
+
+  <section>
+    <h2>ライセンスと注意</h2>
+    <p>
+      本ツールは無料で利用でき、商用・業務利用も可能です。
+      内部で利用している <a href="https://github.com/openai/whisper" rel="noopener">OpenAI Whisper</a>（MIT License）、
+      <a href="https://pytorch.org/" rel="noopener">PyTorch</a>（BSD-3-Clause）、
+      <a href="https://github.com/PyAV-Org/PyAV" rel="noopener">PyAV / FFmpeg</a> のライセンスに従います。
+    </p>
+    <div class="note-box warn">
+      <strong>音声認識の結果は完全ではありません</strong>
+      音質が悪い場合や複数人が同時に話している場合は精度が落ちます。
+      公開用の字幕として使う場合は、必ず内容を確認・修正してください。
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/subtitle/">Whisper 字幕作成ツール</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="https://github.com/johukku" rel="noopener">GitHub</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+</body>
+</html>
