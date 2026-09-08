@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>掲示板｜johukku の作ったもの置き場</title>
+<meta name="description" content="感想・要望・不具合の報告などを気軽に書き込める掲示板です。投稿は確認後に表示されます。">
+<link rel="canonical" href="https://johukku.pages.dev/bbs/">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/subtitle/">Whisper 字幕作成ツール</a><span class="sep">|</span>
+      <a href="/bbs/" aria-current="page">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>掲示板</h1>
+
+  <div class="note-box">
+    <strong>投稿は確認してから表示されます</strong>
+    書き込んですぐには反映されません。目を通してから公開するので、
+    表示までに時間がかかることがあります（数時間〜1 日程度）。
+  </div>
+
+  <p class="small muted">
+    感想でも要望でも、うまく動かない報告でも構いません。
+    不具合の報告は<a href="/about/">運営者情報</a>のページの連絡先だと詳しくやり取りできます。
+    URL を含む投稿は受け付けていません。
+  </p>
+
+  <section>
+    <h2>書き込む</h2>
+    <form id="post-form" class="bbs-form" autocomplete="off">
+      <div class="bbs-row">
+        <label for="f-name">お名前</label>
+        <input type="text" id="f-name" name="name" maxlength="24" placeholder="名無しさん">
+      </div>
+      <div class="bbs-row">
+        <label for="f-body">本文</label>
+        <textarea id="f-body" name="body" rows="5" maxlength="800" required
+                  placeholder="ご自由にどうぞ"></textarea>
+        <p class="bbs-count"><span id="count">0</span> / 800 文字</p>
+      </div>
+      <!-- 自動投稿よけ。人には見えない -->
+      <div class="bbs-hp" aria-hidden="true">
+        <label for="f-website">Website</label>
+        <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <p>
+        <button type="submit" id="submit-btn" class="bbs-submit">書き込む</button>
+      </p>
+      <p id="form-msg" class="bbs-msg" role="status"></p>
+    </form>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section>
+    <h2>みなさんの書き込み</h2>
+    <div id="list"><p class="muted small">読み込み中...</p></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/subtitle/">Whisper 字幕作成ツール</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var listEl = document.getElementById("list");
+  var form = document.getElementById("post-form");
+  var msg = document.getElementById("form-msg");
+  var btn = document.getElementById("submit-btn");
+  var bodyEl = document.getElementById("f-body");
+  var countEl = document.getElementById("count");
+
+  bodyEl.addEventListener("input", function () {
+    countEl.textContent = bodyEl.value.length;
+  });
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function when(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return "";
+    var j = new Date(d.getTime() + 9 * 3600 * 1000);
+    var p = function (n) { return String(n).padStart(2, "0"); };
+    return j.getUTCFullYear() + "-" + p(j.getUTCMonth() + 1) + "-" + p(j.getUTCDate()) +
+           " " + p(j.getUTCHours()) + ":" + p(j.getUTCMinutes());
+  }
+
+  function render(items) {
+    if (!items.length) {
+      listEl.innerHTML = '<p class="muted small">まだ書き込みはありません。最初の一人になってみませんか。</p>';
+      return;
+    }
+    var total = items.length;
+    listEl.innerHTML = items.map(function (c, i) {
+      return '<article class="post">' +
+        '<p class="post-head"><span class="post-no">' + (total - i) + '</span> ' +
+        '<span class="post-name">' + esc(c.name) + '</span>' +
+        '<span class="post-date">' + when(c.created_at) + '</span></p>' +
+        '<p class="post-body">' + esc(c.body).replace(/\n/g, "<br>") + '</p>' +
+        '</article>';
+    }).join("");
+  }
+
+  function load() {
+    fetch("/api/comments", { headers: { accept: "application/json" } })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d.error) throw new Error(d.error);
+        render(d.comments || []);
+      })
+      .catch(function () {
+        listEl.innerHTML = '<p class="muted small">書き込みを読み込めませんでした。</p>';
+      });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    msg.textContent = "";
+    msg.className = "bbs-msg";
+    btn.disabled = true;
+
+    fetch("/api/comments", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        name: document.getElementById("f-name").value,
+        body: bodyEl.value,
+        website: document.getElementById("f-website").value
+      })
+    })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.d.error || "送信できませんでした。");
+        msg.textContent = "書き込みを受け付けました。確認のうえ公開しますので、しばらくお待ちください。";
+        msg.className = "bbs-msg ok";
+        form.reset();
+        countEl.textContent = "0";
+      })
+      .catch(function (err) {
+        msg.textContent = err.message;
+        msg.className = "bbs-msg ng";
+      })
+      .finally(function () { btn.disabled = false; });
+  });
+
+  load();
+})();
+</script>
+
+</body>
+</html>

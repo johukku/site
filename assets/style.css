@@ -316,3 +316,97 @@ section { margin: 0 0 26px; }
   padding-top: 8px;
   border-top: 1px dotted #cccccc;
 }
+
+/* ---------------------------------------------------- カウンター */
+
+.counter {
+  border: 1px solid #999999;
+  background: #fafafa;
+  padding: 10px 12px;
+  margin: 18px 0;
+  text-align: center;
+  font-size: 13px;
+  color: #444444;
+}
+.counter .digits {
+  display: inline-block;
+  margin: 0 4px;
+  letter-spacing: 0;
+}
+.counter .digits span {
+  display: inline-block;
+  width: 18px;
+  padding: 2px 0;
+  margin: 0 1px;
+  background: #222222;
+  color: #f0f0f0;
+  font-family: "MS Gothic", Consolas, monospace;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid #000000;
+}
+.counter .sub { display: block; margin-top: 6px; color: #777777; font-size: 12px; }
+
+/* ---------------------------------------------------- 掲示板 */
+
+.bbs-form { border: 1px solid #cccccc; background: #fafafa; padding: 12px 14px; }
+.bbs-row { margin: 0 0 10px; }
+.bbs-row label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 2px; }
+.bbs-row input[type="text"],
+.bbs-row input[type="password"],
+.bbs-row textarea {
+  width: 100%;
+  border: 1px solid #999999;
+  padding: 5px 6px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #ffffff;
+  color: #222222;
+}
+.bbs-row textarea { resize: vertical; line-height: 1.7; }
+.bbs-count { font-size: 12px; color: #777777; margin: 2px 0 0; text-align: right; }
+.bbs-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.bbs-submit {
+  border: 2px solid #0033cc;
+  background: #ffffff;
+  color: #0033cc;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 6px 20px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.bbs-submit:hover:enabled { background: #eef2ff; }
+.bbs-submit:disabled { border-color: #aaaaaa; color: #aaaaaa; cursor: default; }
+
+.bbs-msg { font-size: 13px; margin: 8px 0 0; }
+.bbs-msg.ok { color: #157f4a; }
+.bbs-msg.ng { color: #cc0000; }
+
+.post {
+  border: 1px solid #cccccc;
+  background: #ffffff;
+  padding: 8px 12px;
+  margin: 0 0 8px;
+}
+.post-head { margin: 0 0 4px; font-size: 13px; }
+.post-no { color: #cc6600; font-weight: bold; margin-right: 6px; }
+.post-name { font-weight: bold; color: #006600; }
+.post-date { color: #888888; font-size: 12px; margin-left: 8px; }
+.post-body { margin: 0; font-size: 14px; word-break: break-word; }
+
+.admin-post { background: #fafafa; }
+.admin-actions { margin: 8px 0 0; }
+.admin-actions button {
+  font-family: inherit;
+  font-size: 12px;
+  padding: 3px 12px;
+  margin-right: 6px;
+  border: 1px solid #999999;
+  background: #ffffff;
+  cursor: pointer;
+}
+.admin-actions button.primary { border-color: #0033cc; color: #0033cc; font-weight: bold; }
+.admin-actions button.danger { border-color: #cc0000; color: #cc0000; }
+.admin-actions button:disabled { color: #aaaaaa; border-color: #dddddd; cursor: default; }

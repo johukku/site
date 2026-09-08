@@ -19,7 +19,10 @@
     <p class="site-title">Windows 用のちょっとした道具を置いています</p>
     <nav class="site-nav">
       <a href="/" aria-current="page">トップ</a><span class="sep">|</span>
-      <a href="/about/">運営者情報</a>
+      <a href="/subtitle/">Whisper 字幕作成ツール</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
     </nav>
   </div>
 </header>
@@ -101,16 +104,47 @@
     </div>
   </section>
 
+  <div class="counter" id="counter">
+    あなたは
+    <span class="digits" id="counter-digits"><span>-</span></span>
+    人目の訪問者です
+    <span class="sub">
+      本日 <span id="counter-today">-</span> 人 ／ 昨日 <span id="counter-yesterday">-</span> 人
+      　（2026年9月9日設置）
+    </span>
+  </div>
+
+  <p class="center small muted">
+    感想や要望は<a href="/bbs/">掲示板</a>へどうぞ。
+  </p>
+
 </main>
+
+<script>
+(function () {
+  var box = document.getElementById("counter");
+  fetch("/api/counter", { headers: { accept: "application/json" } })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (typeof d.total !== "number") throw new Error("bad");
+      var s = String(d.total).padStart(8, "0");
+      document.getElementById("counter-digits").innerHTML =
+        s.split("").map(function (c) { return "<span>" + c + "</span>"; }).join("");
+      document.getElementById("counter-today").textContent = d.today;
+      document.getElementById("counter-yesterday").textContent = d.yesterday;
+    })
+    .catch(function () { box.style.display = "none"; });
+})();
+</script>
 
 <footer class="site-footer">
   <div class="wrap">
     <nav>
       <a href="/">トップ</a><span class="sep">|</span>
       <a href="/subtitle/">Whisper 字幕作成ツール</a><span class="sep">|</span>
-      <a href="/privacy/">プライバシーポリシー</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
       <a href="/about/">運営者情報</a><span class="sep">|</span>
-      <a href="https://github.com/johukku" rel="noopener">GitHub</a>
+      <a href="/privacy/">プライバシーポリシー</a>
     </nav>
     <div>Copyright &copy; 2026 johukku</div>
   </div>

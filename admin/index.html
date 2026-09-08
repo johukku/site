@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>管理</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">管理画面</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>掲示板の管理</h1>
+
+  <section id="login-area">
+    <div class="note-box">
+      <strong>合言葉を入れてください</strong>
+      入力した合言葉はこのブラウザのタブにだけ残ります。サーバーには毎回送信されます。
+    </div>
+    <form id="login-form" class="bbs-form">
+      <div class="bbs-row">
+        <label for="f-token">合言葉</label>
+        <input type="password" id="f-token" autocomplete="current-password" required>
+      </div>
+      <p><button type="submit" class="bbs-submit">開く</button></p>
+      <p id="login-msg" class="bbs-msg" role="status"></p>
+    </form>
+  </section>
+
+  <section id="admin-area" hidden>
+    <p>
+      <button type="button" id="reload" class="bbs-submit">再読み込み</button>
+      <span id="summary" class="small muted"></span>
+    </p>
+    <div id="pending"></div>
+    <h2>公開中の書き込み</h2>
+    <div id="published"></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav><a href="/">トップ</a><span class="sep">|</span><a href="/bbs/">掲示板</a></nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var token = "";
+  var loginArea = document.getElementById("login-area");
+  var adminArea = document.getElementById("admin-area");
+  var loginMsg = document.getElementById("login-msg");
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function when(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return "";
+    var j = new Date(d.getTime() + 9 * 3600 * 1000);
+    var p = function (n) { return String(n).padStart(2, "0"); };
+    return j.getUTCFullYear() + "-" + p(j.getUTCMonth() + 1) + "-" + p(j.getUTCDate()) +
+           " " + p(j.getUTCHours()) + ":" + p(j.getUTCMinutes());
+  }
+
+  function call(action, id) {
+    return fetch("/api/admin", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ token: token, action: action, id: id })
+    }).then(function (r) {
+      return r.json().then(function (d) {
+        if (!r.ok) throw new Error(d.error || "失敗しました");
+        return d;
+      });
+    });
+  }
+
+  function card(c) {
+    var status = c.approved
+      ? (c.hidden ? "非表示" : "公開中")
+      : "保留中";
+    var buttons = c.approved
+      ? '<button data-act="hide" data-id="' + c.id + '">非表示にする</button>' +
+        '<button data-act="delete" data-id="' + c.id + '" class="danger">削除</button>'
+      : '<button data-act="approve" data-id="' + c.id + '" class="primary">公開する</button>' +
+        '<button data-act="delete" data-id="' + c.id + '" class="danger">削除</button>';
+    return '<article class="post admin-post">' +
+      '<p class="post-head"><span class="post-no">#' + c.id + '</span> ' +
+      '<span class="post-name">' + esc(c.name) + '</span>' +
+      '<span class="post-date">' + when(c.created_at) + ' / ' + status + '</span></p>' +
+      '<p class="post-body">' + esc(c.body).replace(/\n/g, "<br>") + '</p>' +
+      '<p class="admin-actions">' + buttons + '</p>' +
+      '</article>';
+  }
+
+  function render(items) {
+    var pending = items.filter(function (c) { return !c.approved; });
+    var published = items.filter(function (c) { return c.approved; });
+    document.getElementById("summary").textContent =
+      "保留 " + pending.length + " 件 / 公開 " + published.length + " 件";
+    document.getElementById("pending").innerHTML =
+      "<h2>承認待ち（" + pending.length + "）</h2>" +
+      (pending.length ? pending.map(card).join("")
+                      : '<p class="muted small">承認待ちはありません。</p>');
+    document.getElementById("published").innerHTML =
+      published.length ? published.map(card).join("")
+                       : '<p class="muted small">公開中の書き込みはありません。</p>';
+  }
+
+  function load() {
+    return call("list").then(function (d) { render(d.comments || []); });
+  }
+
+  document.getElementById("login-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    token = document.getElementById("f-token").value;
+    loginMsg.textContent = "確認中...";
+    loginMsg.className = "bbs-msg";
+    load().then(function () {
+      loginArea.hidden = true;
+      adminArea.hidden = false;
+    }).catch(function (err) {
+      token = "";
+      loginMsg.textContent = err.message;
+      loginMsg.className = "bbs-msg ng";
+    });
+  });
+
+  document.getElementById("reload").addEventListener("click", function () { load(); });
+
+  adminArea.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-act]");
+    if (!b) return;
+    var act = b.dataset.act;
+    if (act === "delete" && !confirm("この書き込みを完全に削除します。よろしいですか？")) return;
+    b.disabled = true;
+    call(act, Number(b.dataset.id))
+      .then(load)
+      .catch(function (err) { alert(err.message); b.disabled = false; });
+  });
+})();
+</script>
+
+</body>
+</html>
