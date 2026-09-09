@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ・困ったとき｜メディアダウンローダー</title>
+<meta name="description" content="メディアダウンローダーのよくある質問とトラブル対処。急に動かなくなった、mkv で保存される、音が出ない、ウイルス対策ソフトに止められる、といった症状への対応をまとめました。">
+<link rel="canonical" href="https://johukku.pages.dev/downloader/faq/">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="tool-nav">
+  <div class="wrap">
+    <strong>メディアダウンローダー</strong>
+    <a href="/downloader/">概要</a><span class="sep">|</span>
+    <a href="/downloader/usage/">使い方</a><span class="sep">|</span>
+    <a href="/downloader/faq/" aria-current="page">FAQ・困ったとき</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <h1>FAQ・困ったとき</h1>
+  <p class="updated">最終更新：2026年9月</p>
+
+  <div class="note-box">
+    <strong>急に動かなくなったら、まずこれ</strong>
+    画面右下の「<strong>yt-dlp を更新</strong>」を押してください。
+    動画サイト側の仕様変更で動かなくなることがあり、その多くはこれで直ります。
+  </div>
+
+  <section>
+    <h2>動かないとき</h2>
+
+    <details class="faq-item">
+      <summary>昨日まで使えたのに、急に失敗するようになった</summary>
+      <div class="faq-body">
+        <p>
+          <strong>これが一番よくある症状です。</strong>
+          動画サービス側の仕様変更で、取得処理を担っている yt-dlp が
+          追いつかなくなると起こります。
+        </p>
+        <p>
+          画面右下の「<strong>yt-dlp を更新</strong>」を押して、最新版を取得してください。
+          数十秒で終わります。
+        </p>
+        <p>
+          更新しても直らない場合、yt-dlp 側でまだ対応が済んでいない可能性があります。
+          その場合は数日おいてから、もう一度更新を試してみてください。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>初回の部品取得に失敗する</summary>
+      <div class="faq-body">
+        <p>ほとんどが通信の問題です。もう一度起動して試してください。</p>
+        <p>それでも失敗する場合、次の可能性があります。</p>
+        <ul>
+          <li>空き容量が足りない（約 300 MB 必要です）</li>
+          <li>会社や学校のネットワークで、配布元への接続が制限されている</li>
+          <li>ウイルス対策ソフトがダウンロードを止めている</li>
+        </ul>
+        <p>
+          取得先は yt-dlp と FFmpeg の公式配布元（いずれも GitHub）です。
+          置き場所は <code>%LOCALAPPDATA%\johukku\bin</code> です。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>ウイルス対策ソフトに止められる</summary>
+      <div class="faq-body">
+        <p>
+          このアプリは PyInstaller という道具で作った exe です。
+          この形式は署名が無いと誤検知されることがあります。
+        </p>
+        <p>
+          また、インターネットからダウンロードした ZIP を展開したファイルには
+          警告が付くことがあります。ZIP を右クリック →「プロパティ」→
+          「セキュリティ：許可する」にチェックを入れてから展開すると出にくくなります。
+        </p>
+        <p>
+          気になる場合は
+          <a href="https://github.com/johukku/media-downloader" rel="noopener">ソースコード</a>を
+          確認してから使ってください。すべて公開しています。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>特定の URL だけ失敗する</summary>
+      <div class="faq-body">
+        <p>次のような場合は、仕様上どうにもなりません。</p>
+        <ul>
+          <li>ログインが必要な、非公開・限定公開のページ</li>
+          <li>年齢確認が必要なページ</li>
+          <li>地域制限がかかっているもの</li>
+          <li>そもそも yt-dlp が対応していないサイト</li>
+        </ul>
+        <p>ログの内容を見ると、どこで止まったかが分かります。</p>
+      </div>
+    </details>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section>
+    <h2>保存したファイルについて</h2>
+
+    <details class="faq-item">
+      <summary>拡張子が .mkv になる。mp4 がいい</summary>
+      <div class="faq-body">
+        <p>
+          映像と音声の組み合わせが mp4 の規格に収まらない場合に起こる正常な動作です。
+          Windows 11 の標準プレイヤーではそのまま再生できます。
+        </p>
+        <p>
+          mp4 が必要なら「<strong>mp4 に統一する（mkv を避ける）</strong>」に
+          チェックを入れてください。確実に mp4 になる代わりに、
+          <strong>画質が 1 段下がることがあります</strong>。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>「最高画質」を選んだのに画質が低い</summary>
+      <div class="faq-body">
+        <p>
+          選べる画質は、そのサイトが配信しているものが上限です。
+          サービスによっては 1080p や 720p が最大のこともあります。
+        </p>
+        <p>
+          また「mp4 に統一する」にチェックが入っていると、
+          mp4 に収まる組み合わせが優先されるため画質が下がります。
+          最高画質が欲しいときはチェックを外してください。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>映像だけで音が出ない／音だけで映像が無い</summary>
+      <div class="faq-body">
+        <p>
+          映像と音声を結合する FFmpeg が正しく取得できていない可能性があります。
+          いったんアプリを閉じ、<code>%LOCALAPPDATA%\johukku\bin</code> を
+          フォルダごと削除してから起動し直すと、取得をやり直します。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>字幕が一覧に出てこない</summary>
+      <div class="faq-body">
+        <p>
+          その動画に字幕が用意されていない場合は、一覧は空になります。
+          この場合、<a href="/subtitle/">Whisper 字幕作成ツール</a>で音声から作れます。
+        </p>
+        <p>
+          このツールで「音声のみ（mp3）」を保存し、そちらに読み込ませてください。
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <section>
+    <h2>そのほか</h2>
+
+    <details class="faq-item">
+      <summary>どのサイトに対応していますか</summary>
+      <div class="faq-body">
+        <p>
+          取得処理は <a href="https://github.com/yt-dlp/yt-dlp" rel="noopener">yt-dlp</a> が
+          行っているため、対応状況は yt-dlp に準じます。
+          対応サイトの一覧は yt-dlp のドキュメントを参照してください。
+        </p>
+        <p>
+          ただし、対応していることと<strong>保存してよいことは別</strong>です。
+          次の項目もあわせてお読みください。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>どこまで保存してよいのですか</summary>
+      <div class="faq-body">
+        <p>
+          このツールは、自分がアップロードした動画、自分の配信のアーカイブ、
+          権利者が保存を認めているコンテンツを手元に残すために作りました。
+        </p>
+        <p>
+          <strong>権利者に無断で公開されているものをダウンロードする行為は、
+          私的使用が目的であっても違法となる場合があります。</strong>
+          また、多くの動画サービスは利用規約でダウンロードを禁じています。
+        </p>
+        <p>
+          各サービスの規約とお住まいの国の法律を確認のうえ、自己責任でご利用ください。
+          利用によって生じた問題について、作者は責任を負いかねます。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>なぜ yt-dlp と FFmpeg を同梱していないのですか</summary>
+      <div class="faq-body">
+        <p>理由は 2 つあります。</p>
+        <ul>
+          <li>
+            <strong>yt-dlp は頻繁に更新されるため。</strong>
+            同梱すると、こちらが配り直すまで古いままになり、
+            動かなくなったときに利用者が自力で直せません。
+          </li>
+          <li>
+            <strong>FFmpeg は GPL というライセンスのため。</strong>
+            同梱して配ると配布側にソースコードの提供義務が生じます。
+            利用者のパソコンが公式配布元から直接取得する形なら、こちらは何も再配布しません。
+          </li>
+        </ul>
+        <p>結果として、配布ファイルが約 11 MB と軽くなる利点もあります。</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Mac や Linux で使えますか</summary>
+      <div class="faq-body">
+        <p>
+          現在は Windows 用としてのみ配布しています。
+          本体は Python で書かれているため他の OS でも動く可能性はありますが、
+          動作確認は行っていません。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>商用利用はできますか</summary>
+      <div class="faq-body">
+        <p>
+          ツール自体は MIT License なので、ツールを使うこと自体に制限はありません。
+        </p>
+        <p>
+          ただし<strong>保存したコンテンツの扱いは別問題</strong>です。
+          権利者の許諾なく商用利用することはできません。
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <hr>
+  <p class="center small muted">
+    解決しない場合は<a href="/about/">運営者情報</a>のページからご連絡いただくか、
+    <a href="/bbs/">掲示板</a>に書き込んでください。
+  </p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+</body>
+</html>

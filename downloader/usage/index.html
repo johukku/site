@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>使い方｜メディアダウンローダー</title>
+<meta name="description" content="メディアダウンローダーの導入手順と画面の使い方。形式の選び方、mp4 への統一、字幕の保存、まとめて処理、保存先の変更まで解説します。">
+<link rel="canonical" href="https://johukku.pages.dev/downloader/usage/">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="tool-nav">
+  <div class="wrap">
+    <strong>メディアダウンローダー</strong>
+    <a href="/downloader/">概要</a><span class="sep">|</span>
+    <a href="/downloader/usage/" aria-current="page">使い方</a><span class="sep">|</span>
+    <a href="/downloader/faq/">FAQ・困ったとき</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <h1>使い方</h1>
+  <p class="updated">最終更新：2026年9月</p>
+
+  <ul class="toc">
+    <li><a href="#install">1. 導入</a></li>
+    <li><a href="#screen">2. 画面の使い方</a></li>
+    <li><a href="#format">3. 形式の選び方</a></li>
+    <li><a href="#mp4">4. mkv になったときは</a></li>
+    <li><a href="#subs">5. 字幕を保存する</a></li>
+    <li><a href="#batch">6. まとめて処理する</a></li>
+    <li><a href="#combo">7. 字幕作成ツールと組み合わせる</a></li>
+    <li><a href="#uninstall">8. アンインストール</a></li>
+  </ul>
+
+  <section id="install">
+    <h2>1. 導入</h2>
+    <ol>
+      <li><strong>ZIP をダウンロードして展開する</strong><br>
+        デスクトップなど、書き込みできる場所に展開してください。</li>
+      <li><strong>「メディアダウンローダー.exe」をダブルクリック</strong><br>
+        Python などの準備は要りません。</li>
+      <li><strong>初回だけ、部品の取得を確認されます</strong><br>
+        「はい」を押すと必要な部品（約 90 MB）を公式の配布元から取得します。数分かかります。</li>
+    </ol>
+    <div class="note-box">
+      <strong>2 回目以降はこの確認は出ません</strong>
+      取得した部品は <code>%LOCALAPPDATA%\johukku\bin</code> に置かれ、
+      次回からはそのまま起動します。
+      <a href="/subtitle/">Whisper 字幕作成ツール</a>とも共有するので、
+      どちらか一方で取得済みなら、もう一方では取得を省けます。
+    </div>
+  </section>
+
+  <section id="screen">
+    <h2>2. 画面の使い方</h2>
+
+    <figure>
+      <img src="/assets/downloader.png" width="796" height="699"
+           alt="画面は 1.URL 2.保存先 3.形式 4.字幕 の順に並び、下にダウンロードボタンとログがある。">
+      <figcaption>上から順に埋めていくだけです</figcaption>
+    </figure>
+
+    <h3>1. URL</h3>
+    <p>
+      保存したいページの URL を貼り付けます。
+      <strong>URL をコピーした状態でアプリを起動すると、自動で入力欄に入ります。</strong>
+      「貼り付け」ボタンでも入れられます。
+    </p>
+
+    <h3>2. 保存先</h3>
+    <p>
+      既定ではダウンロードフォルダです。「参照...」で変更でき、次回以降も記憶されます。
+      「開く」を押すと保存先をエクスプローラーで開けます。
+    </p>
+
+    <h3>3. 形式</h3>
+    <p>動画か音声かを選びます。詳しくは<a href="#format">次の項目</a>を参照してください。</p>
+
+    <h3>4. 字幕</h3>
+    <p>
+      「この URL の字幕を調べる」を押すと、その動画に用意されている字幕が一覧表示されます。
+      詳しくは<a href="#subs">字幕を保存する</a>を参照してください。
+    </p>
+
+    <h3>ダウンロードとログ</h3>
+    <p>
+      「ダウンロード」で処理が始まり、進捗バーとログで状況が分かります。
+      途中でやめたいときは「中止」を押してください。
+    </p>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section id="format">
+    <h2>3. 形式の選び方</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>形式</th><th>選ぶ場面</th></tr></thead>
+        <tbody>
+          <tr><td><strong>動画（最高画質）</strong></td><td>とにかく良い画質で残したいとき。ファイルは大きくなります</td></tr>
+          <tr><td><strong>動画（1080p まで）</strong></td><td>迷ったらこれ。画質と容量のバランスが良い</td></tr>
+          <tr><td><strong>動画（720p まで・軽い）</strong></td><td>容量を節約したいとき、内容が分かればよいとき</td></tr>
+          <tr><td><strong>音声のみ（mp3）</strong></td><td>音楽やラジオとして聴くとき、文字起こしに回すとき</td></tr>
+          <tr><td><strong>音声のみ（wav・無圧縮）</strong></td><td>編集する予定があるなど、音質を落としたくないとき</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note-box">
+      <strong>「最高画質」でも 4K になるとは限りません</strong>
+      選べる画質はそのサイトが配信しているものが上限です。
+      サービスによっては 1080p や 720p が最大のこともあります。
+    </div>
+    <h3>プレイリストをまとめて取得</h3>
+    <p>
+      チェックを入れると、再生リストの URL からまとめて保存します。
+      件数が多いと時間もディスクも消費するので、最初は外したまま 1 本試すことをおすすめします。
+    </p>
+  </section>
+
+  <section id="mp4">
+    <h2>4. mkv になったときは</h2>
+    <p>
+      保存したファイルの拡張子が <code>.mkv</code> になることがあります。
+      これは映像と音声の組み合わせが mp4 の規格に収まらない場合の正常な動作です。
+      Windows 11 の標準プレイヤーではそのまま再生できます。
+    </p>
+    <p>
+      古い機器や編集ソフトで開きたい場合は、
+      <strong>「mp4 に統一する（mkv を避ける）」</strong>にチェックを入れてください。
+      確実に mp4 で保存される代わりに、<strong>画質が 1 段下がることがあります</strong>。
+      mp4 に収まる組み合わせを優先して選ぶためです。
+    </p>
+    <div class="note-box">
+      <strong>使い分けの目安</strong>
+      パソコンで見るだけなら外したまま（高画質）、
+      スマホに移す・古いテレビで見る・編集ソフトに読み込ませるならチェックを入れる。
+    </div>
+  </section>
+
+  <section id="subs">
+    <h2>5. 字幕を保存する</h2>
+    <ol>
+      <li>URL を入れて「<strong>この URL の字幕を調べる</strong>」を押します</li>
+      <li>用意されている字幕が一覧に出ます</li>
+      <li>保存したいものを選びます（Ctrl キーを押しながらで複数選択）</li>
+      <li>「ダウンロード」を押すと、動画と同じ場所に保存されます</li>
+    </ol>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>種類</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td><strong>手動</strong></td><td>投稿者や有志が付けた字幕。精度が高い</td></tr>
+          <tr><td><strong>自動生成</strong></td><td>サービス側が音声認識で作った字幕。精度はそれなり</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      形式は <code>srt</code> か <code>vtt</code> を選べます。迷ったら srt で構いません。
+      「<strong>字幕だけ保存する</strong>」を有効にすると、動画を落とさずに字幕だけ取得できます。
+    </p>
+    <div class="note-box">
+      <strong>字幕が 1 つも無い動画には</strong>
+      「音声のみ（mp3）」で保存して、<a href="/subtitle/">Whisper 字幕作成ツール</a>に読み込ませると、
+      音声から字幕を作れます。
+    </div>
+  </section>
+
+  <section id="batch">
+    <h2>6. まとめて処理する</h2>
+    <p>
+      URL の入力欄に <strong>1 行に 1 つずつ</strong>並べると、上から順番に処理します。
+    </p>
+<pre><code>https://example.com/watch/aaaa
+https://example.com/watch/bbbb
+https://example.com/watch/cccc</code></pre>
+    <p>
+      途中で「中止」を押すと、処理中のものが終わった時点で止まります。
+      1 本が失敗しても、残りの処理は続きます。
+    </p>
+  </section>
+
+  <section id="combo">
+    <h2>7. 字幕作成ツールと組み合わせる</h2>
+    <p>字幕が用意されていない動画でも、この 2 つを組み合わせれば字幕を作れます。</p>
+    <ol>
+      <li>このツールで「<strong>音声のみ（mp3）</strong>」を選んで保存する</li>
+      <li><a href="/subtitle/">Whisper 字幕作成ツール</a>にその mp3 を読み込ませる</li>
+      <li>SRT ファイルが出来上がる</li>
+    </ol>
+    <p class="small muted">
+      どちらのツールも FFmpeg を同じ場所で共有するので、
+      2 本目のセットアップでは部品の取得を省けます。
+    </p>
+  </section>
+
+  <section id="uninstall">
+    <h2>8. アンインストール</h2>
+    <p>展開したフォルダを削除するだけです。レジストリなどは変更していません。</p>
+    <p>初回に取得した部品と設定は下記に保存されるので、完全に消したい場合はこちらも削除してください。</p>
+<pre><code>C:\Users\（ユーザー名）\AppData\Local\johukku\bin
+C:\Users\（ユーザー名）\AppData\Local\johukku\media-downloader</code></pre>
+    <p class="small muted">
+      <code>bin</code> は<a href="/subtitle/">Whisper 字幕作成ツール</a>とも共有しています。
+      そちらを使い続ける場合は残しておいてください。
+    </p>
+  </section>
+
+  <hr>
+  <p class="center">
+    <a class="btn" href="https://github.com/johukku/media-downloader/releases/latest/download/MediaDownloader-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+  </p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>メディアダウンローダー｜URL を貼るだけで動画・音声を保存する Windows 用フリーソフト</title>
+<meta name="description" content="URL を貼り付けるだけで動画や音声を保存する Windows 用の無料ソフトです。Python のインストールは不要、配布ファイルは約 11 MB。自分がアップロードした動画や配信のアーカイブ、許諾のあるコンテンツを手元に残すために使います。">
+<link rel="canonical" href="https://johukku.pages.dev/downloader/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="メディアダウンローダー">
+<meta property="og:description" content="URL を貼るだけで動画・音声を保存する Windows 用フリーソフト。インストール不要。">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="tool-nav">
+  <div class="wrap">
+    <strong>メディアダウンローダー</strong>
+    <a href="/downloader/" aria-current="page">概要</a><span class="sep">|</span>
+    <a href="/downloader/usage/">使い方</a><span class="sep">|</span>
+    <a href="/downloader/faq/">FAQ・困ったとき</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <h1>メディアダウンローダー</h1>
+  <p class="updated">v1.0　／　2026年9月公開</p>
+
+  <div class="intro">
+    <p>
+      URL を貼り付けて形式を選ぶだけで、動画や音声を手元に保存する Windows 用のソフトです。
+      Python などの準備は要らず、<strong>exe をダブルクリックするだけ</strong>で使えます。
+    </p>
+    <p>
+      自分がアップロードした動画、自分の配信のアーカイブ、
+      権利者が保存を認めているコンテンツを手元に残しておくために作りました。
+    </p>
+    <p class="spec-line">
+      対応：Windows 10 / 11　｜　配布ファイル 約 11 MB　｜　インストール不要　｜　無料
+    </p>
+  </div>
+
+  <div class="dl">
+    <a class="main" href="https://github.com/johukku/media-downloader/releases/latest/download/MediaDownloader-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+    <p class="note">
+      約 11 MB。初回起動時にだけ、動作に必要な部品を自動で取得します。
+    </p>
+  </div>
+
+  <figure>
+    <img src="/assets/downloader.png" width="796" height="699"
+         alt="メディアダウンローダーの画面。URL の入力欄、保存先、形式の選択、字幕の一覧、ダウンロードボタンが縦に並んでいる。">
+    <figcaption>上から順に埋めていくだけの画面です。</figcaption>
+  </figure>
+
+  <div class="note-box warn">
+    <strong>使ってよい範囲を確認してください</strong>
+    <p style="margin:6px 0 0;">
+      権利者に無断で公開されているものを保存する行為は、
+      私的使用が目的であっても違法となる場合があります。
+      また、多くの動画サービスは利用規約でダウンロードを禁じています。
+    </p>
+    <p style="margin:6px 0 0;">
+      各サービスの規約とお住まいの国の法律を確認のうえ、自己責任でご利用ください。
+    </p>
+  </div>
+
+  <section>
+    <h2>できること</h2>
+    <ul>
+      <li><strong>URL を貼るだけ</strong> ― 形式を選んで「ダウンロード」を押すだけです。</li>
+      <li><strong>準備が要らない</strong> ― Python も追加の設定も不要。exe を実行するだけ。</li>
+      <li><strong>URL の自動貼り付け</strong> ― URL をコピーした状態で起動すると、入力欄に入った状態で始まります。</li>
+      <li><strong>まとめて処理</strong> ― 1 行に 1 つずつ URL を並べると順番に処理します。途中で中止もできます。</li>
+      <li><strong>音声だけ抜き出せる</strong> ― mp3（軽い）と wav（無圧縮）を選べます。</li>
+      <li><strong>字幕を選んで保存</strong> ― その動画に用意されている字幕を一覧表示し、選んだものだけ .srt / .vtt で保存します。</li>
+      <li><strong>字幕作成につなげられる</strong> ― 音声を抜き出して<a href="/subtitle/">Whisper 字幕作成ツール</a>に読み込ませれば、字幕が無い動画にも字幕を作れます。</li>
+    </ul>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section>
+    <h2>選べる形式</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>形式</th><th>向いている用途</th></tr></thead>
+        <tbody>
+          <tr><td>動画（最高画質）</td><td>いちばん良い画質で残したいとき</td></tr>
+          <tr><td>動画（1080p まで）</td><td>ファイルが大きくなりすぎるのを避けたいとき</td></tr>
+          <tr><td>動画（720p まで・軽い）</td><td>容量を節約したいとき</td></tr>
+          <tr><td>音声のみ（mp3）</td><td>音楽・ラジオ・文字起こし用</td></tr>
+          <tr><td>音声のみ（wav・無圧縮）</td><td>音質を落としたくないとき</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      「最高画質」はそのサイトが配信している中で一番良いものを選びます。
+      画質の上限はサイト側の都合で決まるため、サービスによっては 1080p や 720p が上限のこともあります。
+    </p>
+  </section>
+
+  <section>
+    <h2>動作環境</h2>
+    <div class="table-scroll">
+      <table>
+        <tbody>
+          <tr><th>OS</th><td>Windows 10 / 11（64bit）</td></tr>
+          <tr><th>事前の準備</th><td>不要（Python のインストールも要りません）</td></tr>
+          <tr><th>空き容量</th><td>約 300 MB（初回に取得する部品を置くため）</td></tr>
+          <tr><th>ネット接続</th><td>必要</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>初回だけ取得される部品について</h2>
+    <p>
+      実際のダウンロード処理は <a href="https://github.com/yt-dlp/yt-dlp" rel="noopener">yt-dlp</a> と
+      <a href="https://ffmpeg.org/" rel="noopener">FFmpeg</a> という定評あるソフトが行います。
+      この 2 つは配布ファイルに<strong>同梱しておらず</strong>、
+      初回起動時に公式の配布元から自動で取得します（約 90 MB、数分）。
+    </p>
+    <p>同梱していないのには理由があります。</p>
+    <ul>
+      <li>yt-dlp は動画サイト側の変更に合わせて頻繁に更新されます。同梱すると、配り直すまで古いままになってしまいます。</li>
+      <li>FFmpeg は GPL というライセンスのため、同梱して配ると配布側にソースコードの提供義務が生じます。利用者のパソコンが公式配布元から直接取得する形なら、こちらは何も再配布しません。</li>
+    </ul>
+    <p class="small muted">
+      置き場所は <code>%LOCALAPPDATA%\johukku\bin</code> です。
+      <a href="/subtitle/">Whisper 字幕作成ツール</a>など他のツールとも共有するため、2 本目からは取得を省けます。
+      不要になったらフォルダごと削除してください。
+    </p>
+  </section>
+
+  <div class="dl">
+    <a class="main" href="https://github.com/johukku/media-downloader/releases/latest/download/MediaDownloader-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+    <p class="note">うまく動かないときは <a href="/downloader/faq/">FAQ・困ったとき</a> をご覧ください。</p>
+  </div>
+
+  <section>
+    <h2>使用しているオープンソースソフトウェア</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>名称</th><th>用途</th><th>ライセンス</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://github.com/yt-dlp/yt-dlp" rel="noopener">yt-dlp</a></td><td>動画・音声の取得</td><td>Unlicense</td></tr>
+          <tr><td><a href="https://ffmpeg.org/" rel="noopener">FFmpeg</a></td><td>映像と音声の結合、mp3 / wav への変換</td><td>GPL v3</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      いずれも配布ファイルには含めておらず、利用者のパソコンが公式の配布元から取得します。
+      本ツール自体は MIT License です。
+    </p>
+  </section>
+
+  <section>
+    <h2>更新履歴</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>バージョン</th><th>日付</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>v1.0</td>
+            <td>2026-09-09</td>
+            <td>初回公開。動画・音声の保存、字幕の選択保存、まとめて処理、
+                部品の自動取得と更新に対応。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      過去のバージョンは
+      <a href="https://github.com/johukku/media-downloader/releases" rel="noopener">GitHub の Releases</a>
+      から取得できます。ソースコードは
+      <a href="https://github.com/johukku/media-downloader" rel="noopener">github.com/johukku/media-downloader</a> で公開しています。
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+</body>
+</html>
