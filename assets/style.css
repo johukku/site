@@ -410,3 +410,31 @@ section { margin: 0 0 26px; }
 .admin-actions button.primary { border-color: #0033cc; color: #0033cc; font-weight: bold; }
 .admin-actions button.danger { border-color: #cc0000; color: #cc0000; }
 .admin-actions button:disabled { color: #aaaaaa; border-color: #dddddd; cursor: default; }
+
+/* ---------------------------------------------------- 焼き込みの見本 */
+
+.sample-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin: 0 0 14px;
+}
+.sample-grid figure,
+.sample-vertical figure { margin: 0; }
+.sample-grid img,
+.sample-vertical img { width: 100%; height: auto; }
+.sample-grid figcaption,
+.sample-vertical figcaption { line-height: 1.5; }
+
+.sample-vertical {
+  display: grid;
+  grid-template-columns: minmax(120px, 200px) 1fr;
+  gap: 14px;
+  align-items: start;
+  margin: 0 0 14px;
+}
+
+@media (max-width: 520px) {
+  .sample-vertical { grid-template-columns: 1fr; }
+  .sample-vertical figure { max-width: 220px; margin: 0 auto; }
+}

@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>使い方｜Whisper 字幕作成ツール</title>
-<meta name="description" content="Whisper 字幕作成ツールの導入手順と画面の使い方。インストール、モデルの選び方、字幕の自動改行、句読点の補完、SRT / VTT / JSON の使い分けまで解説します。">
+<meta name="description" content="Whisper 字幕作成ツールの導入手順と画面の使い方。インストール、動画への字幕の焼き込み、モデルの選び方、字幕の自動改行、句読点の補完、SRT / VTT / ASS / JSON の使い分けまで解説します。">
+<link rel="canonical" href="https://johukku.pages.dev/subtitle/usage/">
 <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -38,11 +39,12 @@
   <ul class="toc">
     <li><a href="#install">1. インストール</a></li>
     <li><a href="#screen">2. 画面の使い方</a></li>
-    <li><a href="#model">3. モデルの選び方</a></li>
-    <li><a href="#wrap">4. 字幕の自動改行を理解する</a></li>
-    <li><a href="#punct">5. 句読点の補完</a></li>
-    <li><a href="#format">6. SRT / VTT / JSON の使い分け</a></li>
-    <li><a href="#uninstall">7. アンインストール</a></li>
+    <li><a href="#burn">3. 動画に字幕を焼き込む</a></li>
+    <li><a href="#model">4. モデルの選び方</a></li>
+    <li><a href="#wrap">5. 字幕の自動改行を理解する</a></li>
+    <li><a href="#punct">6. 句読点の補完</a></li>
+    <li><a href="#format">7. SRT / VTT / ASS / JSON の使い分け</a></li>
+    <li><a href="#uninstall">8. アンインストール</a></li>
   </ul>
 
   <section id="install">
@@ -88,6 +90,13 @@
     <p>
       <code>起動.bat</code> をダブルクリックします。2 回目以降はこれだけです。
     </p>
+
+    <h3>v1.0 から更新するとき</h3>
+    <p>
+      新しい ZIP を<strong>別のフォルダに展開</strong>して、もう一度 <code>セットアップ.bat</code> を実行してください。
+      AI モデルと設定はフォルダの外の共通の場所に保存されているので、再ダウンロードは発生せず、設定もそのまま引き継がれます。
+      新しいほうで動作を確認できたら、古いフォルダは削除して構いません。
+    </p>
   </section>
 
   <div class="ad-slot">広告</div>
@@ -96,8 +105,8 @@
     <h2>2. 画面の使い方</h2>
 
     <figure>
-      <img src="/assets/screenshot.png" width="860" height="820"
-           alt="ツールの画面。1.入力ファイル 2.出力設定 3.認識設定 4.進捗 の4つの区画に分かれている。">
+      <img src="/assets/screenshot.png" width="876" height="919"
+           alt="ツールの画面。1.入力ファイル 2.出力設定 3.動画への焼き込み 4.認識設定 5.進捗 の5つの区画に分かれている。">
       <figcaption>上から順に設定していきます</figcaption>
     </figure>
 
@@ -116,16 +125,26 @@
     </p>
 <pre><code>会議録画.mp4  →  会議録画.ja.srt</code></pre>
     <p>同名のファイルが既にある場合は <code>会議録画.ja_2.srt</code> のように連番が付き、上書きされません。</p>
+    <p class="small muted">
+      出力形式は SRT / VTT / ASS / JSON の 4 種類です。違いは<a href="#format">使い分け</a>を参照してください。
+    </p>
 
-    <h3>3. 認識設定</h3>
+    <h3>3. 動画への焼き込み</h3>
+    <p>
+      「字幕を動画に焼き込む」にチェックを入れると、字幕ファイルとは別に、
+      字幕を映像に描き込んだ動画を書き出します。詳しくは<a href="#burn">動画に字幕を焼き込む</a>を参照してください。
+    </p>
+
+    <h3>4. 認識設定</h3>
     <p>
       通常は初期値のままで問題ありません。言語は「自動検出」のままで日本語を正しく判定します。
       日本語だと分かっている場合に「日本語」を選ぶと、まれに起きる言語の誤検出を防げます。
     </p>
 
-    <h3>4. 進捗</h3>
+    <h3>5. 進捗</h3>
     <p>
       全体と現在のファイルの進み具合が表示され、右側に「残り 約 ○分○秒」の目安が出ます。
+      焼き込みを有効にした場合は、文字起こしとは別に焼き込みの進み具合も表示されます。
       これは音声の総再生時間と実際の処理速度から計算しているため、
       処理が進むほど精度が上がります。
     </p>
@@ -137,8 +156,86 @@
     </div>
   </section>
 
+  <section id="burn">
+    <h2>3. 動画に字幕を焼き込む</h2>
+    <p>
+      字幕ファイル（SRT など）は、動画とは別のファイルとして扱われます。
+      動画だけを SNS に上げたり、字幕ファイルに対応していない機器で再生したりすると、字幕は表示されません。
+      <strong>焼き込み</strong>は、字幕を映像そのものに描き込んだ動画を作る機能で、どこで再生しても字幕が消えません。
+    </p>
+
+    <h3>手順</h3>
+    <ol>
+      <li>入力ファイルに<strong>動画</strong>を追加する</li>
+      <li>「3. 動画への焼き込み」の「<strong>字幕を動画に焼き込む</strong>」にチェックを入れる</li>
+      <li>スタイルを選ぶ（「見本を見る」で見え方を確認できます）</li>
+      <li>「変換開始」を押す</li>
+    </ol>
+    <p>
+      ファイルごとに文字起こしが終わると、続けて焼き込みが行われます。
+      元の動画はそのまま残り、字幕を描き込んだ動画が別の名前で作られます。
+    </p>
+<pre><code>会議録画.mp4  →  会議録画.ja.srt（字幕ファイル）
+              →  会議録画.ja.mp4（字幕を焼き込んだ動画）</code></pre>
+    <p class="small muted">
+      元が MKV の動画は MKV のまま、それ以外は MP4 で書き出します。
+      途中で中止した場合、書きかけの動画は残しません。
+    </p>
+
+    <h3>スタイルの選び方</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>スタイル</th><th>向いている動画</th></tr></thead>
+        <tbody>
+          <tr><td><strong>標準（白文字に黒フチ）</strong></td><td>ふつうの横長の動画。迷ったらこれ</td></tr>
+          <tr><td><strong>大きめ（太字・フチ太め）</strong></td><td>スマホで見られる前提の動画。読みやすさを優先したいとき</td></tr>
+          <tr><td><strong>帯つき（半透明の黒帯）</strong></td><td>空や白い壁など、背景が明るい映像。画面の情報量が多い映像</td></tr>
+          <tr><td><strong>縦動画向け（少し上・太字）</strong></td><td>縦長のショート動画。画面下の操作ボタンに隠れない位置に出します</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>それぞれの見え方は<a href="/subtitle/#burn">概要ページの見本</a>で確認できます。</p>
+
+    <h3>「見本を見る」</h3>
+    <p>
+      追加した動画の 1 コマに、選んだスタイルで見本の字幕を描いて表示します。
+      見本の画面でスタイルを切り替えながら比べ、「このスタイルを使う」で決定できます。
+      実際の焼き込みと同じ大きさで描いてから縮小して表示しているので、見本の見え方がそのまま仕上がりになります。
+    </p>
+
+    <h3>文字の大きさ</h3>
+    <p>
+      文字の大きさは、動画の解像度と「1 行の文字数」から自動で決まります。
+      一番長い行が画面の横幅に収まる大きさを上限にしているので、縦長の動画でも字幕がはみ出しません。
+    </p>
+    <div class="note-box">
+      <strong>もっと大きくしたいとき</strong>
+      出力設定の「1行 ○ 文字」を減らしてください。1 行の文字数が少ないほど、1 文字あたりを大きくできます。
+      縦長の動画なら 12 文字前後が目安です。
+    </div>
+
+    <h3>初回だけ FFmpeg を取得します</h3>
+    <p>
+      焼き込みには、字幕を描く機能を持った FFmpeg というソフトを使います。
+      初めて焼き込みを実行するときに確認画面が出るので、OK を押すと自動で取得します（約 73 MB、展開後 約 180 MB）。
+    </p>
+    <p class="small muted">
+      取得先は GitHub 上の公式ビルドで、置き場所は <code>%LOCALAPPDATA%\johukku\bin</code> です。
+      <a href="/downloader/">メディアダウンローダー</a>と共通の場所なので、そちらを使っている場合は取得は発生しません。
+      FFmpeg は GPL で提供されているため本ツールには同梱せず、利用者のパソコンが公式ビルドを直接取得する形にしています。
+    </p>
+
+    <h3>処理時間</h3>
+    <p>
+      焼き込みは映像を作り直すので、文字起こしとは別に時間がかかります。
+      NVIDIA / Intel / AMD のグラフィック機能が使える場合は自動で使い、
+      使えない場合は CPU で処理します（10 分の動画で数分程度）。
+      どちらで処理しているかは、ログの「エンコーダ:」の行で確認できます。
+    </p>
+  </section>
+
   <section id="model">
-    <h2>3. モデルの選び方</h2>
+    <h2>4. モデルの選び方</h2>
     <p>
       モデルは「精度」と「速度・必要メモリ」のトレードオフです。
       日本語の実用では <strong>medium</strong> が標準的な選択です。
@@ -169,7 +266,7 @@
   <div class="ad-slot">広告</div>
 
   <section id="wrap">
-    <h2>4. 字幕の自動改行を理解する</h2>
+    <h2>5. 字幕の自動改行を理解する</h2>
     <p>
       これは本ツールで最も効果が大きい機能です。
       音声認識の生の出力は「1 つの発話 = 1 つの字幕」になるため、
@@ -208,7 +305,7 @@
   </section>
 
   <section id="punct">
-    <h2>5. 句読点の補完</h2>
+    <h2>6. 句読点の補完</h2>
     <p>
       Whisper は日本語で句読点を省略することがあり、代わりに半角スペースが入ります。
       これをオンにすると、句読点付きの文体をヒントとして与えることで、
@@ -230,7 +327,7 @@
   </section>
 
   <section id="format">
-    <h2>6. SRT / VTT / JSON の使い分け</h2>
+    <h2>7. SRT / VTT / ASS / JSON の使い分け</h2>
     <div class="table-scroll">
       <table>
         <thead>
@@ -250,6 +347,15 @@
             <td>
               Web 用の字幕形式（WebVTT）。HTML の <code>&lt;track&gt;</code> タグで
               動画に字幕を付ける場合に使います。
+            </td>
+          </tr>
+          <tr>
+            <td><strong>ASS</strong></td>
+            <td>
+              文字の大きさ・フチ・色・位置といった「見た目」の情報まで持てる字幕形式。
+              「3. 動画への焼き込み」で選んだスタイルで書き出すので、焼き込みと同じ見た目になります。
+              字幕編集ソフト（Aegisub など）で手直しして使い回したいときに便利です。
+              大きさは動画の解像度に合わせて決まります（音声ファイルの場合はフル HD 相当）。
             </td>
           </tr>
           <tr>
@@ -279,16 +385,21 @@
   </section>
 
   <section id="uninstall">
-    <h2>7. アンインストール</h2>
+    <h2>8. アンインストール</h2>
     <p>展開したフォルダを削除するだけです。レジストリなどは一切変更していません。</p>
     <p>AI モデルと設定ファイルは下記に保存されるので、完全に消したい場合はこちらも削除してください。</p>
 <pre><code>C:\Users\（ユーザー名）\.cache\whisper
 C:\Users\（ユーザー名）\AppData\Local\WhisperSubtitleTool</code></pre>
+    <p>
+      焼き込みを使った場合は、FFmpeg が下記に置かれています。
+      <a href="/downloader/">メディアダウンローダー</a>と共有しているので、そちらを使い続ける場合は残しておいてください。
+    </p>
+<pre><code>C:\Users\（ユーザー名）\AppData\Local\johukku\bin</code></pre>
   </section>
 
   <hr>
   <p class="center">
-    <a class="btn" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.0.zip" rel="noopener">ダウンロード（無料）</a>
+    <a class="btn" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.1.zip" rel="noopener">ダウンロード（無料）</a>
   </p>
 </main>
 

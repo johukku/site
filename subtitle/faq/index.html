@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FAQ・困ったとき｜Whisper 字幕作成ツール</title>
-<meta name="description" content="Whisper 字幕作成ツールのよくある質問とトラブル対処。Python が見つからない、GPU が使われない、認識精度が悪い、モデルのダウンロードに失敗する、といった症状への対応をまとめました。">
+<meta name="description" content="Whisper 字幕作成ツールのよくある質問とトラブル対処。Python が見つからない、GPU が使われない、認識精度が悪い、焼き込み用の FFmpeg が取得できない、字幕の文字が小さい、といった症状への対応をまとめました。">
+<link rel="canonical" href="https://johukku.pages.dev/subtitle/faq/">
 <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -40,6 +41,7 @@
     原因が分からないときは <code>環境チェック.bat</code> を実行してください。
     「Run the full test?」と聞かれたら Enter を押すと、
     テスト用の音声を実際に 1 回文字起こしして、どこで失敗しているかを特定します（1 分ほど）。
+    焼き込み機能の準備状態（FFmpeg と字幕フォント）もあわせて表示されます。
   </div>
 
   <section>
@@ -224,6 +226,125 @@
     </details>
   </section>
 
+  <section id="burn">
+    <h2>動画への焼き込みについて</h2>
+
+    <details class="faq-item">
+      <summary>焼き込み用の FFmpeg の取得に失敗する</summary>
+      <div class="faq-body">
+        <p>
+          焼き込みには、字幕を描く機能（libass）を含んだ FFmpeg が必要です。
+          初めて焼き込みを実行するときに、確認のうえ約 73 MB を自動で取得します。
+          失敗するのはほとんどが通信の問題なので、もう一度実行してみてください。
+        </p>
+        <p>それでも失敗する場合、次の可能性があります。</p>
+        <ul>
+          <li>会社や学校のネットワークで、GitHub への接続が制限されている</li>
+          <li>空き容量が足りない（展開後に約 180 MB を使います）</li>
+          <li>ウイルス対策ソフトがダウンロードを止めている</li>
+        </ul>
+        <p>
+          取得先は GitHub 上の
+          <a href="https://github.com/yt-dlp/FFmpeg-Builds" rel="noopener">yt-dlp/FFmpeg-Builds</a>（公式ビルド）、
+          置き場所は <code>%LOCALAPPDATA%\johukku\bin</code> です。
+          <a href="/downloader/">メディアダウンローダー</a>を使っている場合は、同じ場所にすでにあるので取得は発生しません。
+        </p>
+        <p class="small muted">
+          いまの状態は <code>環境チェック.bat</code> を実行したときの「焼き込み」の行で確認できます。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>字幕の文字が小さい／もっと大きくしたい</summary>
+      <div class="faq-body">
+        <p>
+          文字の大きさは、動画の解像度と「1 行の文字数」から自動で決まります。
+          一番長い行が画面の横幅に収まるように決めているので、1 行の文字数が多いほど小さくなります。
+        </p>
+        <p>大きくしたいときは、次のどちらかを試してください。</p>
+        <ol>
+          <li>出力設定の「1行 ○ 文字」を減らす（例：20 → 15）</li>
+          <li>スタイルを「大きめ（太字・フチ太め）」にする</li>
+        </ol>
+        <p>「見本を見る」で、実際の動画の 1 コマに描いた見え方を確かめながら調整できます。</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>縦長の動画だと字幕が小さい・下のボタンに隠れる</summary>
+      <div class="faq-body">
+        <p>
+          スタイルを「縦動画向け（少し上・太字）」にしてください。
+          ショート動画アプリの画面下にある操作ボタンに重ならないよう、字幕を少し上に表示します。
+        </p>
+        <p>
+          縦長の動画は横幅が狭いので、1 行 20 文字のままだと文字が小さくなります。
+          1 行 12 文字前後に減らすと、読みやすい大きさになります。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>背景が明るくて字幕が読みにくい</summary>
+      <div class="faq-body">
+        <p>
+          スタイルを「帯つき（半透明の黒帯）」にしてください。
+          字幕の後ろに半透明の黒い帯を敷くので、白い壁や空の上でも読めます。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>焼き込みに時間がかかる</summary>
+      <div class="faq-body">
+        <p>
+          焼き込みは映像を作り直すため、文字起こしとは別に時間がかかります。
+          進捗も文字起こしとは別に表示されます。
+        </p>
+        <p>
+          NVIDIA / Intel / AMD のグラフィック機能が使える場合は自動で使い、
+          使えない場合は CPU で処理します。CPU でも 10 分の動画で数分程度が目安です。
+        </p>
+        <p>
+          どちらで処理しているかは、ログの「エンコーダ:」の行で分かります。
+          <code>h264_nvenc</code>・<code>h264_qsv</code>・<code>h264_amf</code> なら GPU、
+          <code>libx264</code> なら CPU です。
+          ドライバが古いと GPU が使えないことがあるので、遅いと感じたらドライバを更新してみてください。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>元の動画は上書きされますか？</summary>
+      <div class="faq-body">
+        <p>
+          <strong>上書きされません。</strong>
+          字幕を描き込んだ動画は、別の名前で新しく書き出されます。
+        </p>
+<pre><code>会議録画.mp4  →  会議録画.ja.mp4</code></pre>
+        <p>
+          同じ名前のファイルがすでにある場合は <code>会議録画.ja_2.mp4</code> のように連番が付きます。
+          元が MKV の動画は MKV のまま、それ以外は MP4 で書き出します。
+          途中で中止した場合、書きかけの動画は残しません。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>「見本を見る」で「先に動画を追加してください」と出る</summary>
+      <div class="faq-body">
+        <p>
+          見本は、追加した動画の 1 コマに字幕を描いて表示します。
+          先に入力ファイルとして動画を追加してから押してください。
+        </p>
+        <p>
+          焼き込みは映像に字幕を描く機能なので、音声だけのファイル（mp3 など）には使えません。
+        </p>
+      </div>
+    </details>
+  </section>
+
   <div class="ad-slot">広告</div>
 
   <section>
@@ -236,11 +357,13 @@
           <strong>送信されません。</strong>
           文字起こしはすべてあなたのパソコンの中で処理されます。
         </p>
-        <p>
-          インターネットに接続するのは、セットアップ時に必要な部品を取得するときと、
-          AI モデルを初回ダウンロードするときだけです。
-          それ以降はオフラインでも動作します。
-        </p>
+        <p>インターネットに接続するのは、次のときだけです。</p>
+        <ul>
+          <li>セットアップ時に、必要な部品を取得するとき</li>
+          <li>AI モデルを初めてダウンロードするとき</li>
+          <li>動画への焼き込みを初めて使うときに、FFmpeg を取得するとき</li>
+        </ul>
+        <p>それ以降はオフラインでも動作します。</p>
       </div>
     </details>
 
@@ -285,6 +408,10 @@
           ただし音声認識の結果は完全ではありません。
           納品物や公開用の字幕として使う場合は、必ず内容を確認・修正してください。
           本ツールの利用によって生じた損害について、作者は責任を負いません。
+        </p>
+        <p>
+          動画への焼き込みに使う FFmpeg（GPL）は本ツールに同梱しておらず、
+          利用者のパソコンが公式ビルドを直接取得する形にしています。
         </p>
       </div>
     </details>

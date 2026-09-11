@@ -61,7 +61,7 @@
       <strong>2 回目以降はこの確認は出ません</strong>
       取得した部品は <code>%LOCALAPPDATA%\johukku\bin</code> に置かれ、
       次回からはそのまま起動します。
-      <a href="/subtitle/">Whisper 字幕作成ツール</a>とも共有するので、
+      このうち FFmpeg は<a href="/subtitle/">Whisper 字幕作成ツール</a>の焼き込み機能（v1.1 以降）とも共有するので、
       どちらか一方で取得済みなら、もう一方では取得を省けます。
     </div>
   </section>
@@ -197,14 +197,23 @@ https://example.com/watch/cccc</code></pre>
   <section id="combo">
     <h2>7. 字幕作成ツールと組み合わせる</h2>
     <p>字幕が用意されていない動画でも、この 2 つを組み合わせれば字幕を作れます。</p>
+
+    <h3>字幕ファイルが欲しいとき</h3>
     <ol>
-      <li>このツールで「<strong>音声のみ（mp3）</strong>」を選んで保存する</li>
+      <li>このツールで「<strong>音声のみ（mp3）</strong>」を選んで保存する（動画より軽く済みます）</li>
       <li><a href="/subtitle/">Whisper 字幕作成ツール</a>にその mp3 を読み込ませる</li>
-      <li>SRT ファイルが出来上がる</li>
+      <li>SRT などの字幕ファイルが出来上がる</li>
+    </ol>
+
+    <h3>字幕入りの動画が欲しいとき</h3>
+    <ol>
+      <li>このツールで「<strong>動画</strong>」の形式を選んで保存する</li>
+      <li><a href="/subtitle/">Whisper 字幕作成ツール</a>（v1.1 以降）にその動画を読み込ませ、「字幕を動画に焼き込む」にチェックを入れる</li>
+      <li>字幕を描き込んだ動画が、元の動画とは別の名前で出来上がる</li>
     </ol>
     <p class="small muted">
-      どちらのツールも FFmpeg を同じ場所で共有するので、
-      2 本目のセットアップでは部品の取得を省けます。
+      焼き込みに使う FFmpeg はこのツールと同じ場所に置かれるので、
+      こちらで取得済みなら追加のダウンロードは発生しません。
     </p>
   </section>
 

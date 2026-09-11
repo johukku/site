@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Whisper 字幕作成ツール｜動画・音声から自動で字幕(SRT/VTT/JSON)を作る Windows 用フリーソフト</title>
-<meta name="description" content="動画や音声を読み込むだけで、AI が自動で字幕ファイル（SRT / VTT / JSON）を作る Windows 用の無料ソフトです。音声は一切アップロードせず、すべて手元のパソコンで処理します。NVIDIA GPU があれば 10 分の動画を約 1 分で処理できます。">
+<title>Whisper 字幕作成ツール｜動画・音声から字幕を自動で作り、動画に焼き込める Windows 用フリーソフト</title>
+<meta name="description" content="動画や音声を読み込むだけで、AI が自動で字幕ファイル（SRT / VTT / ASS / JSON）を作る Windows 用の無料ソフトです。字幕を動画に焼き込んで書き出すこともできます。音声は一切アップロードせず、すべて手元のパソコンで処理します。">
 <link rel="canonical" href="https://johukku.pages.dev/subtitle/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Whisper 字幕作成ツール">
-<meta property="og:description" content="動画・音声から自動で字幕を作る Windows 用フリーソフト。完全ローカル処理・GPU 対応。">
+<meta property="og:description" content="動画・音声から自動で字幕を作り、動画への焼き込みもできる Windows 用フリーソフト。完全ローカル処理・GPU 対応。">
 <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -38,12 +38,16 @@
 <main class="wrap">
 
   <h1>Whisper 字幕作成ツール</h1>
-  <p class="updated">v1.0　／　2026年9月公開</p>
+  <p class="updated">v1.1　／　2026年9月10日更新</p>
 
   <div class="intro">
     <p>
       MP4 や MP3 を放り込むだけで、AI（OpenAI Whisper）が話している内容を聞き取り、
-      字幕ファイル（SRT / VTT / JSON）を書き出す Windows 用のフリーソフトです。
+      字幕ファイル（SRT / VTT / ASS / JSON）を書き出す Windows 用のフリーソフトです。
+    </p>
+    <p>
+      v1.1 からは、字幕を<strong>動画そのものに焼き込んで</strong>書き出せるようになりました。
+      SNS に上げても、字幕ファイルに対応していない機器で再生しても、字幕が消えません。
     </p>
     <p>
       処理はすべて自分のパソコンの中で完結します。
@@ -56,15 +60,15 @@
   </div>
 
   <div class="dl">
-    <a class="main" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.0.zip" rel="noopener">ダウンロード（無料）</a>
+    <a class="main" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.1.zip" rel="noopener">ダウンロード（無料）</a>
     <p class="note">
-      配布ファイルは約 31 KB です。必要な部品はセットアップ時に自動で取得されます。
+      配布ファイルは約 47 KB です。必要な部品はセットアップ時に自動で取得されます。
     </p>
   </div>
 
   <figure>
-    <img src="/assets/screenshot.png" width="860" height="820"
-         alt="Whisper 字幕作成ツールの画面。入力ファイル一覧、出力形式(SRT/VTT/JSON)の選択、認識設定、進捗表示が並んでいる。">
+    <img src="/assets/screenshot.png" width="876" height="919"
+         alt="Whisper 字幕作成ツールの画面。上から入力ファイル、出力設定（SRT / VTT / ASS / JSON）、動画への焼き込み、認識設定、進捗の順に並んでいる。">
     <figcaption>実際の画面。上から順に設定していくだけです。</figcaption>
   </figure>
 
@@ -72,9 +76,10 @@
     <h2>できること</h2>
     <ul>
       <li><strong>音声を外に出さない</strong> ― 文字起こしはすべて手元のパソコンで処理します。</li>
+      <li><strong>動画に字幕を焼き込む</strong> ― 字幕を描き込んだ動画を書き出せます。スタイルは 4 種類から選べます。</li>
       <li><strong>GPU で高速処理</strong> ― NVIDIA のグラフィックボードがあれば自動で使います。無い場合も CPU で動きます。</li>
       <li><strong>まとめて処理</strong> ― 複数ファイルを登録して順番に処理。フォルダごと追加、ドラッグ＆ドロップも可能。</li>
-      <li><strong>3 つの形式で出力</strong> ― SRT / VTT / JSON を同時に書き出せます。ファイル名は自動生成。</li>
+      <li><strong>4 つの形式で出力</strong> ― SRT / VTT / ASS / JSON を同時に書き出せます。ファイル名は自動生成。</li>
       <li><strong>字幕として読める形に整形</strong> ― 指定した文字数で自動改行し、禁則処理も行います。</li>
       <li><strong>句読点を補う</strong> ― 日本語で句読点が省かれやすい問題に対応します。</li>
       <li><strong>途中で中止できる</strong> ― 長いファイルでも、間違えたと思ったら止められます。</li>
@@ -82,6 +87,78 @@
   </section>
 
   <div class="ad-slot">広告</div>
+
+  <section id="burn">
+    <h2>動画への焼き込み</h2>
+    <p>
+      字幕ファイルは動画とは別のファイルなので、動画だけを SNS に上げたり、
+      字幕ファイルに対応していない機器で再生したりすると表示されません。
+      焼き込みは字幕を映像に直接描き込むので、どこで再生しても字幕が出ます。
+    </p>
+    <p>元の動画はそのまま残り、字幕を描き込んだ動画が別の名前で作られます。</p>
+<pre><code>会議録画.mp4  →  会議録画.ja.mp4</code></pre>
+
+    <h3>4 つのスタイル</h3>
+    <p>
+      下の見本は、本ツールの焼き込み機能そのもので描いたものです。
+      背景には、明るい屋外を模した画像を使っています。
+    </p>
+    <div class="sample-grid">
+      <figure>
+        <img src="/assets/burn-standard.jpg" width="640" height="360" loading="lazy"
+             alt="「標準」スタイルの見本。明るい背景の下部に、白い文字に黒いフチの字幕が 2 行表示されている。">
+        <figcaption><strong>標準（白文字に黒フチ）</strong><br>ふつうの横長の動画に。迷ったらこれ</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/burn-large.jpg" width="640" height="360" loading="lazy"
+             alt="「大きめ」スタイルの見本。標準より大きな太字の白文字に、太い黒フチの字幕が表示されている。">
+        <figcaption><strong>大きめ（太字・フチ太め）</strong><br>スマホで見る前提の動画に</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/burn-band.jpg" width="640" height="360" loading="lazy"
+             alt="「帯つき」スタイルの見本。白い文字の後ろに半透明の黒い帯が敷かれている。">
+        <figcaption><strong>帯つき（半透明の黒帯）</strong><br>背景が明るい映像でも読める</figcaption>
+      </figure>
+    </div>
+
+    <div class="sample-vertical">
+      <figure>
+        <img src="/assets/burn-vertical.jpg" width="360" height="640" loading="lazy"
+             alt="「縦動画向け」スタイルの見本。縦長の画面の、下端から少し上の位置に、太字の白文字の字幕が 2 行表示されている。">
+        <figcaption><strong>縦動画向け</strong><br>（少し上・太字）</figcaption>
+      </figure>
+      <div>
+        <p>
+          縦長のショート動画向けです。画面下にある操作ボタンに隠れないよう、字幕を少し上に出します。
+        </p>
+        <p>
+          縦長の動画は横幅が狭いので、1 行の文字数が多いと文字が小さくなります。
+          見本は 1 行 12 文字に収まる字幕で描いています。
+        </p>
+      </div>
+    </div>
+
+    <h3>「見本を見る」で仕上がりを確認</h3>
+    <p>
+      「見本を見る」を押すと、追加した動画の 1 コマに字幕を描いて表示します。
+      スタイルを切り替えながら比べられ、実際の焼き上がりと同じ見え方で確認できます。
+    </p>
+
+    <h3>文字の大きさは自動</h3>
+    <p>
+      文字の大きさは、動画の解像度と 1 行の文字数から自動で決まります。
+      一番長い行が画面の横幅に収まる大きさを上限にしているので、横長でも縦長でも字幕がはみ出しません。
+      もっと大きくしたいときは、出力設定の「1行 ○ 文字」を減らしてください。
+    </p>
+
+    <div class="note-box">
+      <strong>初回だけ FFmpeg を取得します</strong>
+      焼き込みには FFmpeg というソフトを使います。初めて焼き込みを実行するときに、確認のうえ自動で取得します（約 73 MB）。
+      <a href="/downloader/">メディアダウンローダー</a>と共通の場所に置くので、そちらを使っている場合は取得は発生しません。
+    </div>
+
+    <p><a href="/subtitle/usage/#burn">→ 焼き込みの詳しい手順</a></p>
+  </section>
 
   <section>
     <h2>出力される字幕の例</h2>
@@ -110,7 +187,7 @@
 
   <section>
     <h2>処理時間のめやす</h2>
-    <p>10 分の動画を標準設定（medium モデル）で処理した場合の目安です。</p>
+    <p>10 分の動画を標準設定（medium モデル）で文字起こしした場合の目安です。</p>
     <div class="table-scroll">
       <table>
         <thead>
@@ -133,6 +210,10 @@
     <p class="small muted">
       初回のみ、AI モデル（約 1.5 GB）のダウンロード時間が加わります。2 回目以降は不要です。
     </p>
+    <p class="small muted">
+      焼き込みを使う場合は、これとは別に動画の書き出し時間がかかります。
+      NVIDIA / Intel / AMD のグラフィック機能が使えれば自動で使い、CPU の場合は 10 分の動画で数分程度です。
+    </p>
   </section>
 
   <section>
@@ -142,15 +223,16 @@
         <tbody>
           <tr><th>OS</th><td>Windows 10 / 11（64bit）</td></tr>
           <tr><th>Python</th><td>3.10 〜 3.12<br><span class="small muted">未導入の場合は <a href="https://www.python.org/downloads/windows/" rel="noopener">公式サイト</a>から。「Install Now」を押すだけで、管理者権限は不要です</span></td></tr>
-          <tr><th>空き容量</th><td>GPU あり：約 6 GB ／ GPU なし：約 3 GB</td></tr>
+          <tr><th>空き容量</th><td>GPU あり：約 6 GB ／ GPU なし：約 3 GB<br><span class="small muted">焼き込みを使う場合は、FFmpeg のぶん約 180 MB が加わります</span></td></tr>
           <tr><th>推奨 GPU</th><td>NVIDIA 製・VRAM 5GB 以上（GeForce RTX 3060 / 4060 以上）</td></tr>
-          <tr><th>ネット接続</th><td>初回セットアップ時のみ必要</td></tr>
+          <tr><th>ネット接続</th><td>初回セットアップ時と、焼き込みを初めて使うとき（FFmpeg の取得）</td></tr>
         </tbody>
       </table>
     </div>
     <p class="small muted">
       対応形式：MP4 / MKV / MOV / AVI / WebM / WMV / FLV / TS / M4V / MPG ／
       WAV / MP3 / M4A / FLAC / OGG / OPUS / AAC / WMA / AIFF
+      （焼き込みは動画ファイルのみ）
     </p>
   </section>
 
@@ -165,11 +247,15 @@
       <li><strong>「起動.bat」をダブルクリック</strong><br>
         2 回目以降はこれだけです。</li>
     </ol>
+    <p class="small muted">
+      v1.0 から更新する場合は、新しい ZIP を別のフォルダに展開して <code>セットアップ.bat</code> を実行してください。
+      AI モデルと設定はフォルダの外の共通の場所にあるので、そのまま引き継がれます。
+    </p>
     <p><a href="/subtitle/usage/">→ 詳しい手順と画面の説明</a></p>
   </section>
 
   <div class="dl">
-    <a class="main" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.0.zip" rel="noopener">ダウンロード（無料）</a>
+    <a class="main" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.1.zip" rel="noopener">ダウンロード（無料）</a>
     <p class="note">うまく動かないときは <a href="/subtitle/faq/">FAQ・困ったとき</a> をご覧ください。</p>
   </div>
 
@@ -182,6 +268,8 @@
           <tr><td><a href="https://github.com/openai/whisper" rel="noopener">OpenAI Whisper</a></td><td>音声認識</td><td>MIT</td></tr>
           <tr><td><a href="https://pytorch.org/" rel="noopener">PyTorch</a></td><td>機械学習の実行基盤（GPU 処理）</td><td>BSD-3-Clause</td></tr>
           <tr><td><a href="https://github.com/PyAV-Org/PyAV" rel="noopener">PyAV</a> / FFmpeg</td><td>動画・音声の読み込み</td><td>BSD-3-Clause / LGPL</td></tr>
+          <tr><td><a href="https://github.com/yt-dlp/FFmpeg-Builds" rel="noopener">FFmpeg</a>（yt-dlp による公式ビルド）</td><td>動画への字幕の焼き込み。初回に自動取得し、同梱はしていません</td><td>GPL v3</td></tr>
+          <tr><td><a href="https://github.com/libass/libass" rel="noopener">libass</a></td><td>字幕の描画（上記の FFmpeg に含まれます）</td><td>ISC</td></tr>
           <tr><td><a href="https://github.com/pmgagne/tkinterdnd2" rel="noopener">tkinterdnd2</a></td><td>ドラッグ＆ドロップ</td><td>MIT</td></tr>
         </tbody>
       </table>
@@ -194,6 +282,12 @@
       <table>
         <thead><tr><th>バージョン</th><th>日付</th><th>内容</th></tr></thead>
         <tbody>
+          <tr>
+            <td>v1.1</td>
+            <td>2026-09-10</td>
+            <td>字幕を動画に焼き込む機能を追加（スタイル 4 種・見本の表示・GPU エンコード対応）。
+                ASS 形式の出力に対応。</td>
+          </tr>
           <tr>
             <td>v1.0</td>
             <td>2026-09-09</td>
@@ -217,11 +311,12 @@
       内部で利用している <a href="https://github.com/openai/whisper" rel="noopener">OpenAI Whisper</a>（MIT License）、
       <a href="https://pytorch.org/" rel="noopener">PyTorch</a>（BSD-3-Clause）、
       <a href="https://github.com/PyAV-Org/PyAV" rel="noopener">PyAV / FFmpeg</a> のライセンスに従います。
+      焼き込みに使う FFmpeg（GPL）は同梱しておらず、利用者のパソコンが公式ビルドを直接取得します。
     </p>
     <div class="note-box warn">
       <strong>音声認識の結果は完全ではありません</strong>
       音質が悪い場合や複数人が同時に話している場合は精度が落ちます。
-      公開用の字幕として使う場合は、必ず内容を確認・修正してください。
+      公開用の字幕として使う場合、特に焼き込む場合は、必ず先に字幕の内容を確認・修正してください。
     </div>
   </section>
 

@@ -88,7 +88,7 @@
       <li><strong>まとめて処理</strong> ― 1 行に 1 つずつ URL を並べると順番に処理します。途中で中止もできます。</li>
       <li><strong>音声だけ抜き出せる</strong> ― mp3（軽い）と wav（無圧縮）を選べます。</li>
       <li><strong>字幕を選んで保存</strong> ― その動画に用意されている字幕を一覧表示し、選んだものだけ .srt / .vtt で保存します。</li>
-      <li><strong>字幕作成につなげられる</strong> ― 音声を抜き出して<a href="/subtitle/">Whisper 字幕作成ツール</a>に読み込ませれば、字幕が無い動画にも字幕を作れます。</li>
+      <li><strong>字幕作成につなげられる</strong> ― 音声を抜き出して<a href="/subtitle/">Whisper 字幕作成ツール</a>に読み込ませれば、字幕が無い動画にも字幕を作れます。動画のまま読み込ませれば、字幕を焼き込んだ動画も作れます。</li>
     </ul>
   </section>
 
@@ -143,7 +143,7 @@
     </ul>
     <p class="small muted">
       置き場所は <code>%LOCALAPPDATA%\johukku\bin</code> です。
-      <a href="/subtitle/">Whisper 字幕作成ツール</a>など他のツールとも共有するため、2 本目からは取得を省けます。
+      FFmpeg は<a href="/subtitle/">Whisper 字幕作成ツール</a>の焼き込み機能（v1.1 以降）と共有するため、どちらかで取得済みなら、もう一方では取得を省けます。
       不要になったらフォルダごと削除してください。
     </p>
   </section>
