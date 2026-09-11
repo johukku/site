@@ -44,7 +44,7 @@
 <main class="wrap">
 
   <h1>Whisper 字幕作成ツール</h1>
-  <p class="updated">v1.1　／　2026年9月10日更新</p>
+  <p class="updated">v1.2.1　／　2026年9月11日更新</p>
 
   <div class="intro">
     <p>
@@ -66,14 +66,14 @@
   </div>
 
   <div class="dl">
-    <a class="main" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.1.zip" rel="noopener">ダウンロード（無料）</a>
+    <a class="main" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.2.1.zip" rel="noopener">ダウンロード（無料）</a>
     <p class="note">
-      配布ファイルは約 47 KB です。必要な部品はセットアップ時に自動で取得されます。
+      配布ファイルは約 55 KB です。必要な部品はセットアップ時に自動で取得されます。
     </p>
   </div>
 
   <figure>
-    <img src="/assets/screenshot.png" width="876" height="919"
+    <img src="/assets/screenshot.png" width="862" height="912"
          alt="Whisper 字幕作成ツールの画面。上から入力ファイル、出力設定（SRT / VTT / ASS / JSON）、動画への焼き込み、認識設定、進捗の順に並んでいる。">
     <figcaption>実際の画面。上から順に設定していくだけです。</figcaption>
   </figure>
@@ -89,6 +89,7 @@
       <li><strong>字幕として読める形に整形</strong> ― 指定した文字数で自動改行し、禁則処理も行います。</li>
       <li><strong>句読点を補う</strong> ― 日本語で句読点が省かれやすい問題に対応します。</li>
       <li><strong>途中で中止できる</strong> ― 長いファイルでも、間違えたと思ったら止められます。</li>
+      <li><strong>削除も簡単</strong> ― 同梱の <code>アンインストール.bat</code> で、設定ファイルまでまとめて削除できます。</li>
     </ul>
   </section>
 
@@ -249,19 +250,20 @@
         ZIP を好きな場所（デスクトップなど）に展開します。</li>
       <li><strong>「セットアップ.bat」をダブルクリック</strong><br>
         必要な部品が自動で入ります。初回のみ 10〜40 分ほどかかります。
-        インストール先はこのフォルダの中だけで、パソコンの他の場所は変更しません。</li>
+        インストール先はこのフォルダの中の <code>.venv</code> で、システムの設定やレジストリは変更しません。</li>
       <li><strong>「起動.bat」をダブルクリック</strong><br>
         2 回目以降はこれだけです。</li>
     </ol>
     <p class="small muted">
-      v1.0 から更新する場合は、新しい ZIP を別のフォルダに展開して <code>セットアップ.bat</code> を実行してください。
+      以前の版から更新する場合は、新しい ZIP を別のフォルダに展開して <code>セットアップ.bat</code> を実行してください。
       AI モデルと設定はフォルダの外の共通の場所にあるので、そのまま引き継がれます。
+      古いフォルダは、動作を確認してから手で削除してください（<a href="/subtitle/usage/#update">詳しく</a>）。
     </p>
     <p><a href="/subtitle/usage/">→ 詳しい手順と画面の説明</a></p>
   </section>
 
   <div class="dl">
-    <a class="main" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.1.zip" rel="noopener">ダウンロード（無料）</a>
+    <a class="main" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.2.1.zip" rel="noopener">ダウンロード（無料）</a>
     <p class="note">うまく動かないときは <a href="/subtitle/faq/">FAQ・困ったとき</a> をご覧ください。</p>
   </div>
 
@@ -289,6 +291,17 @@
         <thead><tr><th>バージョン</th><th>日付</th><th>内容</th></tr></thead>
         <tbody>
           <tr>
+            <td>v1.2.1</td>
+            <td>2026-09-11</td>
+            <td>配布 ZIP にライセンス文（LICENSE）を同梱。機能の変更はありません。</td>
+          </tr>
+          <tr>
+            <td>v1.2</td>
+            <td>2026-09-11</td>
+            <td>アンインストーラ（<code>アンインストール.bat</code>）を同梱。
+                AI モデルや FFmpeg など他と共有しているものは、消すかどうかを 1 つずつ確認します。</td>
+          </tr>
+          <tr>
             <td>v1.1</td>
             <td>2026-09-10</td>
             <td>字幕を動画に焼き込む機能を追加（スタイル 4 種・見本の表示・GPU エンコード対応）。
@@ -313,7 +326,7 @@
   <section>
     <h2>ライセンスと注意</h2>
     <p>
-      本ツールは無料で利用でき、商用・業務利用も可能です。
+      本ツールは MIT License で公開しており（配布 ZIP にライセンス文を同梱）、無料で商用・業務利用も可能です。
       内部で利用している <a href="https://github.com/openai/whisper" rel="noopener">OpenAI Whisper</a>（MIT License）、
       <a href="https://pytorch.org/" rel="noopener">PyTorch</a>（BSD-3-Clause）、
       <a href="https://github.com/PyAV-Org/PyAV" rel="noopener">PyAV / FFmpeg</a> のライセンスに従います。

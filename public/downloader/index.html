@@ -44,7 +44,7 @@
 <main class="wrap">
 
   <h1>メディアダウンローダー</h1>
-  <p class="updated">v1.0　／　2026年9月公開</p>
+  <p class="updated">v1.1　／　2026年9月12日更新</p>
 
   <div class="intro">
     <p>
@@ -61,15 +61,15 @@
   </div>
 
   <div class="dl">
-    <a class="main" href="https://github.com/johukku/media-downloader/releases/latest/download/MediaDownloader-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+    <a class="main" href="https://github.com/johukku/media-downloader/releases/latest/download/MediaDownloader-v1.1-win64.zip" rel="noopener">ダウンロード（無料）</a>
     <p class="note">
       約 11 MB。初回起動時にだけ、動作に必要な部品を自動で取得します。
     </p>
   </div>
 
   <figure>
-    <img src="/assets/downloader.png" width="796" height="699"
-         alt="メディアダウンローダーの画面。URL の入力欄、保存先、形式の選択、字幕の一覧、ダウンロードボタンが縦に並んでいる。">
+    <img src="/assets/downloader.png" width="802" height="832"
+         alt="メディアダウンローダーの画面。URL の入力欄、保存先、形式の選択、字幕の一覧、ダウンロードボタンが縦に並び、右下に「yt-dlp を更新」「部品を入れ直す」のボタンがある。">
     <figcaption>上から順に埋めていくだけの画面です。</figcaption>
   </figure>
 
@@ -95,6 +95,7 @@
       <li><strong>音声だけ抜き出せる</strong> ― mp3（軽い）と wav（無圧縮）を選べます。</li>
       <li><strong>字幕を選んで保存</strong> ― その動画に用意されている字幕を一覧表示し、選んだものだけ .srt / .vtt で保存します。</li>
       <li><strong>字幕作成につなげられる</strong> ― 音声を抜き出して<a href="/subtitle/">Whisper 字幕作成ツール</a>に読み込ませれば、字幕が無い動画にも字幕を作れます。動画のまま読み込ませれば、字幕を焼き込んだ動画も作れます。</li>
+      <li><strong>削除も簡単</strong> ― 同梱の <code>アンインストール.bat</code> で、設定ファイルまでまとめて削除できます。</li>
     </ul>
   </section>
 
@@ -150,12 +151,12 @@
     <p class="small muted">
       置き場所は <code>%LOCALAPPDATA%\johukku\bin</code> です。
       FFmpeg は<a href="/subtitle/">Whisper 字幕作成ツール</a>の焼き込み機能（v1.1 以降）と共有するため、どちらかで取得済みなら、もう一方では取得を省けます。
-      不要になったらフォルダごと削除してください。
+      ツールを削除するときに、消すかどうかを確認します（<a href="/downloader/usage/#uninstall">アンインストール</a>）。
     </p>
   </section>
 
   <div class="dl">
-    <a class="main" href="https://github.com/johukku/media-downloader/releases/latest/download/MediaDownloader-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+    <a class="main" href="https://github.com/johukku/media-downloader/releases/latest/download/MediaDownloader-v1.1-win64.zip" rel="noopener">ダウンロード（無料）</a>
     <p class="note">うまく動かないときは <a href="/downloader/faq/">FAQ・困ったとき</a> をご覧ください。</p>
   </div>
 
@@ -172,7 +173,7 @@
     </div>
     <p class="small muted">
       いずれも配布ファイルには含めておらず、利用者のパソコンが公式の配布元から取得します。
-      本ツール自体は MIT License です。
+      本ツール自体は MIT License です（配布 ZIP にライセンス文を同梱）。
     </p>
   </section>
 
@@ -182,6 +183,12 @@
       <table>
         <thead><tr><th>バージョン</th><th>日付</th><th>内容</th></tr></thead>
         <tbody>
+          <tr>
+            <td>v1.1</td>
+            <td>2026-09-12</td>
+            <td>小さい画面（1366×768 のノート PC など）で、画面いちばん下の「yt-dlp を更新」「部品を入れ直す」が隠れる不具合を修正。
+                アンインストーラ（<code>アンインストール.bat</code>）とライセンス文を同梱。</td>
+          </tr>
           <tr>
             <td>v1.0</td>
             <td>2026-09-09</td>

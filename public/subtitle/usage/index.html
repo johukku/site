@@ -91,8 +91,8 @@
     </ul>
     <p>
       回線速度によりますが 10〜40 分ほどかかります。
-      導入されるのは展開したフォルダの中の <code>.venv</code> だけで、
-      パソコンの他の場所は一切変更されません。
+      部品は展開したフォルダの中の <code>.venv</code> に導入され、
+      システムの設定やレジストリは変更しません。
     </p>
 
     <h3>ステップ 3：起動</h3>
@@ -100,12 +100,19 @@
       <code>起動.bat</code> をダブルクリックします。2 回目以降はこれだけです。
     </p>
 
-    <h3>v1.0 から更新するとき</h3>
+    <h3 id="update">以前の版から更新するとき</h3>
     <p>
       新しい ZIP を<strong>別のフォルダに展開</strong>して、もう一度 <code>セットアップ.bat</code> を実行してください。
-      AI モデルと設定はフォルダの外の共通の場所に保存されているので、再ダウンロードは発生せず、設定もそのまま引き継がれます。
-      新しいほうで動作を確認できたら、古いフォルダは削除して構いません。
+      AI モデル・FFmpeg・設定はフォルダの外の共通の場所に保存されているので、再ダウンロードは発生せず、設定もそのまま引き継がれます。
     </p>
+    <p>
+      新しいほうで動作を確認できたら、古いフォルダは<strong>手で削除</strong>してください。
+    </p>
+    <div class="note-box warn">
+      <strong>古いフォルダの「アンインストール.bat」は使わないでください</strong>
+      アンインストーラは設定ファイルも削除するため、新しいほうの設定まで消えてしまいます。
+      古いフォルダだけを、エクスプローラーで削除してください。
+    </div>
   </section>
 
   <div class="ad-slot">広告</div>
@@ -114,7 +121,7 @@
     <h2>2. 画面の使い方</h2>
 
     <figure>
-      <img src="/assets/screenshot.png" width="876" height="919"
+      <img src="/assets/screenshot.png" width="862" height="912"
            alt="ツールの画面。1.入力ファイル 2.出力設定 3.動画への焼き込み 4.認識設定 5.進捗 の5つの区画に分かれている。">
       <figcaption>上から順に設定していきます</figcaption>
     </figure>
@@ -395,20 +402,40 @@
 
   <section id="uninstall">
     <h2>8. アンインストール</h2>
-    <p>展開したフォルダを削除するだけです。レジストリなどは一切変更していません。</p>
-    <p>AI モデルと設定ファイルは下記に保存されるので、完全に消したい場合はこちらも削除してください。</p>
-<pre><code>C:\Users\（ユーザー名）\.cache\whisper
-C:\Users\（ユーザー名）\AppData\Local\WhisperSubtitleTool</code></pre>
     <p>
-      焼き込みを使った場合は、FFmpeg が下記に置かれています。
-      <a href="/downloader/">メディアダウンローダー</a>と共有しているので、そちらを使い続ける場合は残しておいてください。
+      フォルダの中の <code>アンインストール.bat</code> をダブルクリックします（v1.2 以降）。
+      黒い画面で確認しながら削除が進みます。
     </p>
-<pre><code>C:\Users\（ユーザー名）\AppData\Local\johukku\bin</code></pre>
+    <ul>
+      <li><strong>ツールのフォルダと設定ファイル</strong>は、最初の確認でまとめて削除します</li>
+      <li><strong>ほかのソフトと共有しているもの</strong>（AI モデル・FFmpeg・pip のキャッシュ）は、消すかどうかを 1 つずつ聞きます。<strong>Enter を押すと「残す」</strong>になります</li>
+      <li>フォルダに動画など、ツール以外のファイルを置いていた場合は、そのファイルとフォルダを残します</li>
+      <li>ツールが起動中のときは、何も消さずに終了します</li>
+      <li>最後の確認が済むまでは、何も削除しません</li>
+    </ul>
+    <div class="note-box">
+      <strong>共有しているものは、迷ったら残して大丈夫です</strong>
+      AI モデルは Whisper を使う他のソフト、FFmpeg は<a href="/downloader/">メディアダウンローダー</a>、
+      pip のキャッシュは Python 全般と共有しています。
+      消しても、次に必要になったときにもう一度ダウンロードされるだけです。
+      空き容量を増やしたいときは、数 GB になることがある pip のキャッシュを消すと効果的です。
+    </div>
+    <p>Python 本体は削除しません。不要なら Windows の「設定」→「アプリ」から削除してください。</p>
+
+    <h3>手で削除する場合</h3>
+    <p>
+      レジストリなどは変更していないので、手で削除しても問題ありません。
+      アンインストーラが入っていない v1.1 以前もこの方法です。展開したフォルダに加えて、下記を削除してください。
+    </p>
+<pre><code>C:\Users\（ユーザー名）\AppData\Local\WhisperSubtitleTool   … 設定
+C:\Users\（ユーザー名）\.cache\whisper                      … AI モデル
+C:\Users\（ユーザー名）\AppData\Local\johukku\bin           … FFmpeg（共有）
+C:\Users\（ユーザー名）\AppData\Local\pip\Cache             … pip のキャッシュ（共有）</code></pre>
   </section>
 
   <hr>
   <p class="center">
-    <a class="btn" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.1.zip" rel="noopener">ダウンロード（無料）</a>
+    <a class="btn" href="https://github.com/johukku/whisper-subtitle-tool/releases/latest/download/whisper-subtitle-tool-v1.2.1.zip" rel="noopener">ダウンロード（無料）</a>
   </p>
 </main>
 

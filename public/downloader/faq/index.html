@@ -74,6 +74,20 @@
     </details>
 
     <details class="faq-item">
+      <summary>「yt-dlp を更新」ボタンが見当たらない</summary>
+      <div class="faq-body">
+        <p>
+          v1.0 では、画面の高さが足りないと（1366×768 のノート PC など）、
+          画面いちばん下の段にある「yt-dlp を更新」「部品を入れ直す」が隠れてしまう不具合がありました。
+        </p>
+        <p>
+          v1.1 で直したので、<a href="/downloader/">最新版</a>をお使いください。
+          v1.1 からは、どの大きさの画面でも常に表示されます。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
       <summary>初回の部品取得に失敗する</summary>
       <div class="faq-body">
         <p>ほとんどが通信の問題です。もう一度起動して試してください。</p>
@@ -165,12 +179,11 @@
       <div class="faq-body">
         <p>
           映像と音声を結合する FFmpeg が正しく取得できていない可能性があります。
-          いったんアプリを閉じ、<code>%LOCALAPPDATA%\johukku\bin</code> を
-          フォルダごと削除してから起動し直すと、取得をやり直します。
+          画面右下の「<strong>部品を入れ直す</strong>」を押すと、yt-dlp と FFmpeg を取得し直します。
         </p>
         <p class="small muted">
-          このフォルダは<a href="/subtitle/">Whisper 字幕作成ツール</a>の焼き込み機能とも共有しています。
-          削除した場合、そちらでも次に焼き込むときに取得し直しになります。
+          手でやり直す場合は、アプリを閉じて <code>%LOCALAPPDATA%\johukku\bin</code> をフォルダごと削除してから起動し直してください。
+          このフォルダは<a href="/subtitle/">Whisper 字幕作成ツール</a>の焼き込み機能とも共有しているため、そちらでも次に焼き込むときに取得し直しになります。
         </p>
       </div>
     </details>
@@ -253,6 +266,21 @@
           現在は Windows 用としてのみ配布しています。
           本体は Python で書かれているため他の OS でも動く可能性はありますが、
           動作確認は行っていません。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>削除したい（アンインストール）</summary>
+      <div class="faq-body">
+        <p>
+          フォルダの中の <code>アンインストール.bat</code> をダブルクリックしてください（v1.1 以降）。
+          ツールのフォルダと設定ファイルを削除します。
+          他のツールと共有している FFmpeg・yt-dlp は、消すかどうかを確認します（Enter で「残す」）。
+        </p>
+        <p>
+          v1.0 の場合や、手で削除したい場合は
+          <a href="/downloader/usage/#uninstall">使い方の「8. アンインストール」</a>をご覧ください。
         </p>
       </div>
     </details>

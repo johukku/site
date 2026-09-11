@@ -73,14 +73,26 @@
       このうち FFmpeg は<a href="/subtitle/">Whisper 字幕作成ツール</a>の焼き込み機能（v1.1 以降）とも共有するので、
       どちらか一方で取得済みなら、もう一方では取得を省けます。
     </div>
+
+    <h3 id="update">以前の版から更新するとき</h3>
+    <p>
+      古いフォルダを<strong>手で削除</strong>してから、新しい ZIP を展開したフォルダを使ってください。
+      設定と、取得済みの yt-dlp・FFmpeg はフォルダの外に保存されているので、そのまま引き継がれます。
+      保存先をツールのフォルダの中にしていた場合は、先に動画を別の場所へ移してください。
+    </p>
+    <div class="note-box warn">
+      <strong>古いフォルダの「アンインストール.bat」は使わないでください</strong>
+      アンインストーラは設定ファイルも削除するため、新しいほうの設定まで消えてしまいます。
+      なお、v1.0 にはアンインストーラが入っていません。
+    </div>
   </section>
 
   <section id="screen">
     <h2>2. 画面の使い方</h2>
 
     <figure>
-      <img src="/assets/downloader.png" width="796" height="699"
-           alt="画面は 1.URL 2.保存先 3.形式 4.字幕 の順に並び、下にダウンロードボタンとログがある。">
+      <img src="/assets/downloader.png" width="802" height="832"
+           alt="画面は 1.URL 2.保存先 3.形式 4.字幕 の順に並び、下にダウンロードボタンとログ、右下に「yt-dlp を更新」「部品を入れ直す」のボタンがある。">
       <figcaption>上から順に埋めていくだけです</figcaption>
     </figure>
 
@@ -110,6 +122,13 @@
     <p>
       「ダウンロード」で処理が始まり、進捗バーとログで状況が分かります。
       途中でやめたいときは「中止」を押してください。
+    </p>
+
+    <h3>いちばん下の段</h3>
+    <p>
+      左に、取得済みの yt-dlp の版と FFmpeg の有無が表示されます。
+      右下の「<strong>yt-dlp を更新</strong>」は、動画サイト側の変更で急にダウンロードできなくなったときに押します。
+      「<strong>部品を入れ直す</strong>」は、確認のうえ yt-dlp と FFmpeg を取得し直します。変換でエラーが出るときに使います。
     </p>
   </section>
 
@@ -228,19 +247,34 @@ https://example.com/watch/cccc</code></pre>
 
   <section id="uninstall">
     <h2>8. アンインストール</h2>
-    <p>展開したフォルダを削除するだけです。レジストリなどは変更していません。</p>
-    <p>初回に取得した部品と設定は下記に保存されるので、完全に消したい場合はこちらも削除してください。</p>
-<pre><code>C:\Users\（ユーザー名）\AppData\Local\johukku\bin
-C:\Users\（ユーザー名）\AppData\Local\johukku\media-downloader</code></pre>
-    <p class="small muted">
-      <code>bin</code> は<a href="/subtitle/">Whisper 字幕作成ツール</a>とも共有しています。
-      そちらを使い続ける場合は残しておいてください。
+    <p>
+      フォルダの中の <code>アンインストール.bat</code> をダブルクリックします（v1.1 以降）。
+      黒い画面で確認しながら削除が進みます。
     </p>
+    <ul>
+      <li><strong>ツールのフォルダと設定ファイル</strong>は、最初の確認でまとめて削除します</li>
+      <li><strong>ほかのツールと共有しているもの</strong>（FFmpeg・yt-dlp）は、消すかどうかを確認します。<strong>Enter を押すと「残す」</strong>になります</li>
+      <li>フォルダに動画など、ツール以外のファイルを置いていた場合は、そのファイルとフォルダを残します</li>
+      <li>ツールが起動中のときは、何も消さずに終了します</li>
+      <li>最後の確認が済むまでは、何も削除しません</li>
+    </ul>
+    <p class="small muted">
+      FFmpeg は<a href="/subtitle/">Whisper 字幕作成ツール</a>の焼き込み機能とも共有しています。
+      迷ったら残して大丈夫です。消しても、次に使うときにもう一度ダウンロードされるだけです。
+    </p>
+
+    <h3>手で削除する場合</h3>
+    <p>
+      レジストリなどは変更していないので、手で削除しても問題ありません。
+      アンインストーラが入っていない v1.0 もこの方法です。展開したフォルダに加えて、下記を削除してください。
+    </p>
+<pre><code>C:\Users\（ユーザー名）\AppData\Local\johukku\media-downloader  … 設定
+C:\Users\（ユーザー名）\AppData\Local\johukku\bin               … FFmpeg・yt-dlp（共有）</code></pre>
   </section>
 
   <hr>
   <p class="center">
-    <a class="btn" href="https://github.com/johukku/media-downloader/releases/latest/download/MediaDownloader-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+    <a class="btn" href="https://github.com/johukku/media-downloader/releases/latest/download/MediaDownloader-v1.1-win64.zip" rel="noopener">ダウンロード（無料）</a>
   </p>
 </main>
 
