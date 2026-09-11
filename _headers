@@ -1,0 +1,6 @@
+# 管理ページ：他サイトの枠の中に表示させない・検索結果に載せない・キャッシュさせない
+/admin/*
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store

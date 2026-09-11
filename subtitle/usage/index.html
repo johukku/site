@@ -6,6 +6,15 @@
 <title>使い方｜Whisper 字幕作成ツール</title>
 <meta name="description" content="Whisper 字幕作成ツールの導入手順と画面の使い方。インストール、動画への字幕の焼き込み、モデルの選び方、字幕の自動改行、句読点の補完、SRT / VTT / ASS / JSON の使い分けまで解説します。">
 <link rel="canonical" href="https://johukku.pages.dev/subtitle/usage/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="johukku の作ったもの置き場">
+<meta property="og:title" content="使い方｜Whisper 字幕作成ツール">
+<meta property="og:description" content="Whisper 字幕作成ツールの導入手順と画面の使い方。インストール、動画への字幕の焼き込み、モデルの選び方、字幕の自動改行、句読点の補完、SRT / VTT / ASS / JSON の使い分けまで解説します。">
+<meta property="og:url" content="https://johukku.pages.dev/subtitle/usage/">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://johukku.pages.dev/assets/screenshot.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico">
 <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -274,10 +283,10 @@
       そのままでは画面に収まらず、字幕として使えません。
     </p>
 
-    <h4>整形前</h4>
+    <p class="ex-label">整形前</p>
 <pre><code>今日の天気は晴れです 音声認識が正しく動いているかどうかを確認しています</code></pre>
 
-    <h4>整形後（20 文字 × 2 行）</h4>
+    <p class="ex-label">整形後（20 文字 × 2 行）</p>
 <pre><code>今日の天気は晴れです。音声認識が正しく
 動いているかどうかを確認しています。</code></pre>
 
@@ -312,11 +321,11 @@
       「、」「。」が付いた出力になりやすくなります。
     </p>
 
-    <h4>オフ</h4>
+    <p class="ex-label">オフ</p>
 <pre><code>こんにちは これは字幕作成ツールのテストです
 今日の天気は晴れです 音声認識が正しく動いているかどうかを確認しています</code></pre>
 
-    <h4>オン</h4>
+    <p class="ex-label">オン</p>
 <pre><code>こんにちは。これは字幕作成ツールのテストです。
 今日の天気は晴れです。音声認識が正しく動いているかどうかを確認しています。</code></pre>
 
@@ -369,7 +378,7 @@
       </table>
     </div>
 
-    <h4>JSON の中身の例</h4>
+    <p class="ex-label">JSON の中身の例</p>
 <pre><code>{
   "source": "会議録画.mp4",
   "language": "ja",

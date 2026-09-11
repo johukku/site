@@ -7,8 +7,14 @@
 <meta name="description" content="動画や音声を読み込むだけで、AI が自動で字幕ファイル（SRT / VTT / ASS / JSON）を作る Windows 用の無料ソフトです。字幕を動画に焼き込んで書き出すこともできます。音声は一切アップロードせず、すべて手元のパソコンで処理します。">
 <link rel="canonical" href="https://johukku.pages.dev/subtitle/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="johukku の作ったもの置き場">
 <meta property="og:title" content="Whisper 字幕作成ツール">
 <meta property="og:description" content="動画・音声から自動で字幕を作り、動画への焼き込みもできる Windows 用フリーソフト。完全ローカル処理・GPU 対応。">
+<meta property="og:url" content="https://johukku.pages.dev/subtitle/">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://johukku.pages.dev/assets/screenshot.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico">
 <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -167,12 +173,12 @@
       AI の生の出力は 1 行が 35 文字を超えることも多く、そのままでは字幕として読めません。
     </p>
 
-    <h4>整形なし（AI の生の出力）</h4>
+    <p class="ex-label">整形なし（AI の生の出力）</p>
 <pre><code>2
 00:00:05,300 --&gt; 00:00:13,120
 今日の天気は晴れです 音声認識が正しく動いているかどうかを確認しています</code></pre>
 
-    <h4>本ツールの出力（句読点の補完＋自動改行）</h4>
+    <p class="ex-label">本ツールの出力（句読点の補完＋自動改行）</p>
 <pre><code>2
 00:00:05,280 --&gt; 00:00:13,120
 今日の天気は晴れです。音声認識が正しく
