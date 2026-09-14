@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>メディアコンバーター｜動画・音声を MP4 に変換し、サイズ指定で圧縮する Windows 用フリーソフト</title>
+<meta name="description" content="手元の動画・音声を MP4 に変換し、サイズを指定して圧縮できる Windows 用の無料ソフトです。Python のインストールは不要、配布ファイルは約 12 MB。入れ物を詰め替えるだけで済むときは再エンコードせず、画質を落とさないまま数秒で終わります。">
+<link rel="canonical" href="https://johukku.pages.dev/converter/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="johukku の作ったもの置き場">
+<meta property="og:title" content="メディアコンバーター">
+<meta property="og:description" content="動画・音声を MP4 に変換し、サイズ指定で圧縮できる Windows 用フリーソフト。変換せずに済むときはコピーだけで終わります。">
+<meta property="og:url" content="https://johukku.pages.dev/converter/">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://johukku.pages.dev/assets/converter.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="tool-nav">
+  <div class="wrap">
+    <strong>メディアコンバーター</strong>
+    <a href="/converter/" aria-current="page">概要</a><span class="sep">|</span>
+    <a href="/converter/usage/">使い方</a><span class="sep">|</span>
+    <a href="/converter/faq/">FAQ・困ったとき</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <h1>メディアコンバーター</h1>
+  <p class="updated">v1.0　／　2026年9月15日公開</p>
+
+  <div class="intro">
+    <p>
+      手元にある動画や音声を、目的に合わせて変換する Windows 用のソフトです。
+      Python などの準備は要らず、<strong>exe をダブルクリックするだけ</strong>で使えます。
+    </p>
+    <p>
+      いちばんの特徴は<strong>「変換せずに済むときは変換しない」</strong>ことです。
+      <code>.mov</code> や <code>.mkv</code> を MP4 にしたいだけなら入れ物を詰め替えるだけで済ませるので、
+      画質はまったく落ちず、数百 MB の動画でも数秒で終わります。
+    </p>
+    <p class="spec-line">
+      対応：Windows 10 / 11　｜　配布ファイル 約 12 MB　｜　インストール不要　｜　無料
+    </p>
+  </div>
+
+  <div class="dl">
+    <a class="main" href="https://github.com/johukku/media-converter/releases/latest/download/MediaConverter-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+    <p class="note">
+      約 12 MB。初回起動時にだけ、変換に使う FFmpeg を自動で取得します。
+    </p>
+  </div>
+
+  <figure>
+    <img src="/assets/converter.png" width="862" height="852"
+         alt="メディアコンバーターの画面。上から 1.変換するファイル、2.何をするか、3.保存先とオプションと並び、下に変換ボタンとログ、いちばん下に「部品を入れ直す」のボタンがある。">
+    <figcaption>上から順に選んでいくだけの画面です。</figcaption>
+  </figure>
+
+  <section>
+    <h2>できること</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>やりたいこと</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>MP4 に変換</strong></td>
+            <td><code>.mov</code> / <code>.mkv</code> / <code>.webm</code> / <code>.avi</code> などを、どこでも再生できる MP4 にそろえます。
+                中身がそのまま入れられる場合はコピーするだけです。</td>
+          </tr>
+          <tr>
+            <td><strong>サイズを指定して圧縮</strong></td>
+            <td>「25 MB に収めたい」と指定できます。音声のぶんを差し引いて映像のビットレートを決め、
+                2 パス（下読み → 本番）で書き出すので、指定した大きさに収まります。</td>
+          </tr>
+          <tr>
+            <td><strong>音声だけ取り出す</strong></td>
+            <td>mp3 / m4a / wav から選べます。元がすでに同じ形式なら、変換せずそのまま取り出します（無劣化）。</td>
+          </tr>
+          <tr>
+            <td><strong>GIF にする</strong></td>
+            <td>色を調べてから当てる 2 段階の方式なので、よくある「色がにじんだ GIF」になりません。幅と fps を選べます。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      共通のオプションとして、解像度の上限、範囲の切り出し（開始・終了）、
+      画質と速度の選択、まとめて処理（複数ファイルを順番に処理・途中で中止も可）があります。
+    </p>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section id="copy">
+    <h2>「変換しない」という判断について</h2>
+    <p>
+      同じ H.264 の動画でも、<code>.mov</code>・<code>.mkv</code>・<code>.mp4</code> は
+      <strong>入れ物が違うだけで中身は同じ</strong>ことがよくあります。
+      本ツールは変換前に中身を調べ、そのまま MP4 に入れられる場合はコピーで詰め替えます。
+    </p>
+    <ul>
+      <li>再エンコードしないので<strong>画質の劣化がゼロ</strong></li>
+      <li>数百 MB の動画でも<strong>数秒</strong>で終わる</li>
+      <li>音声だけが MP4 に入れられない形式（Opus など）のときは、映像はコピーしたまま音声だけを変換します</li>
+    </ul>
+    <div class="note-box">
+      <strong>何をするのかは、押す前に画面に出ます</strong>
+      「この設定なら: 映像はそのままコピーします（再エンコードなし・無劣化）」のように、
+      これから行う処理が変換ボタンの近くに表示されます。
+      作り直しになるのか、詰め替えで済むのかが分かってから実行できます。
+    </div>
+  </section>
+
+  <section>
+    <h2>画質と速度</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>選択</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td>画質優先（CPU・遅い）</td><td>いちばんきれいですが時間がかかります（libx264 / CRF 18 / preset slow）</td></tr>
+          <tr><td><strong>バランス（おすすめ）</strong></td><td>GPU が使えれば GPU を使い、無ければ CPU（libx264 / CRF 20）</td></tr>
+          <tr><td>速度優先（GPU）</td><td>とにかく速く。画質は少し落ちます</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      GPU（NVIDIA の NVENC、Intel の QSV、AMD の AMF）は、FFmpeg が対応していてもドライバの版が合わないと使えません。
+      本ツールは<strong>実際に 1 コマだけ試してから</strong>採用し、駄目なら自動で CPU に切り替えます。
+    </p>
+  </section>
+
+  <section>
+    <h2>動作環境</h2>
+    <div class="table-scroll">
+      <table>
+        <tbody>
+          <tr><th>OS</th><td>Windows 10 / 11（64bit）</td></tr>
+          <tr><th>事前の準備</th><td>不要（Python のインストールも要りません）</td></tr>
+          <tr><th>空き容量</th><td>約 300 MB（初回に取得する FFmpeg を置くため）</td></tr>
+          <tr><th>ネット接続</th><td>初回のみ必要</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>初回だけ取得される部品について</h2>
+    <p>
+      実際の変換処理は <a href="https://ffmpeg.org/" rel="noopener">FFmpeg</a> という定評あるソフトが行います。
+      これは配布ファイルに<strong>同梱しておらず</strong>、初回起動時に公式の配布元から自動で取得します（約 73 MB、数分）。
+    </p>
+    <p>
+      同梱していないのは、FFmpeg が GPL というライセンスのため、同梱して配ると配布側にソースコードの提供義務が生じるからです。
+      利用者のパソコンが公式の配布元から直接取得する形なら、こちらは何も再配布しません。
+    </p>
+    <p class="small muted">
+      置き場所は <code>%LOCALAPPDATA%\johukku\bin</code> です。
+      <a href="/subtitle/">Whisper 字幕作成ツール</a>の焼き込み機能や<a href="/downloader/">メディアダウンローダー</a>と共有しているので、
+      どれかで取得済みなら、ほかでは取得を省けます。
+    </p>
+  </section>
+
+  <div class="dl">
+    <a class="main" href="https://github.com/johukku/media-converter/releases/latest/download/MediaConverter-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+    <p class="note">うまく動かないときは <a href="/converter/faq/">FAQ・困ったとき</a> をご覧ください。</p>
+  </div>
+
+  <section>
+    <h2>使用しているオープンソースソフトウェア</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>名称</th><th>用途</th><th>ライセンス</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://ffmpeg.org/" rel="noopener">FFmpeg</a></td><td>変換・圧縮・音声の取り出し・GIF の作成</td><td>GPL v3</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      配布ファイルには含めておらず、利用者のパソコンが
+      <a href="https://github.com/yt-dlp/FFmpeg-Builds" rel="noopener">公式のビルド</a>から取得します。
+      本ツール自体は MIT License です（配布 ZIP にライセンス文を同梱）。
+    </p>
+  </section>
+
+  <section>
+    <h2>更新履歴</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>バージョン</th><th>日付</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>v1.0</td>
+            <td>2026-09-15</td>
+            <td>初回公開。MP4 への変換、サイズ指定の圧縮、音声の取り出し、GIF の作成、
+                コピーで済む場合の無劣化変換、GPU の自動判定に対応。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      過去のバージョンは
+      <a href="https://github.com/johukku/media-converter/releases" rel="noopener">GitHub の Releases</a>
+      から取得できます。ソースコードは
+      <a href="https://github.com/johukku/media-converter" rel="noopener">github.com/johukku/media-converter</a> で公開しています。
+    </p>
+  </section>
+
+  <section>
+    <h2>ライセンスと注意</h2>
+    <p>
+      本ツールは無料で利用でき、商用・業務利用も可能です（MIT License）。
+      変換に使う FFmpeg（GPL v3）は同梱しておらず、利用者のパソコンが公式ビルドを直接取得します。
+    </p>
+    <div class="note-box warn">
+      <strong>元のファイルは書き換えません</strong>
+      変換結果は別のファイルとして書き出します。
+      手元にある動画・音声を変換するためのツールです。
+      権利者の許可なく配布・公開する目的での利用はお控えください。
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>使い方｜メディアコンバーター</title>
+<meta name="description" content="メディアコンバーターの導入手順と画面の使い方。MP4 への変換、サイズを指定した圧縮、音声の取り出し、GIF の作成、範囲の切り出し、画質と速度の選び方まで解説します。">
+<link rel="canonical" href="https://johukku.pages.dev/converter/usage/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="johukku の作ったもの置き場">
+<meta property="og:title" content="使い方｜メディアコンバーター">
+<meta property="og:description" content="メディアコンバーターの導入手順と画面の使い方。MP4 変換、サイズ指定の圧縮、音声の取り出し、GIF の作成まで解説します。">
+<meta property="og:url" content="https://johukku.pages.dev/converter/usage/">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://johukku.pages.dev/assets/converter.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="tool-nav">
+  <div class="wrap">
+    <strong>メディアコンバーター</strong>
+    <a href="/converter/">概要</a><span class="sep">|</span>
+    <a href="/converter/usage/" aria-current="page">使い方</a><span class="sep">|</span>
+    <a href="/converter/faq/">FAQ・困ったとき</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <h1>使い方</h1>
+  <p class="updated">最終更新：2026年9月</p>
+
+  <ul class="toc">
+    <li><a href="#install">1. 導入</a></li>
+    <li><a href="#screen">2. 画面の使い方</a></li>
+    <li><a href="#mp4">3. MP4 に変換する</a></li>
+    <li><a href="#size">4. サイズを指定して圧縮する</a></li>
+    <li><a href="#audio">5. 音声だけ取り出す</a></li>
+    <li><a href="#gif">6. GIF にする</a></li>
+    <li><a href="#quality">7. 画質と速度・範囲の切り出し</a></li>
+    <li><a href="#uninstall">8. アンインストール</a></li>
+  </ul>
+
+  <section id="install">
+    <h2>1. 導入</h2>
+    <ol>
+      <li><strong>ZIP をダウンロードして展開する</strong><br>
+        デスクトップなど、書き込みできる場所に展開してください。</li>
+      <li><strong>「メディアコンバーター.exe」をダブルクリック</strong><br>
+        Python などの準備は要りません。</li>
+      <li><strong>初回だけ、部品の取得を確認されます</strong><br>
+        「はい」を押すと、変換に使う FFmpeg（約 73 MB）を公式の配布元から取得します。数分かかります。</li>
+    </ol>
+    <div class="note-box">
+      <strong>2 回目以降はこの確認は出ません</strong>
+      取得した FFmpeg は <code>%LOCALAPPDATA%\johukku\bin</code> に置かれ、次回からはそのまま起動します。
+      この場所は<a href="/subtitle/">Whisper 字幕作成ツール</a>の焼き込み機能や
+      <a href="/downloader/">メディアダウンローダー</a>とも共有するので、
+      どれかで取得済みなら、ほかでは取得を省けます。
+    </div>
+  </section>
+
+  <section id="screen">
+    <h2>2. 画面の使い方</h2>
+
+    <figure>
+      <img src="/assets/converter.png" width="862" height="852"
+           alt="メディアコンバーターの画面。上から 1.変換するファイル、2.何をするか、3.保存先とオプションと並び、下に変換ボタンとログ、いちばん下に「部品を入れ直す」のボタンがある。">
+      <figcaption>上から順に選んでいくだけです</figcaption>
+    </figure>
+
+    <h3>1. 変換するファイル</h3>
+    <p>
+      一覧の枠に<strong>ドラッグ＆ドロップ</strong>するか、「追加...」で選びます。
+      「フォルダ追加」を使うと、フォルダの中のメディアをまとめて入れられます。
+      複数入れると、上から順に処理します。
+    </p>
+
+    <h3>2. 何をするか</h3>
+    <p>
+      MP4 に変換／サイズを指定して圧縮／音声だけ取り出す／GIF にする、の 4 つから選びます。
+      選んだものに応じて、その下のオプション（目標サイズ、音声の形式、GIF の幅となめらかさ）が切り替わります。
+    </p>
+
+    <h3>3. 保存先とオプション</h3>
+    <p>
+      保存先は「元のファイルと同じ場所」か、「参照...」で選んだフォルダです。「開く」でその場所を開けます。
+      解像度の上限、範囲の切り出し、画質と速度もここで指定します。
+    </p>
+
+    <h3>変換ボタンとログ</h3>
+    <p>
+      「変換する」で処理が始まり、進み具合とログが表示されます。途中でやめたいときは「中止」を押してください。
+      ボタンの近くには<strong>「この設定なら: …」</strong>と、これから行う処理が先に表示されます。
+    </p>
+
+    <h3>いちばん下の段</h3>
+    <p>
+      「<strong>部品を入れ直す</strong>」は、確認のうえ FFmpeg を取得し直します。
+      変換がうまくいかないときに使ってください。
+    </p>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section id="mp4">
+    <h2>3. MP4 に変換する</h2>
+    <p>
+      <code>.mov</code> / <code>.mkv</code> / <code>.webm</code> / <code>.avi</code> などを、
+      どこでも再生できる MP4 にそろえます。「何をするか」で<strong>MP4 に変換（互換重視）</strong>を選んで実行するだけです。
+    </p>
+    <p>
+      このとき、<strong>「変換せずに済むならコピーする」</strong>にチェックが入っていると、
+      中身を調べて、そのまま MP4 に入れられる場合は詰め替えるだけで済ませます。
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>画面に出る文</th><th>意味</th></tr></thead>
+        <tbody>
+          <tr><td>映像はそのままコピーします（再エンコードなし・無劣化）</td>
+              <td>詰め替えるだけ。画質は落ちず、数秒で終わります</td></tr>
+          <tr><td>映像はコピーし、音声だけ変換します</td>
+              <td>音声が MP4 に入れられない形式（Opus など）のとき。映像は無劣化のままです</td></tr>
+          <tr><td>映像を作り直します</td>
+              <td>中身が MP4 に入らない形式のとき。時間がかかり、画質は設定に従います</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      チェックを外すと、コピーで済む場合でも作り直します。
+      解像度を下げたい場合など、作り直しが必要なときは自動的にそちらになります。
+    </p>
+  </section>
+
+  <section id="size">
+    <h2>4. サイズを指定して圧縮する</h2>
+    <p>
+      「何をするか」で<strong>サイズを指定して圧縮</strong>を選び、目標サイズ（MB）を入れます。
+      メールに添付するなら 25、チャットに貼るなら 8〜10 あたりが目安です。
+    </p>
+    <ul>
+      <li>音声のぶんを差し引いて、映像のビットレートを決めます</li>
+      <li><strong>2 パス</strong>（下読み → 本番）で書き出すので、指定した大きさに収まります</li>
+      <li>指定サイズに対して解像度が高すぎるときは、<strong>自動で解像度を下げます</strong>。
+          同じ容量なら、そのほうがきれいに見えるためです（チェックで切り替えられます）</li>
+    </ul>
+    <div class="note-box">
+      <strong>きっちり収めたいときは「速度優先」を避けてください</strong>
+      「速度優先」は 1 パスなので、指定サイズから 1 割ほど前後します。
+      「バランス」か「画質優先」なら 2 パスで、指定どおりに収まります。
+    </div>
+  </section>
+
+  <section id="audio">
+    <h2>5. 音声だけ取り出す</h2>
+    <p>
+      動画から音声だけを抜き出します。形式は mp3 / m4a（AAC）/ wav（無圧縮）から選べます。
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>形式</th><th>向いている用途</th></tr></thead>
+        <tbody>
+          <tr><td>mp3</td><td>どこでも再生できる。持ち運びや共有に</td></tr>
+          <tr><td>m4a（AAC）</td><td>同じ容量なら mp3 より音がよい。Apple 系の機器と相性がよい</td></tr>
+          <tr><td>wav（無圧縮）</td><td>編集や文字起こしに渡す前提のとき。容量は大きい</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      元がすでに同じ形式の場合は、変換せずそのまま取り出します（音質はまったく落ちません）。
+      文字起こしをしたい場合は、取り出した音声を<a href="/subtitle/">Whisper 字幕作成ツール</a>に読み込ませると字幕を作れます。
+    </p>
+  </section>
+
+  <section id="gif">
+    <h2>6. GIF にする</h2>
+    <p>
+      短い動画を GIF にします。<strong>幅</strong>と<strong>なめらかさ（fps）</strong>を選べます。
+    </p>
+    <ul>
+      <li>色を調べてから当てる<strong>2 段階の方式</strong>なので、色がにじみません</li>
+      <li>GIF は 1 コマずつ静止画を並べる形式です。長い動画や、幅・fps を上げすぎるとファイルが大きくなります</li>
+      <li>大きくなりすぎるときは、範囲を切り出してから作るか、幅と fps を下げてください</li>
+    </ul>
+  </section>
+
+  <section id="quality">
+    <h2>7. 画質と速度・範囲の切り出し</h2>
+
+    <h3>画質と速度</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>選択</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td>画質優先（CPU・遅い）</td><td>いちばんきれい。時間はかかります</td></tr>
+          <tr><td><strong>バランス（おすすめ）</strong></td><td>GPU が使えれば GPU を使います</td></tr>
+          <tr><td>速度優先（GPU）</td><td>とにかく速く。画質は少し落ちます</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      GPU（NVIDIA / Intel / AMD）は、実際に 1 コマ試してから使います。
+      ドライバが古いなどで使えないときは、自動的に CPU に切り替わります。
+    </p>
+
+    <h3>解像度の上限</h3>
+    <p>
+      「1080p まで」のように上限を決めると、それより大きい動画だけ縮めます。小さい動画は拡大しません。
+    </p>
+
+    <h3>範囲の切り出し</h3>
+    <p>
+      「範囲」に開始と終了を入れると、その部分だけを変換します。
+      <code>1:30</code> のように<strong>分:秒</strong>で入れてください。空欄なら全体です。
+    </p>
+    <div class="note-box">
+      <strong>コピーで済むときは、位置が数秒ずれることがあります</strong>
+      MP4 変換でコピーが使える場合、切り出しの位置が近くのキーフレームまでずれます。
+      画質を落とさないための仕組みです。ぴったり切りたいときは、
+      「変換せずに済むならコピーする」のチェックを外してください。
+    </div>
+  </section>
+
+  <section id="uninstall">
+    <h2>8. アンインストール</h2>
+    <p>
+      フォルダの中の <code>アンインストール.bat</code> をダブルクリックします。
+      黒い画面で確認しながら削除が進みます。
+    </p>
+    <ul>
+      <li><strong>ツールのフォルダと設定ファイル</strong>は、最初の確認でまとめて削除します</li>
+      <li><strong>ほかのツールと共有している FFmpeg</strong> は、消すかどうかを確認します。<strong>Enter を押すと「残す」</strong>になります</li>
+      <li>フォルダに動画など、ツール以外のファイルを置いていた場合は、そのファイルとフォルダを残します</li>
+      <li>ツールが起動中のときは、何も消さずに終了します</li>
+      <li>最後の確認が済むまでは、何も削除しません</li>
+    </ul>
+    <p class="small muted">
+      FFmpeg は<a href="/subtitle/">Whisper 字幕作成ツール</a>や<a href="/downloader/">メディアダウンローダー</a>とも共有しています。
+      迷ったら残して大丈夫です。消しても、次に使うときにもう一度ダウンロードされるだけです。
+    </p>
+
+    <h3>手で削除する場合</h3>
+    <p>
+      レジストリなどは変更していないので、手で削除しても問題ありません。
+      展開したフォルダに加えて、下記を削除してください。
+    </p>
+<pre><code>C:\Users\（ユーザー名）\AppData\Local\johukku\media-converter  … 設定
+C:\Users\（ユーザー名）\AppData\Local\johukku\bin              … FFmpeg（共有）</code></pre>
+  </section>
+
+  <hr>
+  <p class="center">
+    <a class="btn" href="https://github.com/johukku/media-converter/releases/latest/download/MediaConverter-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+  </p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+</body>
+</html>
