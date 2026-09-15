@@ -128,6 +128,23 @@
     </div>
   </section>
 
+  <section id="flow">
+    <h2>4 本の使い分け</h2>
+    <p>
+      どれも単体で使えますが、つなげて使うとこういう流れになります。
+      動画を扱う部品（FFmpeg）は 4 本で共有しているので、2 本目からは取得が要りません。
+    </p>
+    <ol>
+      <li><strong>手元に残す</strong> ― 自分の動画や配信のアーカイブを <a href="/downloader/">メディアダウンローダー</a> で保存する。用意されている字幕があれば一緒に。</li>
+      <li><strong>字幕を作る</strong> ― 字幕が無い動画は <a href="/subtitle/">Whisper 字幕作成ツール</a> に読み込ませる。音声を外に出さずに、手元のパソコンで文字起こしします。</li>
+      <li><strong>直す</strong> ― できた字幕（や YouTube の自動生成字幕）を <a href="/editor/">字幕エディター</a> で、音を聞きながら仕上げる。そのまま動画に焼き込むこともできます。</li>
+      <li><strong>形をそろえる</strong> ― 送る先に合わせて <a href="/converter/">メディアコンバーター</a> で MP4 にしたり、サイズを指定して小さくしたりする。</li>
+    </ol>
+    <p class="small muted">
+      どこから始めても構いません。たとえば「スマホで撮った動画を軽くしたいだけ」なら 4 だけです。
+    </p>
+  </section>
+
   <div class="ad-slot">広告</div>
 
   <section>
