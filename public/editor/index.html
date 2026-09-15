@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>字幕エディター｜字幕を音を聞きながら直して、保存や動画への焼き込みができる Windows 用フリーソフト</title>
+<meta name="description" content="SRT / VTT / ASS の字幕を、その区間の音を聞きながら直せる Windows 用の無料ソフトです。Python のインストールは不要、配布ファイルは約 12 MB。読みにくい字幕に印が付き、YouTube の自動生成字幕の整理や、動画への焼き込みもできます。">
+<link rel="canonical" href="https://johukku.pages.dev/editor/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="johukku の作ったもの置き場">
+<meta property="og:title" content="字幕エディター">
+<meta property="og:description" content="字幕を、その区間の音を聞きながら直して、保存するか動画に焼き込む Windows 用フリーソフト。インストール不要。">
+<meta property="og:url" content="https://johukku.pages.dev/editor/">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://johukku.pages.dev/assets/editor.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="tool-nav">
+  <div class="wrap">
+    <strong>字幕エディター</strong>
+    <a href="/editor/" aria-current="page">概要</a><span class="sep">|</span>
+    <a href="/editor/usage/">使い方</a><span class="sep">|</span>
+    <a href="/editor/faq/">FAQ・困ったとき</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <h1>字幕エディター</h1>
+  <p class="updated">v1.0　／　2026年9月15日公開</p>
+
+  <div class="intro">
+    <p>
+      字幕ファイル（SRT / VTT / ASS）を開いて、本文と時刻を直し、保存するか動画に焼き込む Windows 用のソフトです。
+      Python などの準備は要らず、<strong>exe をダブルクリックするだけ</strong>で使えます。
+    </p>
+    <p>
+      動画や音声を一緒に開くと、<strong>その字幕の区間だけを聞き直せます</strong>。
+      波形と、その時刻の 1 コマ（字幕を重ねた状態）を見ながら直せるので、
+      「いま何と言っているか」を確かめながら進められます。
+    </p>
+    <p>
+      <a href="/subtitle/">Whisper 字幕作成ツール</a>が作った字幕や、YouTube の自動生成字幕を、
+      人に見せられる形に仕上げるために作りました。
+    </p>
+    <p class="spec-line">
+      対応：Windows 10 / 11　｜　配布ファイル 約 12 MB　｜　インストール不要　｜　無料
+    </p>
+  </div>
+
+  <div class="dl">
+    <a class="main" href="https://github.com/johukku/subtitle-editor/releases/latest/download/SubtitleEditor-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+    <p class="note">
+      約 12 MB。初回起動時にだけ、音声と映像の処理に使う FFmpeg を自動で取得します（無くても字幕の編集と保存はできます）。
+    </p>
+  </div>
+
+  <figure>
+    <img src="/assets/editor.png" width="1182" height="812"
+         alt="字幕エディターの画面。左に字幕の一覧、右上にその時刻のコマ、右に開始・終了と本文の欄、下に再生ボタンと波形が並んでいる。">
+    <figcaption>左で選んで、右で直して、下で聞く。それだけです。</figcaption>
+  </figure>
+
+  <section>
+    <h2>できること</h2>
+    <ul>
+      <li><strong>その字幕の区間だけ聞き直す</strong> ― 一覧で選んで Ctrl+Enter。波形と、その時刻の 1 コマも見えます。</li>
+      <li><strong>時刻は 3 通りで直せる</strong> ― 入力欄、「◀今」（いまの再生位置を入れる）、波形の帯のドラッグ。</li>
+      <li><strong>読みにくい字幕に印が付く</strong> ― 1 行が長い、1 秒あたりの文字数が多い、時間が重なっている、など。F3 で次の警告へ飛べます。</li>
+      <li><strong>YouTube の自動生成字幕を整理して読み込む</strong> ― 「前の行の再掲」と時刻タグを外して、ふつうの字幕の並びにします。</li>
+      <li><strong>ひととおりの編集</strong> ― 分割・結合・挿入・削除・全体をずらす・検索と置換・自動で折り返す。元に戻すは 100 段。</li>
+      <li><strong>動画に焼き込む</strong> ― <a href="/subtitle/">Whisper 字幕作成ツール</a>と同じ 4 種のスタイル。GPU を自動で判定します。</li>
+      <li><strong>元のファイルを黙って書き換えない</strong> ― 最初に上書きするときだけ、「（編集前）」という控えを同じ場所に残します。</li>
+    </ul>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section id="how">
+    <h2>動画を再生しない、という作り</h2>
+    <p>
+      このツールは動画そのものは再生しません。<strong>音だけを再生して</strong>、絵は「その時刻の 1 コマ」を切り出して見せます。
+    </p>
+    <p>
+      字幕を直す作業に要るのは「いま何と言っているか」を聞くことなので、動画の同期再生はなくても困りません。
+      その代わり、動画の形式（MKV / VP9 / AV1 など）を選ばず、余計な部品も要りません。
+    </p>
+    <p class="small muted">
+      開いた動画からは作業用の音声（24 kHz・モノラル）を切り出して鳴らします。
+      これは一時フォルダに置き、終了時に消します（2 時間の動画で約 340 MB）。
+    </p>
+  </section>
+
+  <section>
+    <h2>読めるもの・書けるもの</h2>
+    <div class="table-scroll">
+      <table>
+        <tbody>
+          <tr><th>読み込み</th><td>SRT / WebVTT / ASS（本文と時刻だけ。スタイルは読み捨てます）/ <a href="/subtitle/">Whisper 字幕作成ツール</a>の JSON</td></tr>
+          <tr><th>保存</th><td>SRT / WebVTT / ASS（焼き込みと同じスタイルで書き出します）</td></tr>
+          <tr><th>焼き込み</th><td>MP4（元が MKV なら MKV）</td></tr>
+          <tr><th>文字コード</th><td>UTF-8 → UTF-16 → Shift_JIS の順に判定。保存は UTF-8</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>動作環境</h2>
+    <div class="table-scroll">
+      <table>
+        <tbody>
+          <tr><th>OS</th><td>Windows 10 / 11（64bit）</td></tr>
+          <tr><th>事前の準備</th><td>不要（Python のインストールも要りません）</td></tr>
+          <tr><th>空き容量</th><td>約 300 MB（初回に取得する FFmpeg を置くため）</td></tr>
+          <tr><th>ネット接続</th><td>初回のみ必要。FFmpeg が無くても、字幕の編集と保存はできます</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>初回だけ取得される部品について</h2>
+    <p>
+      音声の再生・波形・コマの表示・焼き込みには <a href="https://ffmpeg.org/" rel="noopener">FFmpeg</a> という定評あるソフトを使います。
+      これは配布ファイルに<strong>同梱しておらず</strong>、初回起動時に公式の配布元から自動で取得します（約 73 MB、数分）。
+    </p>
+    <p>
+      同梱していないのは、FFmpeg が GPL というライセンスのため、同梱して配ると配布側にソースコードの提供義務が生じるからです。
+      利用者のパソコンが公式の配布元から直接取得する形なら、こちらは何も再配布しません。
+    </p>
+    <p class="small muted">
+      置き場所は <code>%LOCALAPPDATA%\johukku\bin</code> です。
+      <a href="/subtitle/">Whisper 字幕作成ツール</a>・<a href="/downloader/">メディアダウンローダー</a>・<a href="/converter/">メディアコンバーター</a>と共有しているので、
+      どれかで取得済みなら、ほかでは取得を省けます。
+    </p>
+  </section>
+
+  <div class="dl">
+    <a class="main" href="https://github.com/johukku/subtitle-editor/releases/latest/download/SubtitleEditor-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+    <p class="note">うまく動かないときは <a href="/editor/faq/">FAQ・困ったとき</a> をご覧ください。</p>
+  </div>
+
+  <section>
+    <h2>使用しているオープンソースソフトウェア</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>名称</th><th>用途</th><th>ライセンス</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://ffmpeg.org/" rel="noopener">FFmpeg</a></td><td>音声の切り出し、コマの切り出し、焼き込み</td><td>GPL v3</td></tr>
+          <tr><td><a href="https://github.com/libass/libass" rel="noopener">libass</a></td><td>字幕の描画（上記の FFmpeg に含まれます）</td><td>ISC</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      いずれも配布ファイルには含めておらず、利用者のパソコンが
+      <a href="https://github.com/yt-dlp/FFmpeg-Builds" rel="noopener">公式のビルド</a>から取得します。
+      本ツール自体は MIT License です（配布 ZIP にライセンス文を同梱）。
+    </p>
+  </section>
+
+  <section>
+    <h2>更新履歴</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>バージョン</th><th>日付</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>v1.0</td>
+            <td>2026-09-15</td>
+            <td>初回公開。SRT / VTT / ASS / JSON の読み込み、区間の聞き直し、波形とコマの表示、
+                読みにくい字幕の点検、自動生成字幕の整理、動画への焼き込みに対応。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      過去のバージョンは
+      <a href="https://github.com/johukku/subtitle-editor/releases" rel="noopener">GitHub の Releases</a>
+      から取得できます。ソースコードは
+      <a href="https://github.com/johukku/subtitle-editor" rel="noopener">github.com/johukku/subtitle-editor</a> で公開しています。
+    </p>
+  </section>
+
+  <section>
+    <h2>ライセンスと注意</h2>
+    <p>
+      本ツールは無料で利用でき、商用・業務利用も可能です（MIT License）。
+      使用する FFmpeg（GPL v3）は同梱しておらず、利用者のパソコンが公式ビルドを直接取得します。
+    </p>
+    <div class="note-box warn">
+      <strong>保存は開いたファイルを上書きします</strong>
+      最初の 1 回だけ「（編集前）」という控えを同じ場所に残します。
+      焼き込みは元の動画を書き換えず、別のファイルとして書き出します。
+      手元にある字幕と動画を直すためのツールです。権利者の許可なく配布・公開する目的での利用はお控えください。
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+</body>
+</html>

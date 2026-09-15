@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ・困ったとき｜字幕エディター</title>
+<meta name="description" content="字幕エディターのよくある質問とトラブル対処。音が出ない・波形が出ない、字幕が文字化けする、動画が再生されない、元のファイルはどうなるか、ASS のスタイルが消える、焼き込みが失敗する、といった疑問への答えをまとめました。">
+<link rel="canonical" href="https://johukku.pages.dev/editor/faq/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="johukku の作ったもの置き場">
+<meta property="og:title" content="FAQ・困ったとき｜字幕エディター">
+<meta property="og:description" content="字幕エディターのよくある質問とトラブル対処をまとめました。">
+<meta property="og:url" content="https://johukku.pages.dev/editor/faq/">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://johukku.pages.dev/assets/editor.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="tool-nav">
+  <div class="wrap">
+    <strong>字幕エディター</strong>
+    <a href="/editor/">概要</a><span class="sep">|</span>
+    <a href="/editor/usage/">使い方</a><span class="sep">|</span>
+    <a href="/editor/faq/" aria-current="page">FAQ・困ったとき</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <h1>FAQ・困ったとき</h1>
+  <p class="updated">最終更新：2026年9月</p>
+
+  <section>
+    <h2>起動・導入について</h2>
+
+    <details class="faq-item">
+      <summary>「Windows によって PC が保護されました」と出る</summary>
+      <div class="faq-body">
+        <p>
+          有料の署名（デジタル証明書）を付けていないため、初回起動時に表示されます。
+          「詳細情報」→「実行」で起動できます。
+        </p>
+        <p class="small muted">
+          気になる場合は、<a href="https://github.com/johukku/subtitle-editor" rel="noopener">GitHub</a> で
+          ソースコードを公開しているので、中身を確認してからお使いください。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>初回の部品取得に失敗する</summary>
+      <div class="faq-body">
+        <p>
+          ほとんどが通信エラーです。もう一度起動して、取得をやり直してください。
+          社内ネットワークなどで GitHub への接続が制限されている場合は、取得できないことがあります。
+        </p>
+        <p>
+          何度も失敗する場合は、メニューの「ヘルプ → 部品を入れ直す（FFmpeg）」で取得し直します。
+          FFmpeg が無くても、字幕の編集と保存はできます。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>ウイルス対策ソフトに止められる</summary>
+      <div class="faq-body">
+        <p>
+          この種のツールは誤検知されることがあります。
+          心配な場合は<a href="https://github.com/johukku/subtitle-editor" rel="noopener">ソースコード</a>をご確認ください。
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <section>
+    <h2>編集について</h2>
+
+    <details class="faq-item">
+      <summary>動画を開いても音が出ない・波形が出ない</summary>
+      <div class="faq-body">
+        <p>
+          動画に音声が入っていない可能性があります。その場合はコマの表示だけ使えます。
+        </p>
+        <p>
+          音声が入っているのに出ないときは、「ヘルプ → 部品を入れ直す（FFmpeg）」で FFmpeg を取得し直すと直ることがあります。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>動画の映像が動かない</summary>
+      <div class="faq-body">
+        <p>
+          仕様です。本ツールは動画そのものは再生せず、音だけを再生して、絵は「その時刻の 1 コマ」を切り出して見せます。
+          字幕を直すのに要るのは「いま何と言っているか」を聞くことなので、これで足ります。
+        </p>
+        <p class="small muted">
+          おかげで動画の形式（MKV / VP9 / AV1 など）を選ばず、余計な部品も要りません。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>字幕が文字化けする</summary>
+      <div class="faq-body">
+        <p>
+          文字コードは UTF-8 → UTF-16 → Shift_JIS の順に自動で判定していますが、古い形式のファイルは読み違えることがあります。
+          メモ帳で開いて「UTF-8」で保存し直してから開いてください。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>元のファイルはどうなりますか</summary>
+      <div class="faq-body">
+        <p>
+          「保存」は開いたファイルを上書きしますが、<strong>最初の 1 回だけ「（編集前）」という控え</strong>を同じ場所に残します。
+          やり直したくなったら、その控えを開き直してください。
+        </p>
+        <p>
+          焼き込みは元の動画を書き換えず、「（動画名）_字幕入り.mp4」として別に書き出します。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>時刻をぴったり合わせるコツは</summary>
+      <div class="faq-body">
+        <p>
+          「この字幕を再生」（Ctrl+Enter）で聞きながら、声が始まった瞬間に <code>[</code>、終わった瞬間に <code>]</code> を押すのがいちばん速い方法です。
+          いまの再生位置がそのまま開始・終了に入ります。
+        </p>
+        <p>
+          細かく詰めたいときは、波形を Ctrl+ホイールで拡大して、上の帯の端をドラッグしてください。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>ASS を開いたらスタイルが消えた</summary>
+      <div class="faq-body">
+        <p>
+          ASS は本文と時刻だけを読み、元のスタイルは読み捨てます。
+          保存すると本ツールのスタイル（焼き込みと同じ 4 種）で書き出されます。
+        </p>
+        <p class="small muted">
+          凝ったスタイルをそのまま残したい ASS には向きません。
+          <a href="/subtitle/">Whisper 字幕作成ツール</a>が出した ASS なら、同じスタイルなので問題ありません。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Whisper 字幕作成ツールの JSON も開けますか</summary>
+      <div class="faq-body">
+        <p>
+          開けます。区間の時刻と本文を読み込みます。保存するときは SRT / WebVTT / ASS のどれかを選んでください。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>YouTube の自動生成字幕を開くと同じ文が 2 回ずつ並ぶ</summary>
+      <div class="faq-body">
+        <p>
+          自動生成の VTT は「前の行の再掲」を含む独特の並びですが、本ツールはそれを外して開くので、ふつうは 2 回ずつにはなりません。
+          なる場合は、別のソフトを通したファイルかもしれません。
+          <a href="/downloader/">メディアダウンローダー</a>で保存し直したものを開いてみてください。
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section>
+    <h2>焼き込みについて</h2>
+
+    <details class="faq-item">
+      <summary>焼き込みが失敗する</summary>
+      <div class="faq-body">
+        <p>
+          グラフィックドライバが古いと、GPU での書き出しに失敗することがあります。
+          焼き込みの画面で「GPU が使えれば使う」のチェックを外すと、CPU で書き出します。
+        </p>
+        <p class="small muted">
+          直らない場合は、状況を添えて<a href="/about/">運営者情報</a>のページからご連絡ください。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>字幕の文字が小さい／大きい</summary>
+      <div class="faq-body">
+        <p>
+          文字の大きさは、動画の解像度と「1 行の文字数」から自動で決まります（一番長い行が横幅に収まる大きさ）。
+          大きくしたいときは「自動で折り返す」で 1 行の文字数を減らしてください。
+          スタイルは焼き込みの画面で「見本を見る」を押して確かめられます。
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <section>
+    <h2>そのほか</h2>
+
+    <details class="faq-item">
+      <summary>他のツールと FFmpeg を共有しますか</summary>
+      <div class="faq-body">
+        <p>
+          はい。<code>%LOCALAPPDATA%\johukku\bin</code> に置き、
+          <a href="/subtitle/">Whisper 字幕作成ツール</a>・<a href="/downloader/">メディアダウンローダー</a>・<a href="/converter/">メディアコンバーター</a>と共有します。
+          どれかで取得済みなら、ほかでは取得を省けます。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>削除したい（アンインストール）</summary>
+      <div class="faq-body">
+        <p>
+          フォルダの中の <code>アンインストール.bat</code> をダブルクリックしてください。
+          ツールのフォルダと設定ファイルを削除します。
+          共有している FFmpeg は、消すかどうかを確認します（Enter で「残す」）。
+        </p>
+        <p>
+          手で削除したい場合は
+          <a href="/editor/usage/#uninstall">使い方の「9. アンインストール」</a>をご覧ください。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Mac や Linux で使えますか</summary>
+      <div class="faq-body">
+        <p>
+          現在は Windows 用としてのみ配布しています。
+          音の再生に Windows の仕組みを使っているため、他の OS ではそのままでは動きません。
+        </p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>商用利用はできますか</summary>
+      <div class="faq-body">
+        <p>
+          できます。本ツールは MIT License で、無料で商用・業務利用も可能です。
+        </p>
+        <p class="small muted">
+          使用する FFmpeg（GPL v3）は同梱しておらず、利用者のパソコンが公式ビルドを直接取得します。
+        </p>
+      </div>
+    </details>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+</body>
+</html>

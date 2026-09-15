@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>使い方｜字幕エディター</title>
+<meta name="description" content="字幕エディターの導入手順と画面の使い方。区間の聞き直し、時刻の直し方、読みにくい字幕の点検、YouTube の自動生成字幕の整理、保存と控え、動画への焼き込み、キー操作の一覧まで解説します。">
+<link rel="canonical" href="https://johukku.pages.dev/editor/usage/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="johukku の作ったもの置き場">
+<meta property="og:title" content="使い方｜字幕エディター">
+<meta property="og:description" content="字幕エディターの導入手順と画面の使い方。聞き直し、時刻の直し方、点検、保存、焼き込み、キー操作まで解説します。">
+<meta property="og:url" content="https://johukku.pages.dev/editor/usage/">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://johukku.pages.dev/assets/editor.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">johukku の作ったもの置き場</a>
+    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
+    <nav class="site-nav">
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="tool-nav">
+  <div class="wrap">
+    <strong>字幕エディター</strong>
+    <a href="/editor/">概要</a><span class="sep">|</span>
+    <a href="/editor/usage/" aria-current="page">使い方</a><span class="sep">|</span>
+    <a href="/editor/faq/">FAQ・困ったとき</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <h1>使い方</h1>
+  <p class="updated">最終更新：2026年9月</p>
+
+  <ul class="toc">
+    <li><a href="#install">1. 導入</a></li>
+    <li><a href="#screen">2. 画面の使い方</a></li>
+    <li><a href="#edit">3. 字幕を直す</a></li>
+    <li><a href="#checks">4. 一覧の印と点検</a></li>
+    <li><a href="#youtube">5. YouTube の自動生成字幕を直す</a></li>
+    <li><a href="#save">6. 保存と控え</a></li>
+    <li><a href="#burn">7. 動画に焼き込む</a></li>
+    <li><a href="#keys">8. キー操作の一覧</a></li>
+    <li><a href="#uninstall">9. アンインストール</a></li>
+  </ul>
+
+  <section id="install">
+    <h2>1. 導入</h2>
+    <ol>
+      <li><strong>ZIP をダウンロードして展開する</strong><br>
+        デスクトップなど、書き込みできる場所に展開してください。</li>
+      <li><strong>「字幕エディター.exe」をダブルクリック</strong><br>
+        Python などの準備は要りません。</li>
+      <li><strong>初回だけ、部品の取得を確認されます</strong><br>
+        「はい」を押すと、音声と映像の処理に使う FFmpeg（約 73 MB）を公式の配布元から取得します。数分かかります。</li>
+      <li><strong>「字幕を開く...」で字幕ファイルを開く</strong><br>
+        同じ場所に同じ名前の動画があれば、一緒に開くか聞かれます。
+        動画を先に開いても構いません（字幕のほうを聞かれます）。窓にファイルをドラッグ＆ドロップしても開けます。</li>
+    </ol>
+    <div class="note-box">
+      <strong>FFmpeg が無くても、字幕の編集と保存はできます</strong>
+      FFmpeg を使うのは、音声の再生・波形・コマの表示・焼き込みです。
+      取得した FFmpeg は <code>%LOCALAPPDATA%\johukku\bin</code> に置かれ、
+      <a href="/subtitle/">Whisper 字幕作成ツール</a>・<a href="/downloader/">メディアダウンローダー</a>・<a href="/converter/">メディアコンバーター</a>と共有するので、
+      どれかで取得済みなら、ほかでは取得を省けます。
+    </div>
+  </section>
+
+  <section id="screen">
+    <h2>2. 画面の使い方</h2>
+
+    <figure>
+      <img src="/assets/editor.png" width="1182" height="812" loading="lazy" decoding="async"
+           alt="字幕エディターの画面。左に字幕の一覧、右上にその時刻のコマ、右に開始・終了と本文の欄、下に再生ボタンと波形が並んでいる。">
+      <figcaption>左が一覧、右が編集欄、下が波形です。</figcaption>
+    </figure>
+
+    <h3>左：字幕の一覧</h3>
+    <p>
+      番号、開始、終了、長さ（秒）、1 秒あたりの文字数（字/秒）、印、本文が並びます。
+      クリックで選ぶと右の欄に内容が出て、Ctrl+↓ / Ctrl+↑ で次・前に移れます。
+    </p>
+
+    <h3>右上：その時刻のコマ</h3>
+    <p>
+      動画を開いていると、選んだ字幕の時刻の 1 コマが出ます。
+      「字幕を重ねて表示」にチェックが入っていれば、焼き込んだときの見た目で字幕が重なります。
+    </p>
+
+    <h3>右：開始・終了・本文</h3>
+    <p>
+      時刻の入力欄と本文の欄です。本文の下に「1 行 / 最長の行 25 文字 / 4.7 秒 / 5.3 文字/秒」のような数字と、
+      読みにくい場合はその理由が出ます。
+      「ここで分割」「次と結合」「後ろに挿入」「削除」もここにあります。
+    </p>
+
+    <h3>下：再生と波形</h3>
+    <p>
+      「▶ 再生」「◀ 3秒」「3秒 ▶」「この字幕を再生」「繰り返す」と、いまの位置が表示されます。
+      その下の波形は、ホイールで移動、Ctrl+ホイールで拡大縮小です。
+      波形の上の帯が各字幕の時間で、ドラッグすると時刻を動かせます（端で長さ、真ん中で位置）。
+    </p>
+
+    <h3>いちばん下の段</h3>
+    <p>
+      開いている字幕と動画の名前、問題と注意の件数、読み込みの結果、FFmpeg の版が出ます。
+      FFmpeg を取得し直したいときは、メニューの「ヘルプ → 部品を入れ直す（FFmpeg）」です。
+    </p>
+  </section>
+
+  <div class="ad-slot">広告</div>
+
+  <section id="edit">
+    <h2>3. 字幕を直す</h2>
+
+    <h3>まず聞く</h3>
+    <p>
+      一覧で字幕を選び、<strong>「この字幕を再生」（Ctrl+Enter）</strong>を押すと、その区間だけ聞けます。
+      「繰り返す」にチェックを入れると、何度も回ります。
+      Space で通しの再生と停止（本文の入力中は Ctrl+Space）、Alt+← / Alt+→ で 3 秒戻る・進むです。
+    </p>
+
+    <h3>時刻の直し方は 3 通り</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>方法</th><th>向いている場面</th></tr></thead>
+        <tbody>
+          <tr><td>入力欄に打つ</td><td>数値が分かっているとき。<code>0:12.491</code> のように書きます</td></tr>
+          <tr><td>「◀今」を押す（キーは <code>[</code> と <code>]</code>）</td><td>再生しながら、声が始まった瞬間・終わった瞬間で押すだけ。いちばん速い</td></tr>
+          <tr><td>波形の帯をドラッグ</td><td>波形を見て「この山の手前まで」と合わせたいとき</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>分ける・つなぐ・入れる・消す</h3>
+    <ul>
+      <li><strong>ここで分割</strong>（Ctrl+D）：本文のカーソル位置で 2 つに分けます。時間は文字数の比で分かれます</li>
+      <li><strong>次と結合</strong>（Ctrl+J）：次の字幕と 1 つにします</li>
+      <li><strong>後ろに挿入</strong>（Ctrl+Insert）：選んでいる字幕の後ろに空の字幕を足します</li>
+      <li><strong>削除</strong>（Ctrl+Delete）</li>
+    </ul>
+
+    <h3>まとめて直す</h3>
+    <ul>
+      <li><strong>全体をずらす...</strong>：字幕の時刻をまとめて動かします。遅らせるなら正、早めるなら負の秒数です。選んでいる字幕から後ろだけにもできます</li>
+      <li><strong>検索・置換...</strong>（Ctrl+H）：本文だけを探します。大文字と小文字は区別しません</li>
+      <li><strong>自動で折り返す...</strong>：1 行の文字数と行数を決めて、長い字幕を折り返します。<a href="/subtitle/">Whisper 字幕作成ツール</a>と同じ禁則処理です</li>
+    </ul>
+    <p class="small muted">
+      間違えたら Ctrl+Z で元に戻せます（100 段まで）。Ctrl+Y でやり直しです。
+    </p>
+  </section>
+
+  <section id="checks">
+    <h2>4. 一覧の印と点検</h2>
+    <p>読みにくい字幕には、一覧に印が付きます。F3 で次の警告へ飛べます。</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>印</th><th>意味</th></tr></thead>
+        <tbody>
+          <tr><td><strong>！</strong></td><td>直したほうがよいもの。本文が空、時間が重なっている、など</td></tr>
+          <tr><td><strong>△</strong></td><td>見る人が読み切れないおそれ。1 行が長い、1 秒あたりの文字数が多い、表示が短すぎる／長すぎる</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      しきい値（1 行の文字数、1 秒あたりの文字数、表示の長さ）は「編集 → 設定...」で変えられます。
+      初期値は「1 行 20 文字まで」「7 文字/秒まで」です。
+    </p>
+  </section>
+
+  <section id="youtube">
+    <h2>5. YouTube の自動生成字幕を直す</h2>
+    <p>
+      YouTube の自動生成字幕（VTT）は、次の行が出るたびに前の行をもう一度書く独特の並びで、
+      1 語ごとの時刻タグも入っています。そのまま開くと同じ文が 2 回ずつ並んで見えます。
+    </p>
+    <p>
+      本ツールはこれを開くときに<strong>「前の行の再掲」と時刻タグを外して、ふつうの字幕の並び</strong>にします。
+      あとは読み返しながら、誤変換と句読点を直し、長すぎる行を「自動で折り返す」で整えるだけです。
+    </p>
+    <p class="small muted">
+      自動生成字幕の取得には<a href="/downloader/">メディアダウンローダー</a>の「字幕を選んで保存」が使えます。
+    </p>
+  </section>
+
+  <section id="save">
+    <h2>6. 保存と控え</h2>
+    <p>
+      「保存」（Ctrl+S）は、開いたファイルを<strong>開いた形式のまま上書き</strong>します。
+      最初の上書きのときだけ、元のファイルを「（編集前）」という名前で同じ場所に残します。
+    </p>
+    <p>
+      別の形式にしたいときは「別名で保存...」（Ctrl+Shift+S）です。SRT / WebVTT / ASS から選べます。
+      ASS は、焼き込みと同じスタイルで書き出します。
+    </p>
+    <div class="note-box">
+      <strong>ASS のスタイルは読み込まれません</strong>
+      ASS を開いたときは本文と時刻だけを読み、元のスタイルは読み捨てます。
+      保存すると本ツールのスタイル（焼き込みと同じ 4 種）で書き出されます。
+      文字コードは UTF-8 → UTF-16 → Shift_JIS の順に判定し、保存は UTF-8 です。
+    </div>
+  </section>
+
+  <section id="burn">
+    <h2>7. 動画に焼き込む</h2>
+    <p>
+      「動画に焼き込む...」（Ctrl+B）で、字幕を映像に描き込んだ動画を書き出します。
+      スタイルは<a href="/subtitle/#burn">Whisper 字幕作成ツール</a>と同じ 4 種類（標準・大きめ・帯つき・縦動画向け）で、
+      文字の大きさは動画の解像度と 1 行の文字数から自動で決まります。「見本を見る」で仕上がりを確かめられます。
+    </p>
+    <ul>
+      <li>出力は元の動画と同じ場所に「（動画名）_字幕入り.mp4」（元が MKV なら MKV）。<strong>元の動画は書き換えません</strong></li>
+      <li>「GPU が使えれば使う」にチェックが入っていると、NVIDIA / Intel / AMD の GPU を試してから使い、駄目なら CPU に切り替えます</li>
+      <li>時間は動画の長さの数分の 1〜数倍です（GPU の有無で変わります）。途中で「中止」できます</li>
+    </ul>
+  </section>
+
+  <section id="keys">
+    <h2>8. キー操作の一覧</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>キー</th><th>動作</th></tr></thead>
+        <tbody>
+          <tr><td>Space</td><td>再生 / 停止（本文の入力中は Ctrl+Space）</td></tr>
+          <tr><td>Ctrl+Enter</td><td>選んでいる字幕の区間だけ再生</td></tr>
+          <tr><td>Ctrl+↓ / Ctrl+↑</td><td>次 / 前の字幕</td></tr>
+          <tr><td><code>[</code> / <code>]</code></td><td>開始 / 終了をいまの再生位置に</td></tr>
+          <tr><td>Alt+← / Alt+→</td><td>3 秒戻る / 進む</td></tr>
+          <tr><td>Ctrl+D / Ctrl+J</td><td>本文のカーソル位置で分割 / 次の字幕と結合</td></tr>
+          <tr><td>Ctrl+Insert / Ctrl+Delete</td><td>後ろに挿入 / 削除</td></tr>
+          <tr><td>Ctrl+Z / Ctrl+Y</td><td>元に戻す / やり直す</td></tr>
+          <tr><td>Ctrl+H</td><td>検索・置換</td></tr>
+          <tr><td>F3</td><td>次の警告へ</td></tr>
+          <tr><td>Ctrl+O / Ctrl+Shift+O</td><td>字幕を開く / 動画・音声を開く</td></tr>
+          <tr><td>Ctrl+S / Ctrl+Shift+S</td><td>保存 / 別名で保存</td></tr>
+          <tr><td>Ctrl+B</td><td>動画に焼き込む</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      波形はホイールで移動、Ctrl+ホイールで拡大縮小。上の帯はドラッグで時刻を動かせます。
+    </p>
+  </section>
+
+  <section id="uninstall">
+    <h2>9. アンインストール</h2>
+    <p>
+      フォルダの中の <code>アンインストール.bat</code> をダブルクリックします。
+      黒い画面で確認しながら削除が進みます。
+    </p>
+    <ul>
+      <li><strong>ツールのフォルダと設定ファイル</strong>は、最初の確認でまとめて削除します</li>
+      <li><strong>ほかのツールと共有している FFmpeg</strong> は、消すかどうかを確認します。<strong>Enter を押すと「残す」</strong>になります</li>
+      <li>フォルダに字幕や動画など、ツール以外のファイルを置いていた場合は、そのファイルとフォルダを残します</li>
+      <li>ツールが起動中のときは、何も消さずに終了します</li>
+      <li>最後の確認が済むまでは、何も削除しません</li>
+    </ul>
+
+    <h3>手で削除する場合</h3>
+    <p>
+      レジストリなどは変更していないので、手で削除しても問題ありません。
+      展開したフォルダに加えて、下記を削除してください。
+    </p>
+<pre><code>C:\Users\（ユーザー名）\AppData\Local\johukku\subtitle-editor  … 設定
+C:\Users\（ユーザー名）\AppData\Local\johukku\bin              … FFmpeg（共有）</code></pre>
+  </section>
+
+  <hr>
+  <p class="center">
+    <a class="btn" href="https://github.com/johukku/subtitle-editor/releases/latest/download/SubtitleEditor-v1.0-win64.zip" rel="noopener">ダウンロード（無料）</a>
+  </p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav>
+      <a href="/">トップ</a><span class="sep">|</span>
+      <a href="/bbs/">掲示板</a><span class="sep">|</span>
+      <a href="/about/">運営者情報</a><span class="sep">|</span>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </nav>
+    <div>Copyright &copy; 2026 johukku</div>
+  </div>
+</footer>
+
+</body>
+</html>

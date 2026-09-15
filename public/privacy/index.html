@@ -95,6 +95,18 @@
       取得した部品は <code>%LOCALAPPDATA%\johukku\bin\</code> に保存されます。
     </p>
 
+    <h3>字幕エディター</h3>
+    <p>
+      編集はすべて利用者のパソコン内で行い、字幕や動画の中身が外部に送信されることはありません。
+      通信を行うのは、初回起動時と「部品を入れ直す」を選んだときに、
+      FFmpeg を配布元（GitHub）から取得する場合だけです。
+    </p>
+    <p>
+      設定内容は利用者のパソコン内（<code>%LOCALAPPDATA%\johukku\subtitle-editor\</code>）に、
+      取得した部品は <code>%LOCALAPPDATA%\johukku\bin\</code> に保存されます。
+      開いた動画から切り出した作業用の音声は一時フォルダに置き、終了時に削除します。
+    </p>
+
     <p class="small muted">
       各ツールが FFmpeg や yt-dlp を取得する際は、配布元に対してソフトウェア名と当サイトの URL を含む
       User-Agent を送信します。個人を特定できる情報は含みません。
