@@ -60,21 +60,22 @@ export async function onRequestPost({ request, env }) {
   try {
     const ip = await hashIp(request, env.IP_SALT || "johukku");
     const now = new Date();
+    const cooldownFrom = new Date(now.getTime() - COOLDOWN_MINUTES * 60000).toISOString();
+    const dayFrom = new Date(now.getTime() - 86400000).toISOString();
 
-    const recent = await env.DB.prepare(
-      "SELECT COUNT(*) AS n FROM comments WHERE ip_hash = ? AND created_at > ?"
-    ).bind(ip, new Date(now.getTime() - COOLDOWN_MINUTES * 60000).toISOString()).first();
-    if ((recent?.n ?? 0) > 0) {
+    // 連投（3 分以内）と 1 日の回数を、1 回の SELECT でまとめて調べる
+    const usage = await env.DB.prepare(
+      "SELECT COUNT(*) AS daily, COALESCE(SUM(created_at > ?2), 0) AS recent " +
+      "FROM comments WHERE ip_hash = ?1 AND created_at > ?3"
+    ).bind(ip, cooldownFrom, dayFrom).first();
+
+    if ((usage?.recent ?? 0) > 0) {
       return json(
         { error: `連続投稿はできません。${COOLDOWN_MINUTES} 分ほど空けてください。` },
         429
       );
     }
-
-    const daily = await env.DB.prepare(
-      "SELECT COUNT(*) AS n FROM comments WHERE ip_hash = ? AND created_at > ?"
-    ).bind(ip, new Date(now.getTime() - 86400000).toISOString()).first();
-    if ((daily?.n ?? 0) >= DAILY_PER_IP) {
+    if ((usage?.daily ?? 0) >= DAILY_PER_IP) {
       return json({ error: "本日の投稿数の上限に達しました。" }, 429);
     }
 

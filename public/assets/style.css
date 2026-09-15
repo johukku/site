@@ -451,3 +451,29 @@ section { margin: 0 0 26px; }
   .sample-vertical { grid-template-columns: 1fr; }
   .sample-vertical figure { max-width: 220px; margin: 0 auto; }
 }
+
+/* ---------------------------------------------------- 読みやすさの補強 */
+
+/* ページ内リンクで飛ぶときに、動きを減らす設定の人には即座に移動する */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* キーボードで操作している人に、いまどこにいるかを見せる */
+:focus-visible {
+  outline: 2px solid #0033cc;
+  outline-offset: 2px;
+}
+
+/* 表は 1 行おきに薄く色を付けて、行を目で追いやすくする */
+tbody tr:nth-child(even) td { background: #fafafa; }
+
+.faq-item > summary:hover { background: #f0f0f0; }
+
+.toc::before {
+  content: "目次";
+  display: block;
+  margin-left: -18px;
+  font-weight: bold;
+  color: #444444;
+}
