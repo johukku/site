@@ -6,6 +6,8 @@ https://johukku.com/ のソースです。johukku が作った Windows 用ツー
 
 - [whisper-subtitle-tool](https://github.com/johukku/whisper-subtitle-tool) … Whisper 字幕作成ツール
 - [media-downloader](https://github.com/johukku/media-downloader) … メディアダウンローダー
+- [media-converter](https://github.com/johukku/media-converter) … メディアコンバーター
+- [subtitle-editor](https://github.com/johukku/subtitle-editor) … 字幕エディター
 
 ## 構成
 
@@ -16,6 +18,8 @@ public/              配信されるファイル（この中身だけが公開�
   index.html         トップ
   subtitle/          Whisper 字幕作成ツール（概要・使い方・FAQ）
   downloader/        メディアダウンローダー（概要・使い方・FAQ）
+  converter/         メディアコンバーター（概要・使い方・FAQ）
+  editor/            字幕エディター（概要・使い方・FAQ）
   bbs/               掲示板（投稿は承認制）
   admin/             掲示板の管理ページ
   about/  privacy/   運営者情報・プライバシーポリシー
