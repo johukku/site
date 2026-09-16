@@ -1,6 +1,6 @@
 # johukku の作ったもの置き場
 
-https://johukku.pages.dev/ のソースです。johukku が作った Windows 用ツールの配布ページを置いています。
+https://johukku.com/ のソースです。johukku が作った Windows 用ツールの配布ページを置いています。
 
 ツール本体は別のリポジトリです。
 
