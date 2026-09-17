@@ -25,3 +25,22 @@ CREATE INDEX IF NOT EXISTS idx_comments_approved
 
 CREATE INDEX IF NOT EXISTS idx_comments_ip
   ON comments (ip_hash, created_at);
+
+-- 同じ回線を 1 日 1 回だけ数えるための印。生の IP は保存しない。
+-- ip_hash = SHA-256(IP_SALT ":" day ":" IP（IPv6 は /64）) の先頭 16 バイト。
+-- 日付入りなので、日をまたいで突き合わせることはできない。
+-- 前日までの分は、日付が変わったあとの最初のアクセス（または管理画面を開いたとき）に消す。
+CREATE TABLE IF NOT EXISTS visits (
+  day     TEXT NOT NULL,              -- 'YYYY-MM-DD'（日本時間）
+  ip_hash TEXT NOT NULL,
+  PRIMARY KEY (day, ip_hash)          -- day が先頭: 古い日の DELETE が範囲検索になる
+) WITHOUT ROWID;
+
+-- 数えなかったアクセスの、理由ごとの件数（管理画面で「誰が来ていたのか」を見るため）。
+-- 合計の数字だけで、個々のアクセスの情報は持たない。
+CREATE TABLE IF NOT EXISTS counter_skips (
+  day    TEXT NOT NULL,
+  reason TEXT NOT NULL,               -- owner / bot / robot_network / prerender / seen_cookie / seen_ip / no_ip
+  n      INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (day, reason)
+) WITHOUT ROWID;

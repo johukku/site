@@ -4,3 +4,7 @@
   Content-Security-Policy: frame-ancestors 'none'
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
+
+# すべてのページ：他サイトの枠の中に表示させない（隠し iframe でカウンターや広告の表示回数を水増しされないように）
+/*
+  Content-Security-Policy: frame-ancestors 'self'

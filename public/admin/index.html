@@ -24,6 +24,7 @@
     <div class="note-box">
       <strong>合言葉を入れてください</strong>
       入力した合言葉はこのブラウザのタブにだけ残ります。サーバーには毎回送信されます。
+      開くと、このブラウザは訪問者数の集計から外れます。
     </div>
     <form id="login-form" class="bbs-form">
       <div class="bbs-row">
@@ -36,6 +37,11 @@
   </section>
 
   <section id="admin-area" hidden>
+    <div class="note-box" id="owner-box">
+      <strong id="owner-state">確認中...</strong>
+      <span id="owner-detail"></span>
+      <p class="admin-actions"><button type="button" id="owner-toggle" hidden></button></p>
+    </div>
     <p>
       <button type="button" id="reload" class="bbs-submit">再読み込み</button>
       <span id="summary" class="small muted"></span>
@@ -43,6 +49,15 @@
     <div id="pending"></div>
     <h2>公開中の書き込み</h2>
     <div id="published"></div>
+    <h2>訪問者数（直近 30 日）</h2>
+    <p id="stats-summary" class="small muted"></p>
+    <div id="stats" class="table-scroll"></div>
+    <p class="small muted">
+      「人数」がカウンターに足された数。右の 4 列は数えなかったアクセスの件数です
+      （運営者＝除外中のブラウザ、自動巡回＝検索エンジンや Google の審査など、同じ人＝その日 2 回目以降や同じ回線の別の端末、
+      その他＝回線を判定できず数えなかったものなど。ここが増えていたら IP_SALT の設定を確認）。
+      回線（IP）単位で数えはじめたのは 2026-09-17 の途中からです（その日はブラウザ単位の分が混ざり、それより前はすべてブラウザ単位）。
+    </p>
   </section>
 </main>
 
@@ -75,11 +90,14 @@
            " " + p(j.getUTCHours()) + ":" + p(j.getUTCMinutes());
   }
 
-  function call(action, id) {
+  function call(action, id, extra) {
+    var body = { token: token, action: action, id: id };
+    if (extra) Object.keys(extra).forEach(function (k) { body[k] = extra[k]; });
     return fetch("/api/admin", {
       method: "POST",
+      credentials: "same-origin",                     // Set-Cookie を確実に受け取る
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ token: token, action: action, id: id })
+      body: JSON.stringify(body)
     }).then(function (r) {
       return r.json().then(function (d) {
         if (!r.ok) throw new Error(d.error || "失敗しました");
@@ -124,6 +142,84 @@
     return call("list").then(function (d) { render(d.comments || []); });
   }
 
+  var ownerOn = false;
+  var WD = ["日", "月", "火", "水", "木", "金", "土"];
+
+  function weekday(day) {                             // 'YYYY-MM-DD' → 曜日（端末の時差に左右されないよう UTC で）
+    var q = String(day).split("-");
+    return WD[new Date(Date.UTC(+q[0], +q[1] - 1, +q[2])).getUTCDay()];
+  }
+
+  function renderOwner(on, err) {
+    ownerOn = !!on;
+    document.getElementById("owner-state").textContent = on
+      ? "このブラウザは訪問者数に数えていません"
+      : "このブラウザは訪問者として数えられます";
+    document.getElementById("owner-detail").textContent = err
+      ? "除外の設定に失敗しました: " + err
+      : on
+        ? "除外の印（Cookie: jk_owner）は 1 年間有効で、この画面を開くたびに延長されます。" +
+          "今日は、いまの回線からのほかの端末のアクセスも基本的に数えません。ほかの端末やブラウザも、一度この画面を開けば除外されます。"
+        : "このあとトップを開くと 1 人として数えられます。次にこの画面を開くと、また除外されます。";
+    var b = document.getElementById("owner-toggle");
+    b.textContent = on ? "このブラウザも数える（動作確認用）" : "このブラウザを除外する";
+    b.hidden = false;
+    b.disabled = false;
+  }
+
+  function n(v) { return Number(v) || 0; }
+  var KNOWN = ["owner", "bot", "robot_network", "prerender", "seen_cookie", "seen_ip"];
+
+  function renderStats(d) {
+    var days = d.days || [], sum7 = 0, sum = 0, i;
+    for (i = 0; i < days.length; i++) { sum += n(days[i].hits); if (i < 7) sum7 += n(days[i].hits); }
+    document.getElementById("stats-summary").textContent =
+      "累計 " + n(d.total) + " 人 / 直近 7 日 " + sum7 + " 人 / 直近 " + days.length + " 日 " + sum + " 人";
+    var rows = days.map(function (r) {
+      var k = r.skips || {};
+      var robots = n(k.bot) + n(k.robot_network) + n(k.prerender);
+      var again = n(k.seen_cookie) + n(k.seen_ip);
+      var other = 0;                                  // 上の列に入らない理由も落とさない
+      Object.keys(k).forEach(function (x) { if (KNOWN.indexOf(x) < 0) other += n(k[x]); });
+      return "<tr><td>" + esc(r.day) + "（" + weekday(r.day) + "）" + (r.day === d.today ? " 今日" : "") + "</td>" +
+        '<td class="num"><strong>' + n(r.hits) + "</strong></td>" +
+        '<td class="num">' + n(k.owner) + "</td>" +
+        '<td class="num">' + robots + "</td>" +
+        '<td class="num">' + again + "</td>" +
+        '<td class="num">' + other + "</td></tr>";
+    }).join("");
+    document.getElementById("stats").innerHTML = rows
+      ? "<table><thead><tr><th>日付</th><th>人数</th><th>運営者</th><th>自動巡回</th><th>同じ人</th><th>その他</th></tr></thead><tbody>" +
+        rows + "</tbody></table>"
+      : '<p class="muted small">まだ記録がありません。</p>';
+  }
+
+  function loadStats() {
+    return call("stats").then(function (d) { renderOwner(d.owner); renderStats(d); });
+  }
+
+  function showStatsError(err) {
+    document.getElementById("stats").innerHTML = '<p class="bbs-msg ng">' + esc(err.message) + "</p>";
+  }
+
+  // 除外の切り替え。失敗しても掲示板の管理は止めない。表示はサーバーが受け取った Cookie を正とする
+  function setOwner(on) {
+    var known, failed = "";                           // known = owner の応答が返した状態（stats が落ちたときの代わり）
+    return call("owner", null, { on: on })
+      .then(function (d) { known = !!d.owner; }, function (err) { failed = err.message; })
+      .then(loadStats)
+      .then(function () {
+        // 外すよう頼んだのに、サーバーに Cookie が届いていない＝ブラウザが保存を断った
+        if (!failed && on && !ownerOn) failed = "Cookie を保存できませんでした。このブラウザの Cookie の設定を確認してください。";
+        if (failed) renderOwner(ownerOn, failed);
+      })
+      .catch(function (err) {
+        // stats が落ちても、除外の枠とボタンは止めない
+        renderOwner(known === undefined ? ownerOn : known, failed);
+        showStatsError(err);
+      });
+  }
+
   document.getElementById("login-form").addEventListener("submit", function (e) {
     e.preventDefault();
     token = document.getElementById("f-token").value;
@@ -132,6 +228,7 @@
     load().then(function () {
       loginArea.hidden = true;
       adminArea.hidden = false;
+      setOwner(true);     // 合言葉が通ったあとで。ここが失敗しても掲示板の管理は使える
     }).catch(function (err) {
       token = "";
       loginMsg.textContent = err.message;
@@ -139,7 +236,15 @@
     });
   });
 
-  document.getElementById("reload").addEventListener("click", function () { load(); });
+  document.getElementById("reload").addEventListener("click", function () {
+    load().catch(function (err) { alert(err.message); });
+    loadStats().catch(showStatsError);
+  });
+
+  document.getElementById("owner-toggle").addEventListener("click", function () {
+    this.disabled = true;
+    setOwner(!ownerOn);
+  });
 
   adminArea.addEventListener("click", function (e) {
     var b = e.target.closest("button[data-act]");

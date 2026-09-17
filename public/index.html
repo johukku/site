@@ -229,17 +229,24 @@
 <script>
 (function () {
   var box = document.getElementById("counter");
-  fetch("/api/counter", { headers: { accept: "application/json" } })
-    .then(function (r) { return r.json(); })
-    .then(function (d) {
-      if (typeof d.total !== "number") throw new Error("bad");
-      var s = String(d.total).padStart(8, "0");
-      document.getElementById("counter-digits").innerHTML =
-        s.split("").map(function (c) { return "<span>" + c + "</span>"; }).join("");
-      document.getElementById("counter-today").textContent = d.today;
-      document.getElementById("counter-yesterday").textContent = d.yesterday;
-    })
-    .catch(function () { box.style.display = "none"; });
+  function run() {
+    // 自動操縦のブラウザと、URL に nocount を付けた動作確認は、数字だけ見て数えない
+    var peek = navigator.webdriver || location.search.indexOf("nocount") >= 0;
+    fetch("/api/counter" + (peek ? "?peek=1" : ""), { headers: { accept: "application/json" }, cache: "no-store" })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (typeof d.total !== "number") throw new Error("bad");
+        var s = String(d.total).padStart(8, "0");
+        document.getElementById("counter-digits").innerHTML =
+          s.split("").map(function (c) { return "<span>" + c + "</span>"; }).join("");
+        document.getElementById("counter-today").textContent = d.today;
+        document.getElementById("counter-yesterday").textContent = d.yesterday;
+      })
+      .catch(function () { box.style.display = "none"; });
+  }
+  // ブラウザが先読みで描画しているあいだは数えない。実際に表示されたときに数える
+  if (document.prerendering) document.addEventListener("prerenderingchange", run, { once: true });
+  else run();
 })();
 </script>
 

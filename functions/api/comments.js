@@ -35,6 +35,8 @@ export async function onRequestGet({ env }) {
 
 export async function onRequestPost({ request, env }) {
   if (!env.DB) return json({ error: "database is not configured" }, 503);
+  // 秘密の文字列が無い状態では IP のハッシュを作らない（＝投稿を受け付けない）
+  if (!env.IP_SALT) return json({ error: "掲示板は準備中です。" }, 503);
 
   let payload;
   try {
@@ -58,16 +60,25 @@ export async function onRequestPost({ request, env }) {
   }
 
   try {
-    const ip = await hashIp(request, env.IP_SALT || "johukku");
+    const ip = await hashIp(request, env.IP_SALT);
     const now = new Date();
     const cooldownFrom = new Date(now.getTime() - COOLDOWN_MINUTES * 60000).toISOString();
     const dayFrom = new Date(now.getTime() - 86400000).toISOString();
 
-    // 連投（3 分以内）と 1 日の回数を、1 回の SELECT でまとめて調べる
-    const usage = await env.DB.prepare(
-      "SELECT COUNT(*) AS daily, COALESCE(SUM(created_at > ?2), 0) AS recent " +
-      "FROM comments WHERE ip_hash = ?1 AND created_at > ?3"
-    ).bind(ip, cooldownFrom, dayFrom).first();
+    const forgetBefore = new Date(now.getTime() - 2 * 86400000).toISOString();
+
+    const checked = await env.DB.batch([
+      // IP のハッシュは連投の判定にしか使わない。判定に要るのは直近 24 時間。余裕を見て 2 日を過ぎた投稿からは消す
+      env.DB.prepare(
+        "UPDATE comments SET ip_hash = NULL WHERE ip_hash IS NOT NULL AND created_at < ?1"
+      ).bind(forgetBefore),
+      // 連投（3 分以内）と 1 日の回数を、1 回の SELECT でまとめて調べる
+      env.DB.prepare(
+        "SELECT COUNT(*) AS daily, COALESCE(SUM(created_at > ?2), 0) AS recent " +
+        "FROM comments WHERE ip_hash = ?1 AND created_at > ?3"
+      ).bind(ip, cooldownFrom, dayFrom),
+    ]);
+    const usage = checked[1].results?.[0];
 
     if ((usage?.recent ?? 0) > 0) {
       return json(
