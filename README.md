@@ -1,8 +1,9 @@
-# johukku の作ったもの置き場
+# johukku
 
-https://johukku.com/ のソースです。johukku が作った Windows 用ツールの配布ページを置いています。
+https://johukku.com/ のソースです。johukku の個人サイトで、ブラウザで遊べるゲームと小説を置いています。
 
-ツール本体は別のリポジトリです。
+2026年9月から11月までは、Windows 用ツールの紹介ページを置いていました。ツールは各リポジトリで公開を続けています
+（旧ページの URL は `_redirects` で各リポジトリへ転送しています）。
 
 - [whisper-subtitle-tool](https://github.com/johukku/whisper-subtitle-tool) … Whisper 字幕作成ツール
 - [media-downloader](https://github.com/johukku/media-downloader) … メディアダウンローダー
@@ -16,15 +17,14 @@ https://johukku.com/ のソースです。johukku が作った Windows 用ツー
 ```
 public/              配信されるファイル（この中身だけが公開される）
   index.html         トップ
-  subtitle/          Whisper 字幕作成ツール（概要・使い方・FAQ）
-  downloader/        メディアダウンローダー（概要・使い方・FAQ）
-  converter/         メディアコンバーター（概要・使い方・FAQ）
-  editor/            字幕エディター（概要・使い方・FAQ）
+  games/             ゲームの一覧
+    0500/            〇五〇〇 の紹介。play/ が本体（C:\自由\〇五〇〇 の 1 ファイルをそのまま写したもの）
+  novels/            小説（作品を置くときは style.css の .novel と .chapter-nav を使う）
   bbs/               掲示板（投稿は承認制）
   admin/             管理ページ（掲示板の承認、訪問者数の内訳、運営者の除外）
-  about/  privacy/   運営者情報・プライバシーポリシー
-  assets/            CSS と画像
-  404.html  _headers  _redirects  robots.txt  sitemap.xml  favicon.ico
+  about/  privacy/   このサイトについて・プライバシーポリシー
+  assets/            CSS と画像（screenshot.png・downloader.png・editor.png は各ツールの README が表示しているので残す）
+  404.html  _headers  _redirects  robots.txt  sitemap.xml  favicon.ico  ads.txt
 functions/api/       counter.js（カウンター）・comments.js（掲示板）・admin.js（承認・非表示・削除、訪問者数の内訳、運営者の除外）
 schema.sql           D1 のテーブル定義
 wrangler.toml        Pages と D1 の設定

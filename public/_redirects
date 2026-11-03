@@ -1,5 +1,16 @@
-# 旧構成からのリダイレクト（サイト再編前の URL 対策）
-/usage/*  /subtitle/usage/:splat  301
-/faq/*    /subtitle/faq/:splat    301
-/usage    /subtitle/usage/        301
-/faq      /subtitle/faq/          301
+# 以前のツールのページ（2026-11-04 に閉じた）は、各ツールの GitHub へ。
+# ツールの中のヘルプや README がこれらの URL を指している。戻せるように 302 にしている
+/subtitle/*    https://github.com/johukku/whisper-subtitle-tool  302
+/subtitle      https://github.com/johukku/whisper-subtitle-tool  302
+/downloader/*  https://github.com/johukku/media-downloader       302
+/downloader    https://github.com/johukku/media-downloader       302
+/converter/*   https://github.com/johukku/media-converter        302
+/converter     https://github.com/johukku/media-converter        302
+/editor/*      https://github.com/johukku/subtitle-editor        302
+/editor        https://github.com/johukku/subtitle-editor        302
+
+# さらに古い URL（2026-09 の再編の前は、字幕ツールの使い方と FAQ がここにあった）
+/usage/*  https://github.com/johukku/whisper-subtitle-tool  302
+/usage    https://github.com/johukku/whisper-subtitle-tool  302
+/faq/*    https://github.com/johukku/whisper-subtitle-tool  302
+/faq      https://github.com/johukku/whisper-subtitle-tool  302

@@ -3,18 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>johukku の作ったもの置き場</title>
-<meta name="description" content="Windows 用のちょっとした道具を無料で配布しています。動画・音声から字幕を作るツールや、URL を貼るだけで動画・音声を保存するツールなど。ソースコードも公開しています。">
+<title>johukku</title>
+<meta name="description" content="johukku の個人サイトです。ブラウザで遊べるゲームと、小説を置いています。">
 <meta name="google-site-verification" content="wa68Juw8SWPpXM_15hVLPkxXN9hQ2s9_rheiLa0j3yE">
 <link rel="canonical" href="https://johukku.com/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="johukku の作ったもの置き場">
-<meta property="og:title" content="johukku の作ったもの置き場">
-<meta property="og:description" content="Windows 用のちょっとした道具を無料で配布しています。">
+<meta property="og:site_name" content="johukku">
+<meta property="og:title" content="johukku">
+<meta property="og:description" content="ブラウザで遊べるゲームと、小説を置いています。">
 <meta property="og:url" content="https://johukku.com/">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#131210">
 <link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6960184588930344"
      crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/assets/style.css">
@@ -23,204 +25,56 @@
 
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="/">johukku の作ったもの置き場</a>
-    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
-    <nav class="site-nav">
-      <a href="/" aria-current="page">トップ</a><span class="sep">|</span>
-      <a href="/bbs/">掲示板</a><span class="sep">|</span>
-      <a href="/about/">運営者情報</a><span class="sep">|</span>
-      <a href="/privacy/">プライバシーポリシー</a>
+    <a class="brand" href="/">johukku</a>
+    <nav class="site-nav" aria-label="サイト内">
+      <a href="/games/">ゲーム</a>
+      <a href="/novels/">小説</a>
+      <a href="/bbs/">掲示板</a>
+      <a href="/about/">このサイトについて</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
 
-  <h1>作ったもの置き場</h1>
-
-  <div class="intro">
-    <p>
-      自分が欲しくて作った Windows 用の道具を置いています。すべて無料で、商用利用もできます。
-    </p>
-    <p>
-      需要があるかは分かりませんが、一応置いておきます。
-    </p>
+  <div class="hero">
+    <h1>johukku</h1>
+    <p>作ったものを置いている、個人のサイトです。</p>
   </div>
 
   <section>
-    <h2>配布中のもの</h2>
-
-    <div class="item">
-      <h3><a href="/editor/">字幕エディター</a></h3>
-      <p class="item-meta">v1.0　/　2026年9月15日公開　/　Windows 10・11　/　インストール不要</p>
-      <p>
-        SRT / VTT / ASS の字幕を、その区間の音を聞きながら直して、保存するか動画に焼き込みます。
-        波形と、その時刻のコマを見ながら時刻を合わせられます。
-      </p>
-      <p>
-        読みにくい字幕には印が付き、YouTube の自動生成字幕も整理して読み込めます。
-        Whisper 字幕作成ツールが作った字幕を仕上げる相棒として作りました。
-      </p>
-      <p class="item-links">
-        <a href="/editor/">詳しく見る</a>　/
-        <a href="/editor/usage/">使い方</a>　/
-        <a href="/editor/faq/">FAQ</a>　/
-        <a href="https://github.com/johukku/subtitle-editor" rel="noopener">ソースコード</a>
-      </p>
-    </div>
-
-    <div class="item">
-      <h3><a href="/converter/">メディアコンバーター</a></h3>
-      <p class="item-meta">v1.0　/　2026年9月15日公開　/　Windows 10・11　/　インストール不要</p>
-      <p>
-        手元の動画や音声を、MP4 への変換・サイズを指定した圧縮・音声の取り出し・GIF の作成と、
-        目的に合わせて変換します。exe をダブルクリックするだけで使えます。
-      </p>
-      <p>
-        入れ物を詰め替えるだけで済むときは再エンコードしないので、画質を落とさないまま数秒で終わります。
-        「25 MB に収めたい」といったサイズ指定の圧縮もできます。
-      </p>
-      <p class="item-links">
-        <a href="/converter/">詳しく見る</a>　/
-        <a href="/converter/usage/">使い方</a>　/
-        <a href="/converter/faq/">FAQ</a>　/
-        <a href="https://github.com/johukku/media-converter" rel="noopener">ソースコード</a>
-      </p>
-    </div>
-
-    <div class="item">
-      <h3><a href="/downloader/">メディアダウンローダー</a></h3>
-      <p class="item-meta">v1.1　/　2026年9月12日更新　/　Windows 10・11　/　インストール不要</p>
-      <p>
-        URL を貼り付けて形式を選ぶだけで、動画や音声を手元に保存します。
-        Python などの準備は要らず、exe をダブルクリックするだけで使えます。
-      </p>
-      <p>
-        画質の選択、音声だけの抽出（mp3 / wav）、まとめて処理に対応。
-        その動画に用意されている字幕を一覧から選んで保存することもできます。
-      </p>
-      <p class="item-links">
-        <a href="/downloader/">詳しく見る</a>　/
-        <a href="/downloader/usage/">使い方</a>　/
-        <a href="/downloader/faq/">FAQ</a>　/
-        <a href="https://github.com/johukku/media-downloader" rel="noopener">ソースコード</a>
-      </p>
-    </div>
-
-    <div class="item">
-      <h3><a href="/subtitle/">Whisper 字幕作成ツール</a></h3>
-      <p class="item-meta">v1.2.1　/　2026年9月11日更新　/　Windows 10・11</p>
-      <p>
-        動画や音声を読み込ませると、AI が話している内容を聞き取って
-        字幕ファイル（SRT / VTT / ASS / JSON）を作ります。
-        音声を外部に送信せず、すべて手元のパソコンで処理します。
-        NVIDIA のグラフィックボードがあれば 10 分の動画を 1〜2 分で処理できます。
-      </p>
-      <p>
-        日本語の字幕として実際に使える形にするところまで面倒を見ます。
-        1 行が長くなりすぎないよう自動で折り返し、句読点も補います。
-        v1.1 からは、字幕を動画そのものに焼き込んで書き出せるようになりました。
-      </p>
-      <p class="item-links">
-        <a href="/subtitle/">詳しく見る</a>　/
-        <a href="/subtitle/usage/">使い方</a>　/
-        <a href="/subtitle/faq/">FAQ</a>　/
-        <a href="https://github.com/johukku/whisper-subtitle-tool" rel="noopener">ソースコード</a>
-      </p>
-    </div>
+    <h2>ゲーム</h2>
+    <ul class="works">
+      <li class="work">
+        <p class="work-kind">ブラウザで遊べます　／　スマホ・PC</p>
+        <h3 class="work-title"><a href="/games/0500/">〇五〇〇</a></h3>
+        <p>
+          山の上の観測所で、五人の兵と夜を越します。夜明けまでに一人でも失えば、夜はまた二十二時から始まります。兵たちは前の夜を覚えていません。
+        </p>
+      </li>
+    </ul>
   </section>
 
-  <section id="flow">
-    <h2>4 本の使い分け</h2>
-    <p>
-      どれも単体で使えますが、つなげて使うとこういう流れになります。
-      動画を扱う部品（FFmpeg）は 4 本で共有しているので、2 本目からは取得が要りません。
-    </p>
-    <ol>
-      <li><strong>手元に残す</strong> ― 自分の動画や配信のアーカイブを <a href="/downloader/">メディアダウンローダー</a> で保存する。用意されている字幕があれば一緒に。</li>
-      <li><strong>字幕を作る</strong> ― 字幕が無い動画は <a href="/subtitle/">Whisper 字幕作成ツール</a> に読み込ませる。音声を外に出さずに、手元のパソコンで文字起こしします。</li>
-      <li><strong>直す</strong> ― できた字幕（や YouTube の自動生成字幕）を <a href="/editor/">字幕エディター</a> で、音を聞きながら仕上げる。そのまま動画に焼き込むこともできます。</li>
-      <li><strong>形をそろえる</strong> ― 送る先に合わせて <a href="/converter/">メディアコンバーター</a> で MP4 にしたり、サイズを指定して小さくしたりする。</li>
-    </ol>
-    <p class="small muted">
-      どこから始めても構いません。たとえば「スマホで撮った動画を軽くしたいだけ」なら 4 だけです。
+  <section>
+    <h2>小説</h2>
+    <p class="empty">
+      まだ置いていません。書いたものから順に<a href="/novels/">ここ</a>へ置いていきます。
     </p>
   </section>
 
   <section>
     <h2>更新履歴</h2>
-    <div class="table-scroll">
-      <table>
-        <thead><tr><th>日付</th><th>内容</th></tr></thead>
-        <tbody>
-          <tr>
-            <td>2026-09-15</td>
-            <td><a href="/editor/">字幕エディター</a> v1.0 を公開しました（字幕を音を聞きながら直して、保存するか動画に焼き込む）。</td>
-          </tr>
-          <tr>
-            <td>2026-09-15</td>
-            <td><a href="/converter/">メディアコンバーター</a> v1.0 を公開しました（MP4 変換・サイズ指定の圧縮・音声の取り出し・GIF の作成）。</td>
-          </tr>
-          <tr>
-            <td>2026-09-12</td>
-            <td><a href="/downloader/">メディアダウンローダー</a> v1.1 を公開しました（小さい画面で下の段が隠れる不具合を修正、アンインストーラを同梱）。</td>
-          </tr>
-          <tr>
-            <td>2026-09-11</td>
-            <td><a href="/subtitle/">Whisper 字幕作成ツール</a> v1.2.1 を公開しました（アンインストーラとライセンス文を同梱）。</td>
-          </tr>
-          <tr>
-            <td>2026-09-10</td>
-            <td><a href="/subtitle/">Whisper 字幕作成ツール</a> v1.1 を公開しました（字幕を動画に焼き込む機能を追加）。</td>
-          </tr>
-          <tr>
-            <td>2026-09-09</td>
-            <td><a href="/downloader/">メディアダウンローダー</a> v1.0 を公開しました。</td>
-          </tr>
-          <tr>
-            <td>2026-09-09</td>
-            <td><a href="/subtitle/">Whisper 字幕作成ツール</a> v1.0 を公開しました。</td>
-          </tr>
-          <tr>
-            <td>2026-09-09</td>
-            <td>サイトを公開しました。</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section>
-    <h2>このサイトについて</h2>
-    <p>
-      個人で運営しています。置いてあるものはすべて無料で、
-      ソースコードも公開しています。中身が見えるほうが安心して使えると思うからです。
-    </p>
-    <p>
-      不具合の報告や要望は<a href="/about/">運営者情報</a>のページからお願いします。
-      個人でやっているので返信にお時間をいただくことがあります。
-    </p>
-    <div class="note-box warn">
-      <strong>利用にあたって</strong>
-      配布しているものは現状有姿で提供しています。
-      利用によって生じた損害について責任を負いかねますので、
-      大事なデータを扱う場合はバックアップを取ったうえでお試しください。
-    </div>
+    <ul class="history">
+      <li><time datetime="2026-11-04">2026-11-04</time><span>サイトを作り直しました。ゲーム「<a href="/games/0500/">〇五〇〇</a>」を置きました。</span></li>
+      <li><time datetime="2026-09-09">2026-09-09</time><span>サイトを開きました。</span></li>
+    </ul>
   </section>
 
   <div class="counter" id="counter">
-    あなたは
-    <span class="digits" id="counter-digits"><span>-</span></span>
-    人目の訪問者です
-    <span class="sub">
-      本日 <span id="counter-today">-</span> 人 ／ 昨日 <span id="counter-yesterday">-</span> 人
-      　（2026年9月9日設置）
+    あなたは<span class="digits" id="counter-digits"><span>-</span></span>人目の訪問者です<span class="sub">
+      本日 <span id="counter-today">-</span> 人　／　昨日 <span id="counter-yesterday">-</span> 人
     </span>
   </div>
-
-  <p class="center small muted">
-    感想や要望は<a href="/bbs/">掲示板</a>へどうぞ。
-  </p>
 
 </main>
 
@@ -250,13 +104,15 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <nav>
-      <a href="/">トップ</a><span class="sep">|</span>
-      <a href="/bbs/">掲示板</a><span class="sep">|</span>
-      <a href="/about/">運営者情報</a><span class="sep">|</span>
+    <nav aria-label="サイト内">
+      <a href="/">トップ</a>
+      <a href="/games/">ゲーム</a>
+      <a href="/novels/">小説</a>
+      <a href="/bbs/">掲示板</a>
+      <a href="/about/">このサイトについて</a>
       <a href="/privacy/">プライバシーポリシー</a>
     </nav>
-    <div>Copyright &copy; 2026 johukku</div>
+    <p>&copy; 2026 johukku</p>
   </div>
 </footer>
 

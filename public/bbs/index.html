@@ -3,17 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>掲示板｜johukku の作ったもの置き場</title>
-<meta name="description" content="感想・要望・不具合の報告などを気軽に書き込める掲示板です。投稿は確認後に表示されます。">
+<title>掲示板｜johukku</title>
+<meta name="description" content="感想などを気軽に書き込める掲示板です。投稿は確認してから表示されます。">
 <link rel="canonical" href="https://johukku.com/bbs/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="johukku の作ったもの置き場">
-<meta property="og:title" content="掲示板｜johukku の作ったもの置き場">
-<meta property="og:description" content="感想・要望・不具合の報告などを気軽に書き込める掲示板です。投稿は確認後に表示されます。">
+<meta property="og:site_name" content="johukku">
+<meta property="og:title" content="掲示板｜johukku">
+<meta property="og:description" content="感想などを気軽に書き込める掲示板です。投稿は確認してから表示されます。">
 <meta property="og:url" content="https://johukku.com/bbs/">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#131210">
 <link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6960184588930344"
      crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/assets/style.css">
@@ -22,34 +24,27 @@
 
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="/">johukku の作ったもの置き場</a>
-    <p class="site-title">Windows 用のちょっとした道具を置いています</p>
-    <nav class="site-nav">
-      <a href="/">トップ</a><span class="sep">|</span>
-      <a href="/bbs/" aria-current="page">掲示板</a><span class="sep">|</span>
-      <a href="/about/">運営者情報</a><span class="sep">|</span>
-      <a href="/privacy/">プライバシーポリシー</a>
+    <a class="brand" href="/">johukku</a>
+    <nav class="site-nav" aria-label="サイト内">
+      <a href="/games/">ゲーム</a>
+      <a href="/novels/">小説</a>
+      <a href="/bbs/" aria-current="page">掲示板</a>
+      <a href="/about/">このサイトについて</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
   <h1>掲示板</h1>
-
-  <div class="note-box">
-    <strong>投稿は確認してから表示されます</strong>
-    書き込んですぐには反映されません。目を通してから公開するので、
-    表示までに時間がかかることがあります（数時間〜1 日程度）。
-  </div>
-
-  <p class="small muted">
-    感想でも要望でも、うまく動かない報告でも構いません。
-    不具合の報告は<a href="/about/">運営者情報</a>のページの連絡先だと詳しくやり取りできます。
-    URL を含む投稿は受け付けていません。
-  </p>
+  <p class="lead">感想でも、ひとことでも。</p>
 
   <section>
     <h2>書き込む</h2>
+    <div class="note-box">
+      <strong>投稿は確認してから表示されます</strong>書き込んですぐには出ません。目を通してから公開するので、数時間から 1 日ほどかかることがあります。
+      URL を含む投稿は受け付けていません。
+    </div>
+
     <form id="post-form" class="bbs-form" autocomplete="off">
       <div class="bbs-row">
         <label for="f-name">お名前</label>
@@ -59,7 +54,7 @@
         <label for="f-body">本文</label>
         <textarea id="f-body" name="body" rows="5" maxlength="800" required
                   placeholder="ご自由にどうぞ"></textarea>
-        <p class="bbs-count"><span id="count">0</span> / 800 文字</p>
+        <p class="bbs-count"><span id="count">0</span> / 800</p>
       </div>
       <!-- 自動投稿よけ。人には見えない -->
       <div class="bbs-hp" aria-hidden="true">
@@ -74,20 +69,22 @@
   </section>
 
   <section>
-    <h2>みなさんの書き込み</h2>
+    <h2>書き込み</h2>
     <div id="list"><p class="muted small">読み込み中...</p></div>
   </section>
 </main>
 
 <footer class="site-footer">
   <div class="wrap">
-    <nav>
-      <a href="/">トップ</a><span class="sep">|</span>
-      <a href="/bbs/">掲示板</a><span class="sep">|</span>
-      <a href="/about/">運営者情報</a><span class="sep">|</span>
+    <nav aria-label="サイト内">
+      <a href="/">トップ</a>
+      <a href="/games/">ゲーム</a>
+      <a href="/novels/">小説</a>
+      <a href="/bbs/">掲示板</a>
+      <a href="/about/">このサイトについて</a>
       <a href="/privacy/">プライバシーポリシー</a>
     </nav>
-    <div>Copyright &copy; 2026 johukku</div>
+    <p>&copy; 2026 johukku</p>
   </div>
 </footer>
 
@@ -121,7 +118,7 @@
 
   function render(items) {
     if (!items.length) {
-      listEl.innerHTML = '<p class="muted small">まだ書き込みはありません。最初の一人になってみませんか。</p>';
+      listEl.innerHTML = '<p class="muted small">まだ書き込みはありません。</p>';
       return;
     }
     var total = items.length;
@@ -165,7 +162,7 @@
       .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
       .then(function (res) {
         if (!res.ok) throw new Error(res.d.error || "送信できませんでした。");
-        msg.textContent = "書き込みを受け付けました。確認のうえ公開しますので、しばらくお待ちください。";
+        msg.textContent = "書き込みを受け付けました。確認してから公開しますので、しばらくお待ちください。";
         msg.className = "bbs-msg ok";
         form.reset();
         countEl.textContent = "0";
